@@ -13,17 +13,20 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
     
     @IBOutlet weak var collectionView: UICollectionView!
     var selected : Int?
+    var categories: [String] = []
     
     override func viewWillAppear(animated: Bool) {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.reloadData()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "represent", name: WWDisplayCategoriesNotification, object: nil)
+        
+        categories = DATABASE.categories.keys.array
     }
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 { return 30 }
+        if section == 0 { return categories.count }
         else { return 0 }
     }
     
@@ -39,7 +42,9 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let item = indexPath.item
-        return collectionView.dequeueReusableCellWithReuseIdentifier("categoryCard", forIndexPath: indexPath) as UICollectionViewCell
+        let card = collectionView.dequeueReusableCellWithReuseIdentifier("categoryCard", forIndexPath: indexPath) as CategoryCell
+        card.categoryName.text = categories[item]
+        return card
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -50,7 +55,8 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
             let delta = Double(abs(index - selected!))
             animateCell(cell, delay: delta * 0.05, out: true)
         }
-        NSNotificationCenter.defaultCenter().postNotificationName(WWDisplayWordsNotification, object: nil)
+        let selectedCell = collectionView.cellForItemAtIndexPath(indexPath) as CategoryCell
+        NSNotificationCenter.defaultCenter().postNotificationName(WWDisplayWordsNotification, object: selectedCell.categoryName.text!)
     }
     
     func animateCell(cell: CategoryCell, delay: NSTimeInterval, out: Bool) {
@@ -78,9 +84,11 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
 
 class CategoryCell : UICollectionViewCell {
 
+    @IBOutlet weak var categoryName: UILabel!
+    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        let color = UIColor(hue: CGFloat(Float(arc4random()) / Float(UINT32_MAX)), saturation: 0.6, brightness: 0.8, alpha: 1.0)
+        let color = UIColor(hue: CGFloat(arc4random_uniform(255)) / 255.0, saturation: 0.6, brightness: 0.8, alpha: 1.0)
         self.backgroundColor = color
         self.layer.cornerRadius = 20.0
     }

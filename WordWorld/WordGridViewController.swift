@@ -8,40 +8,22 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 class WordGridViewController : UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
-    
-    var wordImages : [UIImage] = []
+    var wordImages : [(UIImage, WordEntry)] = []
     
     override func viewDidAppear(animated: Bool) {
         collectionView.dataSource = self
         collectionView.delegate = self
-        
-        //load applicable word images
-        let imagesPath = NSBundle.mainBundle().bundlePath
-        if let files = NSFileManager.defaultManager().contentsOfDirectoryAtPath(imagesPath, error: nil) as? [String] {
-            for file in files {
-                if file.hasSuffix("png") || file.hasSuffix("jpg") || file.hasSuffix("gif") {
-                    if file.hasPrefix("example set") { continue }
-                    let split = file.endIndex.predecessor().predecessor().predecessor().predecessor()
-                    let name = file.substringToIndex(split)
-                    let ending = file.substringFromIndex(split.successor())
-                    let path = NSBundle.mainBundle().pathForResource(name, ofType: ending)!
-                    let image = UIImage(contentsOfFile: path)!
-                    wordImages.append(image)
-                }
-            }
-        }
-        
-        wordImages.sort({ _, _ in arc4random() % 2 == 0 })
-        collectionView.reloadData()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "represent", name: WWDisplayWordsNotification, object: nil)
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "represent:", name: WWDisplayWordsNotification, object: nil)
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 { return 27 }
+        if section == 0 { return wordImages.count }
         else { return 0 }
     }
     
@@ -63,8 +45,14 @@ class WordGridViewController : UIViewController, UICollectionViewDataSource, UIC
     @IBAction func panned(sender: AnyObject) {
         let offset = collectionView.contentOffset
         if offset.y < -50 && self.view.userInteractionEnabled {
-            self.view.userInteractionEnabled = false
-            NSNotificationCenter.defaultCenter().postNotificationName(WWDisplayCategoriesNotification, object: nil)
+            unpresent()
+        }
+    }
+    
+    @IBAction func pinched(sender: UIPinchGestureRecognizer) {
+        if sender.scale < 0.7 && sender.velocity < -1.5
+            && self.view.userInteractionEnabled {
+            unpresent()
         }
     }
     
@@ -72,10 +60,44 @@ class WordGridViewController : UIViewController, UICollectionViewDataSource, UIC
         return true
     }
     
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath)! as WordCell
+        let word = cell.word!
+        
+        let audioSession = AVAudioSession.sharedInstance()
+        audioSession.setActive(true, error: nil)
+        audioSession.setCategory(AVAudioSessionCategoryPlayback, error: nil)
+        
+        let soundData = NSData(contentsOfFile: word.audioPath)
+        let player = AVAudioPlayer(data: soundData, error: nil)
+        player.play()
+        while(player.playing) { }
+        player.stop()
+        
+    }
     
-    func represent() {
+    func unpresent() {
+        self.view.userInteractionEnabled = false
+        NSNotificationCenter.defaultCenter().postNotificationName(WWDisplayCategoriesNotification, object: nil)
+    }
+    
+    func represent(notification: NSNotification) {
+        let categoryName = notification.object! as String
+        let category = DATABASE[categoryName]
+        var words : [WordEntry] = []
+        for subcategory in category!.subcategories.values.array {
+            for word in subcategory.words.values.array {
+                words.append(word)
+            }
+        }
+        
+        wordImages = []
+        for word in words {
+            let image = UIImage(contentsOfFile: word.picturePath)!
+            wordImages.append(image, word)
+        }
+        
         self.view.userInteractionEnabled = true
-        wordImages.sort({ _, _ in arc4random() % 2 == 0 })
         collectionView.reloadData()
     }
 }
@@ -83,14 +105,16 @@ class WordGridViewController : UIViewController, UICollectionViewDataSource, UIC
 class WordCell : UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
+    var word : WordEntry? = nil
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func loadImage(index: Int, from wordImages: [UIImage]) {
-        imageView.image = wordImages[index]
+    func loadImage(index: Int, from wordImages: [(UIImage, WordEntry)]) {
+        imageView.image = wordImages[index].0
         self.layer.cornerRadius = 10.0
+        word = wordImages[index].1
     }
     
 }
