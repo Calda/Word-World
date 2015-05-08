@@ -42,7 +42,7 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let item = indexPath.item
-        let card = collectionView.dequeueReusableCellWithReuseIdentifier("categoryCard", forIndexPath: indexPath) as CategoryCell
+        let card = collectionView.dequeueReusableCellWithReuseIdentifier("categoryCard", forIndexPath: indexPath) as! CategoryCell
         card.categoryName.text = categories[item]
         return card
     }
@@ -50,12 +50,12 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         self.view.userInteractionEnabled = false
         selected = indexPath.item
-        for cell in collectionView.visibleCells() as [CategoryCell] {
+        for cell in collectionView.visibleCells() as! [CategoryCell] {
             let index = collectionView.indexPathForCell(cell)!.item
             let delta = Double(abs(index - selected!))
             animateCell(cell, delay: delta * 0.05, out: true)
         }
-        let selectedCell = collectionView.cellForItemAtIndexPath(indexPath) as CategoryCell
+        let selectedCell = collectionView.cellForItemAtIndexPath(indexPath) as! CategoryCell
         NSNotificationCenter.defaultCenter().postNotificationName(WWDisplayWordsNotification, object: selectedCell.categoryName.text!)
     }
     
@@ -70,8 +70,8 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
     
     func represent() {
         self.view.userInteractionEnabled = true
-        if let selected = selected? {
-            for cell in collectionView.visibleCells() as [CategoryCell] {
+        if let selected = selected {
+            for cell in collectionView.visibleCells() as! [CategoryCell] {
                 let index = collectionView.indexPathForCell(cell)!.item
                 let delta = Double(abs(index - selected))
                 animateCell(cell, delay: delta * 0.05, out: false)

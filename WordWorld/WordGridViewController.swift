@@ -14,6 +14,7 @@ class WordGridViewController : UIViewController, UICollectionViewDataSource, UIC
     
     @IBOutlet weak var collectionView: UICollectionView!
     var wordImages : [(UIImage, WordEntry)] = []
+    var categoryName : String = ""
     
     override func viewDidAppear(animated: Bool) {
         collectionView.dataSource = self
@@ -23,8 +24,7 @@ class WordGridViewController : UIViewController, UICollectionViewDataSource, UIC
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 { return wordImages.count }
-        else { return 0 }
+        return wordImages.count + 2
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -37,8 +37,14 @@ class WordGridViewController : UIViewController, UICollectionViewDataSource, UIC
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let item = indexPath.item
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("word", forIndexPath: indexPath) as WordCell
-        cell.loadImage(item, from: wordImages)
+        if item == 0 { //back button is first
+            return collectionView.dequeueReusableCellWithReuseIdentifier("back", forIndexPath: indexPath) as! UICollectionViewCell
+        }
+        if item == wordImages.count + 1 { // is the last cell -- must be the quiz button
+            return collectionView.dequeueReusableCellWithReuseIdentifier("quiz", forIndexPath: indexPath) as! UICollectionViewCell
+        }
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("word", forIndexPath: indexPath) as! WordCell
+        cell.loadImage(item - 1, from: wordImages)
         return cell
     }
     
@@ -61,19 +67,22 @@ class WordGridViewController : UIViewController, UICollectionViewDataSource, UIC
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath)! as WordCell
-        let word = cell.word!
+        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? WordCell {
+            let word = cell.word!
+            word.playAudio()
+        }
         
-        let audioSession = AVAudioSession.sharedInstance()
-        audioSession.setActive(true, error: nil)
-        audioSession.setCategory(AVAudioSessionCategoryPlayback, error: nil)
-        
-        let soundData = NSData(contentsOfFile: word.audioPath)
-        let player = AVAudioPlayer(data: soundData, error: nil)
-        player.play()
-        while(player.playing) { }
-        player.stop()
-        
+        else {
+            if indexPath.item == 0 { //is first cell, thus Back button
+                unpresent()
+            }
+            
+            else { //is quiz button
+                let quiz = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("quiz") as! QuizViewController
+                self.presentViewController(quiz, animated: true, completion: nil)
+                quiz.quizWithCategory(DATABASE[categoryName]!)
+            }
+        }
     }
     
     func unpresent() {
@@ -82,7 +91,7 @@ class WordGridViewController : UIViewController, UICollectionViewDataSource, UIC
     }
     
     func represent(notification: NSNotification) {
-        let categoryName = notification.object! as String
+        categoryName = notification.object! as! String
         let category = DATABASE[categoryName]
         var words : [WordEntry] = []
         for subcategory in category!.subcategories.values.array {
