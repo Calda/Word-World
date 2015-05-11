@@ -20,6 +20,7 @@ class WordGridViewController : UIViewController, UICollectionViewDataSource, UIC
         collectionView.dataSource = self
         collectionView.delegate = self
 
+        NSNotificationCenter.defaultCenter().removeObserver(self)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "represent:", name: WWDisplayWordsNotification, object: nil)
     }
     
@@ -70,6 +71,8 @@ class WordGridViewController : UIViewController, UICollectionViewDataSource, UIC
         if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? WordCell {
             let word = cell.word!
             word.playAudio()
+            cell.imageView.alpha = 0.5
+            UIView.animateWithDuration(0.5, animations: { cell.imageView.alpha = 1.0 })
         }
         
         else {

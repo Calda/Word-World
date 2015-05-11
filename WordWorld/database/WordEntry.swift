@@ -10,6 +10,8 @@ import Foundation
 import AVFoundation
 import AVKit
 
+let audioQueue = dispatch_queue_create("com.hearatale.audio", DISPATCH_QUEUE_SERIAL)
+
 class WordEntry : Printable {
     
     let name: String
@@ -46,8 +48,11 @@ class WordEntry : Printable {
         let soundData = NSData(contentsOfFile: self.audioPath)
         let player = AVAudioPlayer(data: soundData, error: nil)
         player.play()
-        while(player.playing) { }
-        player.stop()
+        dispatch_async(audioQueue, {
+            while(player.playing) { }
+            player.stop()
+        })
+        
     }
     
 }
