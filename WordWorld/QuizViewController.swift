@@ -11,7 +11,8 @@ import Foundation
 
 class QuizViewController : UIViewController {
     
-    var category: WordCategory?
+    var categories: [WordCategory]?
+    var allWords: [WordEntry] = []
     
     @IBOutlet weak var quizWord: UILabel!
     /*
@@ -61,56 +62,92 @@ class QuizViewController : UIViewController {
     }
     
     func quizWithCategory(category: WordCategory) {
+        self.categories = [category]
+        setUpQuiz(usingAudio: false)
+    }
+    
+    func quizWithDatabase() {
+        self.categories = DATABASE.categories.values.array
+        setUpQuiz(usingAudio: false)
+    }
+    
+    func setUpQuiz(usingAudio: Bool = true) {
+        
         if imageViewMap.count == 0 {
             imageViewMap.append(option1)
             imageViewMap.append(option2)
             imageViewMap.append(option3)
             imageViewMap.append(option4)
         }
-        self.category = category
         
-        setUpQuiz(usingAudio: false)
-    }
-    
-    func setUpQuiz(usingAudio: Bool = true) {
-        correct.hidden = true
-        incorrect.hidden = true
-        
-        var allWords : [WordEntry] = []
-        for subcat in category!.subcategories.values {
-            for word in subcat.words.values {
-                allWords.append(word)
+        for category in categories! {
+            for subcat in category.subcategories.values {
+                for word in subcat.words.values {
+                    allWords.append(word)
+                }
             }
         }
         
-        if allWords.count < 4 {
-            return
+        poseQuestion(usingAudio: usingAudio)
+        
+    }
+    
+    
+    func poseQuestion(usingAudio: Bool = true) {
+        correct.hidden = true
+        incorrect.hidden = true
+        
+        let randomID = Int(arc4random_uniform(UInt32(allWords.count)))
+        quizAnswer = allWords[randomID]
+        quizWord.text = quizAnswer!.name.lowercaseString
+        let questionCategory = quizAnswer!.subcategory.category
+        
+        var allInCategory : [WordEntry] = []
+        for subcat in questionCategory.subcategories {
+            for word in subcat.1.words {
+                if word.1.name != quizAnswer!.name {
+                    allInCategory.append(word.1)
+                }
+            }
         }
         
-        quizChoices = [allWords[0], allWords[1], allWords[2], allWords[3]]
-        
-        for i in 0...3 {
-            quizChoices[i] = randomWord(&allWords)
-            let path = quizChoices[i].picturePath
-            let image = UIImage(data: NSData(contentsOfFile: path)!)
-            imageViewMap[i].image = image
+        if allInCategory.count < 4 {
+            poseQuestion() //only use categories with more than 4 words
+        }
+        else {
+            let answerIndex = Int(arc4random_uniform(4))
+            quizChoices = [allInCategory[0], allInCategory[1], allInCategory[2], allInCategory[3]]
+            for index in 0...3 {
+                let word : WordEntry
+                if index == answerIndex {
+                    word = quizAnswer!
+                } else {
+                    word = randomWord(&allInCategory)
+                }
+                quizChoices[index] = word
+                let path = word.picturePath
+                let image = UIImage(data: NSData(contentsOfFile: path)!)
+                imageViewMap[index].image = image
+            }
         }
         
-        let answerID = Int(arc4random_uniform(4))
-        quizAnswer = quizChoices[answerID]
-        quizWord.text = quizAnswer!.name
         if usingAudio { quizAnswer!.playAudio() }
     }
     
+    
     func randomWord(inout array: [WordEntry]) -> WordEntry {
-        let random = Int(arc4random_uniform(UInt32(array.count - 1)))
+        let random = Int(arc4random_uniform(UInt32(array.count)))
         let word = array[random]
         array.removeAtIndex(random)
         return word
     }
     
+    
     @IBAction func backPressed(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
+        if categories!.count > 1 { //not launched from single category view
+            NSNotificationCenter.defaultCenter().postNotificationName(WWDisplayCategoriesNotification, object: nil)
+        }
     }
     
     @IBAction func tapRecognized(sender: UITapGestureRecognizer) {
@@ -152,7 +189,7 @@ class QuizViewController : UIViewController {
             incorrect.hidden = true
             self.view.setNeedsDisplay()
             word.playAudio()
-            delay(1.0, { self.setUpQuiz() })
+            delay(1.0, { self.poseQuestion() })
         }
         else {
             incorrect.hidden = false

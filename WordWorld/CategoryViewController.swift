@@ -26,8 +26,7 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 { return categories.count }
-        else { return 0 }
+        return categories.count + 1
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -36,14 +35,26 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+        let inset = getInsetSize()
+        return UIEdgeInsetsMake(inset, inset, inset, inset)
+    }
+    
+    func getInsetSize() -> CGFloat {
         let notHeight = (collectionView.frame.height) * 0.05
-        return UIEdgeInsetsMake(notHeight/2, notHeight/2, notHeight/2, notHeight/2)
+        return notHeight / 2
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let item = indexPath.item
         let card = collectionView.dequeueReusableCellWithReuseIdentifier("categoryCard", forIndexPath: indexPath) as! CategoryCell
-        card.categoryName.text = categories[item]
+        
+        if item == 0 {
+            card.categoryName.text = "?"
+        }
+        else {
+            card.categoryName.text = categories[item - 1]
+        }
+        
         return card
     }
     
@@ -56,13 +67,27 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
             animateCell(cell, delay: delta * 0.05, out: true)
         }
         let selectedCell = collectionView.cellForItemAtIndexPath(indexPath) as! CategoryCell
-        NSNotificationCenter.defaultCenter().postNotificationName(WWDisplayWordsNotification, object: selectedCell.categoryName.text!)
+        if indexPath.item == 0 {
+            let quiz = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("quiz") as! QuizViewController
+            self.presentViewController(quiz, animated: true, completion: nil)
+            quiz.quizWithDatabase()
+        }
+        else {
+            NSNotificationCenter.defaultCenter().postNotificationName(WWDisplayWordsNotification, object: selectedCell.categoryName.text!)
+        }
+        
     }
     
     func animateCell(cell: CategoryCell, delay: NSTimeInterval, out: Bool) {
         let currentY = cell.frame.origin.y
-        let newY = (out ? currentY - (cell.frame.height * 1.15) : currentY + (cell.frame.height * 1.15))
+        let newY = (out ? currentY - (cell.frame.height * 1.15) : getInsetSize())
         let newOrigin = CGPointMake(cell.frame.origin.x, newY)
+        
+        if newY == cell.frame.origin.y { //not in the right place
+            let startY = currentY - (cell.frame.height * 1.15)
+            cell.frame.origin = CGPointMake(cell.frame.origin.x, startY)
+        }
+        
         UIView.animateWithDuration(1.0, delay: delay, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: nil, animations: {
                 cell.frame.origin = newOrigin
         }, completion: nil)
