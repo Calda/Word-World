@@ -15,14 +15,6 @@ class QuizViewController : UIViewController {
     var allWords: [WordEntry] = []
     
     @IBOutlet weak var quizWord: UILabel!
-    /*
-    
-    6+: 100
-    6: 75
-    5: 50
-    4S: 65
-    
-    */
     @IBOutlet weak var quizWordHeight: NSLayoutConstraint!
     
     @IBOutlet weak var option1: UIImageView!
@@ -45,8 +37,8 @@ class QuizViewController : UIViewController {
             var constant : CGFloat
             
             switch(screen) {
-                case(480): return 65.0 //4S
-                case(568): return 50.0 //5
+                case(480): return 85.0 //4S
+                case(568): return 60.0 //5
                 case(667): return 100.0 //6
                 default: return 150.0 //6+ or larger??
             }
@@ -97,9 +89,15 @@ class QuizViewController : UIViewController {
         correct.hidden = true
         incorrect.hidden = true
         
-        let randomID = Int(arc4random_uniform(UInt32(allWords.count)))
-        quizAnswer = allWords[randomID]
+        if allWords.count == 0 {
+            //used all words, restart
+            setUpQuiz(usingAudio: usingAudio)
+            return
+        }
+        quizAnswer = randomWord(&allWords)
         quizWord.text = quizAnswer!.name.lowercaseString
+        shakeTitle()
+        
         let questionCategory = quizAnswer!.subcategory.category
         
         var allInCategory : [WordEntry] = []
@@ -180,6 +178,17 @@ class QuizViewController : UIViewController {
         quizAnswer?.playAudio()
         sender.alpha = 0.5
         UIView.animateWithDuration(0.5, animations: { sender.alpha = 1.0 })
+        shakeTitle()
+    }
+    
+    func shakeTitle() {
+        let animations : [CGFloat] = [20.0, -20.0, 10.0, -10.0, 3.0, -3.0, 0]
+        for i in 0 ..< animations.count {
+            let frameOrigin = CGPointMake(quizWord.frame.origin.x + animations[i], quizWord.frame.origin.y)
+            UIView.animateWithDuration(0.1, delay: NSTimeInterval(0.1 * Double(i)), options: nil, animations: {
+                self.quizWord.frame.origin = frameOrigin
+            }, completion: nil)
+        }
     }
     
     func imageOptionPressed(id: Int) {
@@ -189,7 +198,20 @@ class QuizViewController : UIViewController {
             incorrect.hidden = true
             self.view.setNeedsDisplay()
             word.playAudio()
-            delay(1.0, { self.poseQuestion() })
+            self.view.userInteractionEnabled = false
+            
+            //animate "correct"
+            let start = correct.frame.origin
+            let temp = CGPointMake(start.x, self.view.frame.height * 1.2)
+            correct.frame.origin = temp
+            UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: nil, animations: {
+                self.correct.frame.origin = start
+            }, completion: nil)
+            
+            delay(1.0, {
+                self.poseQuestion()
+                self.view.userInteractionEnabled = true
+            })
         }
         else {
             incorrect.hidden = false
@@ -198,12 +220,21 @@ class QuizViewController : UIViewController {
             correct.hidden = true
             self.view.setNeedsDisplay()
             word.playAudio()
-            UIView.animateWithDuration(1.0, animations: { self.incorrect.alpha = 0.0 })
+            
+            //animate "incorrect"
+            let start = incorrect.frame.origin
+            let temp = CGPointMake(start.x, self.view.frame.height * 1.2)
+            incorrect.frame.origin = temp
+            UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: nil, animations: {
+                self.incorrect.frame.origin = start
+            }, completion: nil)
+            
+            UIView.animateWithDuration(1.5, animations: { self.incorrect.alpha = 0.0 })
         }
         
         let image = imageViewMap[id - 1]
         image.alpha = 0.5
         UIView.animateWithDuration(0.5, animations: { image.alpha = 1.0 })
-        
     }
+    
 }

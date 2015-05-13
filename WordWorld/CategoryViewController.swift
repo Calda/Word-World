@@ -68,9 +68,11 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
         }
         let selectedCell = collectionView.cellForItemAtIndexPath(indexPath) as! CategoryCell
         if indexPath.item == 0 {
-            let quiz = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("quiz") as! QuizViewController
-            self.presentViewController(quiz, animated: true, completion: nil)
-            quiz.quizWithDatabase()
+            delay(0.25){
+                let quiz = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("quiz") as! QuizViewController
+                self.presentViewController(quiz, animated: true, completion: nil)
+                quiz.quizWithDatabase()
+            }
         }
         else {
             NSNotificationCenter.defaultCenter().postNotificationName(WWDisplayWordsNotification, object: selectedCell.categoryName.text!)
