@@ -1098,6 +1098,8 @@
 		2ED408691AD1B0B3002AFFBD /* WordDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED408681AD1B0B3002AFFBD /* WordDatabase.swift */; };
 		2ED4086B1AD1B31E002AFFBD /* WordEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED4086A1AD1B31E002AFFBD /* WordEntry.swift */; };
 		2ED4086D1AD1B32A002AFFBD /* WordCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED4086C1AD1B32A002AFFBD /* WordCategory.swift */; };
+		44B3FC0A1B062074000DB84A /* Gold-Coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 44B3FC081B062074000DB84A /* Gold-Coin.png */; };
+		44B3FC0B1B062074000DB84A /* Silver-Coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 44B3FC091B062074000DB84A /* Silver-Coin.png */; };
 		44DB5CC31AFCF23D00E419DF /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DB5CC21AFCF23D00E419DF /* QuizViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -2207,6 +2209,8 @@
 		2ED4FFFD1AD1B07C002AFFBD /* 14.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 14.mp3; sourceTree = "<group>"; };
 		2ED4FFFE1AD1B07C002AFFBD /* 15.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 15.mp3; sourceTree = "<group>"; };
 		2ED4FFFF1AD1B07C002AFFBD /* 16.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 16.mp3; sourceTree = "<group>"; };
+		44B3FC081B062074000DB84A /* Gold-Coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gold-Coin.png"; sourceTree = "<group>"; };
+		44B3FC091B062074000DB84A /* Silver-Coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Silver-Coin.png"; sourceTree = "<group>"; };
 		44DB5CC21AFCF23D00E419DF /* QuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -2267,6 +2271,8 @@
 		2E0547301ABF806800416976 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				44B3FC081B062074000DB84A /* Gold-Coin.png */,
+				44B3FC091B062074000DB84A /* Silver-Coin.png */,
 				2E0547311ABF806800416976 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -3932,6 +3938,7 @@
 				2ED404AD1AD1B081002AFFBD /* Candlestick.mp3 in Resources */,
 				2ED4070C1AD1B081002AFFBD /* Angry-Sketch.png in Resources */,
 				2ED405CF1AD1B081002AFFBD /* Michael.mp3 in Resources */,
+				44B3FC0B1B062074000DB84A /* Silver-Coin.png in Resources */,
 				2ED408641AD1B081002AFFBD /* Windy-Sketch.png in Resources */,
 				2ED405261AD1B081002AFFBD /* Fireplace.mp3 in Resources */,
 				2ED407381AD1B081002AFFBD /* Burn-Picture.png in Resources */,
@@ -4414,6 +4421,7 @@
 				2ED406DF1AD1B081002AFFBD /* Wheelbarrow.mp3 in Resources */,
 				2ED406571AD1B081002AFFBD /* Sillycat.mp3 in Resources */,
 				2ED4044B1AD1B081002AFFBD /* Ahmad.mp3 in Resources */,
+				44B3FC0A1B062074000DB84A /* Gold-Coin.png in Resources */,
 				2ED4068C1AD1B081002AFFBD /* Strawberries.mp3 in Resources */,
 				2ED404711AD1B081002AFFBD /* Beat.mp3 in Resources */,
 				2ED407111AD1B081002AFFBD /* Axe-Picture.png in Resources */,

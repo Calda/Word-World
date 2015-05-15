@@ -283,52 +283,6 @@
                                     <action selector="backPressed:" destination="s61-dV-k5m" eventType="touchUpInside" id="CBE-PE-VJo"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vOs-iF-FLh">
-                                <rect key="frame" x="24" y="90" width="520" height="130"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Angry-Sketch.png" translatesAutoresizingMaskIntoConstraints="NO" id="aPT-z2-Igh">
-                                        <rect key="frame" x="390" y="0.0" width="130" height="130"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="aPT-z2-Igh" secondAttribute="height" multiplier="1:1" id="cJa-cr-zn0"/>
-                                            <constraint firstAttribute="width" secondItem="aPT-z2-Igh" secondAttribute="height" multiplier="1:1" id="xh0-cs-3Wu"/>
-                                        </constraints>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Father-Sketch.png" translatesAutoresizingMaskIntoConstraints="NO" id="CfL-lE-QGJ">
-                                        <rect key="frame" x="130" y="0.0" width="130" height="130"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="CfL-lE-QGJ" secondAttribute="height" multiplier="1:1" id="Pie-mT-8CC"/>
-                                        </constraints>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bag-Full-of-Coins-Sketch.png" translatesAutoresizingMaskIntoConstraints="NO" id="KgA-y1-N2G">
-                                        <rect key="frame" x="260" y="0.0" width="130" height="130"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Banana-Sketch.png" translatesAutoresizingMaskIntoConstraints="NO" id="ut8-g5-vsv">
-                                        <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="ut8-g5-vsv" secondAttribute="height" multiplier="1:1" id="Oaj-AC-JPq"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstItem="ut8-g5-vsv" firstAttribute="height" secondItem="vOs-iF-FLh" secondAttribute="height" id="52o-56-sSp"/>
-                                    <constraint firstItem="aPT-z2-Igh" firstAttribute="height" secondItem="ut8-g5-vsv" secondAttribute="height" id="BhF-89-eD4"/>
-                                    <constraint firstAttribute="trailing" secondItem="aPT-z2-Igh" secondAttribute="trailing" id="Hw3-1S-yW1"/>
-                                    <constraint firstItem="aPT-z2-Igh" firstAttribute="width" secondItem="aPT-z2-Igh" secondAttribute="height" multiplier="1:1" id="ZFa-mC-rDF"/>
-                                    <constraint firstItem="aPT-z2-Igh" firstAttribute="leading" secondItem="KgA-y1-N2G" secondAttribute="trailing" id="cAZ-Lo-EUd"/>
-                                    <constraint firstAttribute="bottom" secondItem="KgA-y1-N2G" secondAttribute="bottom" id="dCX-oB-iwS"/>
-                                    <constraint firstItem="KgA-y1-N2G" firstAttribute="leading" secondItem="CfL-lE-QGJ" secondAttribute="trailing" id="oge-Ge-vvr"/>
-                                    <constraint firstItem="CfL-lE-QGJ" firstAttribute="width" secondItem="ut8-g5-vsv" secondAttribute="width" id="ou9-mY-bb4"/>
-                                    <constraint firstItem="ut8-g5-vsv" firstAttribute="leading" secondItem="vOs-iF-FLh" secondAttribute="leading" id="qGG-1Y-0Qr"/>
-                                    <constraint firstAttribute="width" secondItem="vOs-iF-FLh" secondAttribute="height" multiplier="4:1" id="qrK-SC-91i"/>
-                                    <constraint firstAttribute="centerY" secondItem="CfL-lE-QGJ" secondAttribute="centerY" id="rkY-xl-5JX"/>
-                                    <constraint firstAttribute="centerY" secondItem="aPT-z2-Igh" secondAttribute="centerY" id="t9c-8s-E60"/>
-                                    <constraint firstAttribute="centerY" secondItem="ut8-g5-vsv" secondAttribute="centerY" id="xCM-fR-ehT"/>
-                                    <constraint firstItem="CfL-lE-QGJ" firstAttribute="leading" secondItem="ut8-g5-vsv" secondAttribute="trailing" id="xWu-WY-eBf"/>
-                                    <constraint firstItem="KgA-y1-N2G" firstAttribute="top" secondItem="vOs-iF-FLh" secondAttribute="top" id="zyi-LR-2gw"/>
-                                </constraints>
-                            </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="correct!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h5a-Ez-grI">
                                 <rect key="frame" x="199" y="230" width="171" height="70"/>
                                 <constraints>
@@ -366,6 +320,62 @@
                                 <color key="textColor" red="0.17647058823529413" green="0.49411764705882355" blue="0.45490196078431372" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vOs-iF-FLh">
+                                <rect key="frame" x="24" y="90" width="520" height="130"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Angry-Sketch.png" translatesAutoresizingMaskIntoConstraints="NO" id="aPT-z2-Igh">
+                                        <rect key="frame" x="390" y="0.0" width="130" height="130"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="aPT-z2-Igh" secondAttribute="height" multiplier="1:1" id="cJa-cr-zn0"/>
+                                            <constraint firstAttribute="width" secondItem="aPT-z2-Igh" secondAttribute="height" multiplier="1:1" id="xh0-cs-3Wu"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Father-Sketch.png" translatesAutoresizingMaskIntoConstraints="NO" id="CfL-lE-QGJ">
+                                        <rect key="frame" x="130" y="0.0" width="130" height="130"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="CfL-lE-QGJ" secondAttribute="height" multiplier="1:1" id="Pie-mT-8CC"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bag-Full-of-Coins-Sketch.png" translatesAutoresizingMaskIntoConstraints="NO" id="KgA-y1-N2G">
+                                        <rect key="frame" x="260" y="0.0" width="130" height="130"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Banana-Sketch.png" translatesAutoresizingMaskIntoConstraints="NO" id="ut8-g5-vsv">
+                                        <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="ut8-g5-vsv" secondAttribute="height" multiplier="1:1" id="Oaj-AC-JPq"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Gold-Coin.png" translatesAutoresizingMaskIntoConstraints="NO" id="L7Y-4V-kxw">
+                                        <rect key="frame" x="235" y="40" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="L7Y-4V-kxw" secondAttribute="height" multiplier="1:1" id="Czb-mu-e0G"/>
+                                            <constraint firstAttribute="height" constant="50" id="D6t-SS-I7z"/>
+                                            <constraint firstAttribute="width" constant="50" id="i5i-4O-Kct"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="ut8-g5-vsv" firstAttribute="height" secondItem="vOs-iF-FLh" secondAttribute="height" id="52o-56-sSp"/>
+                                    <constraint firstAttribute="centerY" secondItem="L7Y-4V-kxw" secondAttribute="centerY" id="9ti-JH-FZx"/>
+                                    <constraint firstAttribute="centerX" secondItem="L7Y-4V-kxw" secondAttribute="centerX" id="B8W-ST-XGR"/>
+                                    <constraint firstItem="aPT-z2-Igh" firstAttribute="height" secondItem="ut8-g5-vsv" secondAttribute="height" id="BhF-89-eD4"/>
+                                    <constraint firstAttribute="trailing" secondItem="aPT-z2-Igh" secondAttribute="trailing" id="Hw3-1S-yW1"/>
+                                    <constraint firstItem="aPT-z2-Igh" firstAttribute="width" secondItem="aPT-z2-Igh" secondAttribute="height" multiplier="1:1" id="ZFa-mC-rDF"/>
+                                    <constraint firstItem="aPT-z2-Igh" firstAttribute="leading" secondItem="KgA-y1-N2G" secondAttribute="trailing" id="cAZ-Lo-EUd"/>
+                                    <constraint firstAttribute="bottom" secondItem="KgA-y1-N2G" secondAttribute="bottom" id="dCX-oB-iwS"/>
+                                    <constraint firstItem="KgA-y1-N2G" firstAttribute="leading" secondItem="CfL-lE-QGJ" secondAttribute="trailing" id="oge-Ge-vvr"/>
+                                    <constraint firstItem="CfL-lE-QGJ" firstAttribute="width" secondItem="ut8-g5-vsv" secondAttribute="width" id="ou9-mY-bb4"/>
+                                    <constraint firstItem="ut8-g5-vsv" firstAttribute="leading" secondItem="vOs-iF-FLh" secondAttribute="leading" id="qGG-1Y-0Qr"/>
+                                    <constraint firstAttribute="width" secondItem="vOs-iF-FLh" secondAttribute="height" multiplier="4:1" id="qrK-SC-91i"/>
+                                    <constraint firstAttribute="centerY" secondItem="CfL-lE-QGJ" secondAttribute="centerY" id="rkY-xl-5JX"/>
+                                    <constraint firstAttribute="centerY" secondItem="aPT-z2-Igh" secondAttribute="centerY" id="t9c-8s-E60"/>
+                                    <constraint firstAttribute="centerY" secondItem="ut8-g5-vsv" secondAttribute="centerY" id="xCM-fR-ehT"/>
+                                    <constraint firstItem="CfL-lE-QGJ" firstAttribute="leading" secondItem="ut8-g5-vsv" secondAttribute="trailing" id="xWu-WY-eBf"/>
+                                    <constraint firstItem="KgA-y1-N2G" firstAttribute="top" secondItem="vOs-iF-FLh" secondAttribute="top" id="zyi-LR-2gw"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -402,6 +412,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="coin" destination="L7Y-4V-kxw" id="ySw-Cw-RI7"/>
                         <outlet property="correct" destination="h5a-Ez-grI" id="k2H-11-VeZ"/>
                         <outlet property="imagesContainer" destination="vOs-iF-FLh" id="nQ3-in-Ugo"/>
                         <outlet property="incorrect" destination="RPX-HJ-hWS" id="XPg-NY-Dtc"/>
@@ -428,6 +439,7 @@
         <image name="Bag-Full-of-Coins-Sketch.png" width="750" height="750"/>
         <image name="Banana-Sketch.png" width="1500" height="1500"/>
         <image name="Father-Sketch.png" width="1500" height="1500"/>
+        <image name="Gold-Coin.png" width="887" height="885"/>
         <image name="Wolf-Sketch.png" width="750" height="750"/>
     </resources>
 </document>

@@ -26,6 +26,11 @@ class QuizViewController : UIViewController {
     @IBOutlet weak var correct: UILabel!
     @IBOutlet weak var incorrect: UILabel!
     
+    @IBOutlet weak var coin: UIImageView!
+    var goldCoin: UIImage?
+    var silverCoin: UIImage?
+    var answerAttempts = 0
+    
     var imageViewMap : [UIImageView] = []
     var quizChoices : [WordEntry] = []
     var quizAnswer : WordEntry?
@@ -64,6 +69,8 @@ class QuizViewController : UIViewController {
     }
     
     func setUpQuiz(usingAudio: Bool = true) {
+        goldCoin = UIImage(named: "Gold-Coin")
+        silverCoin = UIImage(named: "Silver-Coin")
         
         if imageViewMap.count == 0 {
             imageViewMap.append(option1)
@@ -86,6 +93,7 @@ class QuizViewController : UIViewController {
     
     
     func poseQuestion(usingAudio: Bool = true) {
+        answerAttempts = 0
         correct.hidden = true
         incorrect.hidden = true
         
@@ -192,7 +200,9 @@ class QuizViewController : UIViewController {
     }
     
     func imageOptionPressed(id: Int) {
+        answerAttempts++
         let word = quizChoices[id - 1]
+        
         if word.name == quizAnswer!.name {
             correct.hidden = false
             incorrect.hidden = true
@@ -212,6 +222,33 @@ class QuizViewController : UIViewController {
                 self.poseQuestion()
                 self.view.userInteractionEnabled = true
             })
+            
+            //animate coin
+            if answerAttempts == 1 {
+                coin.image = goldCoin
+            }
+            if answerAttempts == 2 {
+                coin.image = silverCoin
+            }
+            if answerAttempts == 1 || answerAttempts == 2 {
+                
+                coin.center = imageViewMap[id - 1].center
+                let animateUpTo = CGPointMake(coin.center.x, coin.center.y - imageViewMap[id - 1].frame.height * 1.0)
+                let animateDownTo = coin.center
+                
+                UIView.animateWithDuration(0.3, animations: {
+                    self.coin.alpha = 1.0
+                })
+                
+                UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 5.0, options: nil, animations: {
+                        self.coin.center = animateUpTo
+                    }, completion: nil)
+                
+                UIView.animateWithDuration(0.3, delay: 0.3, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: nil, animations: {
+                        self.coin.center = animateDownTo
+                        self.coin.alpha = 0.0
+                    }, completion: nil)
+            }
         }
         else {
             incorrect.hidden = false
