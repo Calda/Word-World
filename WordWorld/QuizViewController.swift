@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import AVFoundation
 
 class QuizViewController : UIViewController {
     
@@ -22,6 +23,10 @@ class QuizViewController : UIViewController {
     @IBOutlet weak var option3: UIImageView!
     @IBOutlet weak var option4: UIImageView!
     @IBOutlet weak var imagesContainer: UIView!
+    @IBOutlet weak var image21: UIImageView!
+    @IBOutlet weak var image22: UIImageView!
+    @IBOutlet weak var image23: UIImageView!
+    @IBOutlet weak var image24: UIImageView!
     
     @IBOutlet weak var correct: UILabel!
     @IBOutlet weak var incorrect: UILabel!
@@ -32,6 +37,7 @@ class QuizViewController : UIViewController {
     var answerAttempts = 0
     
     var imageViewMap : [UIImageView] = []
+    var imageView2Map : [UIImageView] = []
     var quizChoices : [WordEntry] = []
     var quizAnswer : WordEntry?
     
@@ -54,10 +60,6 @@ class QuizViewController : UIViewController {
         
     }
     
-    override func viewDidAppear(animated: Bool) {
-        quizAnswer!.playAudio()
-    }
-    
     func quizWithCategory(category: WordCategory) {
         self.categories = [category]
         setUpQuiz(usingAudio: false)
@@ -77,6 +79,11 @@ class QuizViewController : UIViewController {
             imageViewMap.append(option2)
             imageViewMap.append(option3)
             imageViewMap.append(option4)
+            
+            imageView2Map.append(image21)
+            imageView2Map.append(image22)
+            imageView2Map.append(image23)
+            imageView2Map.append(image24)
         }
         
         for category in categories! {
@@ -104,7 +111,6 @@ class QuizViewController : UIViewController {
         }
         quizAnswer = randomWord(&allWords)
         quizWord.text = quizAnswer!.name.lowercaseString
-        shakeTitle()
         
         let questionCategory = quizAnswer!.subcategory.category
         
@@ -133,11 +139,26 @@ class QuizViewController : UIViewController {
                 quizChoices[index] = word
                 let path = word.picturePath
                 let image = UIImage(data: NSData(contentsOfFile: path)!)
-                imageViewMap[index].image = image
+                imageView2Map[index].image = image
             }
         }
         
-        if usingAudio { quizAnswer!.playAudio() }
+        if usingAudio {
+            self.switchOutImages()
+            delay(0.5) {
+                self.quizAnswer!.playAudio()
+                self.shakeTitle()
+            }
+        }
+        else {
+            for i in 0...3 {
+                imageViewMap[i].image = imageView2Map[i].image
+            }
+            delay(0.5) {
+                self.quizAnswer!.playAudio()
+                self.shakeTitle()
+            }
+        }
     }
     
     
@@ -189,16 +210,6 @@ class QuizViewController : UIViewController {
         shakeTitle()
     }
     
-    func shakeTitle() {
-        let animations : [CGFloat] = [20.0, -20.0, 10.0, -10.0, 3.0, -3.0, 0]
-        for i in 0 ..< animations.count {
-            let frameOrigin = CGPointMake(quizWord.frame.origin.x + animations[i], quizWord.frame.origin.y)
-            UIView.animateWithDuration(0.1, delay: NSTimeInterval(0.1 * Double(i)), options: nil, animations: {
-                self.quizWord.frame.origin = frameOrigin
-            }, completion: nil)
-        }
-    }
-    
     func imageOptionPressed(id: Int) {
         answerAttempts++
         let word = quizChoices[id - 1]
@@ -207,7 +218,7 @@ class QuizViewController : UIViewController {
             correct.hidden = false
             incorrect.hidden = true
             self.view.setNeedsDisplay()
-            word.playAudio()
+            self.playCorrect()
             self.view.userInteractionEnabled = false
             
             //animate "correct"
@@ -218,7 +229,7 @@ class QuizViewController : UIViewController {
                 self.correct.frame.origin = start
             }, completion: nil)
             
-            delay(1.0, {
+            delay(0.5, {
                 self.poseQuestion()
                 self.view.userInteractionEnabled = true
             })
@@ -257,6 +268,7 @@ class QuizViewController : UIViewController {
             correct.hidden = true
             self.view.setNeedsDisplay()
             word.playAudio()
+            shakeImage(imageViewMap[id - 1])
             
             //animate "incorrect"
             let start = incorrect.frame.origin
@@ -272,6 +284,70 @@ class QuizViewController : UIViewController {
         let image = imageViewMap[id - 1]
         image.alpha = 0.5
         UIView.animateWithDuration(0.5, animations: { image.alpha = 1.0 })
+    }
+    
+    // MARK: - animations
+    
+    func switchOutImages() {
+        
+        for i in 0...3 {
+            //self.imageViewMap[i].image = self.imageView2Map[i].image
+            
+            let nextQuestionOrigin = imageViewMap[i].frame.origin
+            let previousQuestionOrigin = CGPointMake(-imageViewMap[3 - i].frame.origin.x, 0)
+            let temporaryImageOriginalOrigin = imageView2Map[i].frame.origin
+            
+            UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: nil, animations: {
+                self.imageViewMap[i].alpha = 0.0
+            }, completion: nil)
+            
+            UIView.animateWithDuration(0.5, delay: 0.1 * Double(i), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: nil, animations: {
+                //self.imageViewMap[i].frame.origin = previousQuestionOrigin
+                self.imageView2Map[i].frame.origin = nextQuestionOrigin
+            }, completion: { success in
+                delay(0.3 - (0.1 * Double(i))) {
+                    self.imageViewMap[i].frame.origin = nextQuestionOrigin
+                    self.imageView2Map[i].frame.origin = temporaryImageOriginalOrigin
+                    self.imageViewMap[i].image = self.imageView2Map[i].image
+                    self.imageViewMap[i].alpha = 1.0
+                }
+            })
+        }
+    }
+    
+    func shakeTitle() {
+        let animations : [CGFloat] = [20.0, -20.0, 10.0, -10.0, 3.0, -3.0, 0]
+        for i in 0 ..< animations.count {
+            let frameOrigin = CGPointMake(quizWord.frame.origin.x + animations[i], quizWord.frame.origin.y)
+            UIView.animateWithDuration(0.1, delay: NSTimeInterval(0.1 * Double(i)), options: nil, animations: {
+                self.quizWord.frame.origin = frameOrigin
+                }, completion: nil)
+        }
+    }
+    
+    func shakeImage(image: UIImageView) {
+        let animations : [CGFloat] = [10.0, -10.0, 5.0, -5.0, 1.5, -1.5, 0]
+        for i in 0 ..< animations.count {
+            let frameOrigin = CGPointMake(image.frame.origin.x + animations[i], image.frame.origin.y)
+            UIView.animateWithDuration(0.1, delay: NSTimeInterval(0.1 * Double(i)), options: nil, animations: {
+                image.frame.origin = frameOrigin
+                }, completion: nil)
+        }
+    }
+    
+    func playCorrect() {
+        let audioSession = AVAudioSession.sharedInstance()
+        audioSession.setActive(true, error: nil)
+        audioSession.setCategory(AVAudioSessionCategoryPlayback, error: nil)
+        
+        let path = NSBundle.mainBundle().pathForResource("correct", ofType: "mp3")!
+        let soundData = NSData(contentsOfFile: path)
+        let player = AVAudioPlayer(data: soundData, error: nil)
+        player.play()
+        dispatch_async(audioQueue, {
+            while(player.playing) { }
+            player.stop()
+        })
     }
     
 }
