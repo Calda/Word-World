@@ -172,9 +172,9 @@ class QuizViewController : UIViewController {
     
     @IBAction func backPressed(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
-        if categories!.count > 1 { //not launched from single category view
+        /*if categories!.count > 1 { //not launched from single category view
             NSNotificationCenter.defaultCenter().postNotificationName(WWDisplayCategoriesNotification, object: nil)
-        }
+        }*/
     }
     
     @IBAction func tapRecognized(sender: UITapGestureRecognizer) {
@@ -235,14 +235,21 @@ class QuizViewController : UIViewController {
             })
             
             //animate coin
+            let data = NSUserDefaults.standardUserDefaults()
+            
             if answerAttempts == 1 {
+                let gold = data.integerForKey("gold")
+                data.setInteger(gold + 1, forKey: "gold")
+                
                 coin.image = goldCoin
             }
             if answerAttempts == 2 {
+                let silver = data.integerForKey("silver")
+                data.setInteger(silver + 1, forKey: "silver")
+                
                 coin.image = silverCoin
             }
             if answerAttempts == 1 || answerAttempts == 2 {
-                
                 coin.center = imageViewMap[id - 1].center
                 let animateUpTo = CGPointMake(coin.center.x, coin.center.y - imageViewMap[id - 1].frame.height * 1.0)
                 let animateDownTo = coin.center

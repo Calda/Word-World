@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14E11f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6724" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6711"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -386,8 +386,10 @@
                                     <constraint firstAttribute="bottom" secondItem="1Db-0C-fna" secondAttribute="bottom" id="3jZ-rB-cYA"/>
                                     <constraint firstItem="fmy-Sx-e4r" firstAttribute="top" secondItem="vOs-iF-FLh" secondAttribute="top" id="45n-aN-hja"/>
                                     <constraint firstItem="ut8-g5-vsv" firstAttribute="height" secondItem="vOs-iF-FLh" secondAttribute="height" id="52o-56-sSp"/>
-                                    <constraint firstAttribute="centerY" secondItem="L7Y-4V-kxw" secondAttribute="centerY" id="9ti-JH-FZx"/>
-                                    <constraint firstAttribute="centerX" secondItem="L7Y-4V-kxw" secondAttribute="centerX" id="B8W-ST-XGR"/>
+                                    <constraint firstItem="pHg-yx-Gpi" firstAttribute="width" secondItem="pHg-yx-Gpi" secondAttribute="height" multiplier="1:1" id="5be-Vr-TvN"/>
+                                    <constraint firstAttribute="centerX" secondItem="L7Y-4V-kxw" secondAttribute="centerX" id="6T9-82-OSf"/>
+                                    <constraint firstItem="wCc-5d-xqv" firstAttribute="width" secondItem="wCc-5d-xqv" secondAttribute="height" multiplier="1:1" id="7ou-8q-SCh"/>
+                                    <constraint firstItem="1Db-0C-fna" firstAttribute="top" secondItem="vOs-iF-FLh" secondAttribute="top" id="7pu-re-t0j"/>
                                     <constraint firstItem="aPT-z2-Igh" firstAttribute="height" secondItem="ut8-g5-vsv" secondAttribute="height" id="BhF-89-eD4"/>
                                     <constraint firstItem="fmy-Sx-e4r" firstAttribute="top" secondItem="wCc-5d-xqv" secondAttribute="top" id="CgM-Te-mSV"/>
                                     <constraint firstAttribute="trailing" secondItem="aPT-z2-Igh" secondAttribute="trailing" id="Hw3-1S-yW1"/>
@@ -408,6 +410,7 @@
                                     <constraint firstAttribute="centerY" secondItem="wCc-5d-xqv" secondAttribute="centerY" id="mME-CG-PfA"/>
                                     <constraint firstItem="fmy-Sx-e4r" firstAttribute="width" secondItem="fmy-Sx-e4r" secondAttribute="height" multiplier="1:1" id="nmN-X0-rkZ"/>
                                     <constraint firstItem="KgA-y1-N2G" firstAttribute="leading" secondItem="CfL-lE-QGJ" secondAttribute="trailing" id="oge-Ge-vvr"/>
+                                    <constraint firstAttribute="centerY" secondItem="L7Y-4V-kxw" secondAttribute="centerY" id="ohx-ws-yxA"/>
                                     <constraint firstItem="CfL-lE-QGJ" firstAttribute="width" secondItem="ut8-g5-vsv" secondAttribute="width" id="ou9-mY-bb4"/>
                                     <constraint firstItem="fmy-Sx-e4r" firstAttribute="leading" secondItem="wCc-5d-xqv" secondAttribute="trailing" id="q87-xm-DHr"/>
                                     <constraint firstItem="ut8-g5-vsv" firstAttribute="leading" secondItem="vOs-iF-FLh" secondAttribute="leading" id="qGG-1Y-0Qr"/>
@@ -492,7 +495,103 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="710" y="733"/>
+            <point key="canvasLocation" x="712" y="575"/>
+        </scene>
+        <!--Bank-->
+        <scene sceneID="uny-P3-kYu">
+            <objects>
+                <viewController storyboardIdentifier="bank" title="Bank" id="3gF-gd-UYJ" customClass="BankViewController" customModule="WordWorld" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wC5-az-lWq"/>
+                        <viewControllerLayoutGuide type="bottom" id="xJv-gz-Uk7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jaQ-Yo-dcp">
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vEx-5m-oad">
+                                <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bl8-ks-w8G">
+                                <rect key="frame" x="20" y="40" width="61" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="23" id="P5P-hO-lm8"/>
+                                    <constraint firstAttribute="height" constant="64" id="VDJ-u4-62y"/>
+                                    <constraint firstAttribute="width" constant="61" id="Xq0-qC-xPR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="28"/>
+                                <state key="normal" title="back">
+                                    <color key="titleColor" red="0.20784313730000001" green="0.56078431370000004" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="VDJ-u4-62y"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="back:" destination="3gF-gd-UYJ" eventType="touchUpInside" id="s4q-dK-hti"/>
+                                    <action selector="backPressed:" destination="s61-dV-k5m" eventType="touchUpInside" id="XBJ-zg-8gz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kYz-io-jRc">
+                                <rect key="frame" x="108" y="119" width="352" height="83"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="23" id="FML-mU-JqE"/>
+                                    <constraint firstAttribute="width" constant="61" id="vLa-Cf-ZlE"/>
+                                    <constraint firstAttribute="height" constant="64" id="x5R-F8-Q4B"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="60"/>
+                                <state key="normal" title="no coins yet :(">
+                                    <color key="titleColor" red="0.20784313730000001" green="0.56078431370000004" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="vLa-Cf-ZlE"/>
+                                        <exclude reference="x5R-F8-Q4B"/>
+                                        <exclude reference="FML-mU-JqE"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="backPressed:" destination="s61-dV-k5m" eventType="touchUpInside" id="Xf0-Ck-2h1"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="vEx-5m-oad" firstAttribute="top" secondItem="wC5-az-lWq" secondAttribute="bottom" id="1wF-cF-2rE"/>
+                            <constraint firstAttribute="centerX" secondItem="kYz-io-jRc" secondAttribute="centerX" id="4Cn-bi-7dG"/>
+                            <constraint firstAttribute="centerY" secondItem="kYz-io-jRc" secondAttribute="centerY" id="6zb-4i-ls9"/>
+                            <constraint firstItem="vEx-5m-oad" firstAttribute="leading" secondItem="bl8-ks-w8G" secondAttribute="trailing" id="GZq-Gx-I1d"/>
+                            <constraint firstItem="bl8-ks-w8G" firstAttribute="leading" secondItem="jaQ-Yo-dcp" secondAttribute="leading" constant="20" id="NdA-Lq-iWj"/>
+                            <constraint firstItem="vEx-5m-oad" firstAttribute="top" secondItem="jaQ-Yo-dcp" secondAttribute="top" id="TxE-Qe-bRw"/>
+                            <constraint firstItem="bl8-ks-w8G" firstAttribute="top" secondItem="wC5-az-lWq" secondAttribute="bottom" constant="20" id="VgL-T5-fCp"/>
+                            <constraint firstAttribute="trailing" secondItem="vEx-5m-oad" secondAttribute="trailing" id="a9p-hv-5qx"/>
+                            <constraint firstAttribute="trailing" secondItem="vEx-5m-oad" secondAttribute="trailing" id="jRg-gk-Awp"/>
+                            <constraint firstItem="xJv-gz-Uk7" firstAttribute="top" secondItem="vEx-5m-oad" secondAttribute="bottom" id="lWY-PB-1IK"/>
+                            <constraint firstItem="xJv-gz-Uk7" firstAttribute="top" secondItem="vEx-5m-oad" secondAttribute="bottom" id="nTX-fQ-ZGi"/>
+                            <constraint firstItem="vEx-5m-oad" firstAttribute="leading" secondItem="jaQ-Yo-dcp" secondAttribute="leading" id="nc2-OF-ZhQ"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="1wF-cF-2rE"/>
+                                <exclude reference="GZq-Gx-I1d"/>
+                                <exclude reference="jRg-gk-Awp"/>
+                                <exclude reference="lWY-PB-1IK"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="coinView" destination="vEx-5m-oad" id="w0h-dU-9jG"/>
+                        <outlet property="noCoins" destination="kYz-io-jRc" id="Ifh-vW-ph2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IZ2-Sf-BQr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="712" y="941"/>
         </scene>
     </scenes>
     <resources>
