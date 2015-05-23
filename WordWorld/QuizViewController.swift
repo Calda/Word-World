@@ -57,7 +57,9 @@ class QuizViewController : UIViewController {
         
         quizWordHeight.constant = getQuizWordHeight()
         self.view.layoutIfNeeded()
-        
+        if self.categories == nil {
+            quizWithDatabase()
+        }
     }
     
     func quizWithCategory(category: WordCategory) {

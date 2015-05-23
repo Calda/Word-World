@@ -26,12 +26,18 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categories.count + 2
+        return categories.count + 1
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let height = (collectionView.frame.height) * 0.95
-        return CGSizeMake((9/16) * height, height)
+        
+        if indexPath.item == 0 { //back card is half width
+            return CGSizeMake((9/32) * height, height)
+        }
+        else {
+            return CGSizeMake((9/16) * height, height)
+        }
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
@@ -46,51 +52,40 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let item = indexPath.item
-        let card = collectionView.dequeueReusableCellWithReuseIdentifier("categoryCard", forIndexPath: indexPath) as! CategoryCell
         
-        if item == 0 {
-            card.categoryName.text = "?"
-        }
-        else if item == 1 {
-            card.categoryName.text = "Bank"
+        if item == 0 { //back card
+            return collectionView.dequeueReusableCellWithReuseIdentifier("back", forIndexPath: indexPath) as! UICollectionViewCell
         }
         else {
-            card.categoryName.text = categories[item - 2]
+            let card = collectionView.dequeueReusableCellWithReuseIdentifier("categoryCard", forIndexPath: indexPath) as! CategoryCell
+            card.categoryName.text = categories[item - 1]
+            return card
         }
         
-        return card
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         selected = indexPath.item
-        for cell in collectionView.visibleCells() as! [CategoryCell] {
-            let index = collectionView.indexPathForCell(cell)!.item
-            let delta = Double(abs(index - selected!))
-            animateCell(cell, delay: delta * 0.05, out: true)
+        
+        if selected == 0 {
+            //back button
+            NSNotificationCenter.defaultCenter().postNotificationName(WWDismissWordModeNotification, object: nil)
         }
-        let selectedCell = collectionView.cellForItemAtIndexPath(indexPath) as! CategoryCell
-        if indexPath.item == 0 {
-            delay(0.25){
-                let quiz = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("quiz") as! QuizViewController
-                self.presentViewController(quiz, animated: true, completion: nil)
-                quiz.quizWithDatabase()
-            }
-        }
-        else if indexPath.item == 1 {
-            delay(0.25){
-                let bank = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("bank") as! BankViewController
-                self.presentViewController(bank, animated: true, completion: nil)
-                bank.start()
-            }
-        }
+        
         else {
+            for cell in collectionView.visibleCells() as! [UICollectionViewCell] {
+                let index = collectionView.indexPathForCell(cell)!.item
+                let delta = Double(abs(index - selected!))
+                animateCell(cell, delay: delta * 0.05, out: true)
+            }
+            let selectedCell = collectionView.cellForItemAtIndexPath(indexPath) as! CategoryCell
             self.view.userInteractionEnabled = false
             NSNotificationCenter.defaultCenter().postNotificationName(WWDisplayWordsNotification, object: selectedCell.categoryName.text!)
         }
-        
+    
     }
     
-    func animateCell(cell: CategoryCell, delay: NSTimeInterval, out: Bool) {
+    func animateCell(cell: UICollectionViewCell, delay: NSTimeInterval, out: Bool) {
         let currentY = cell.frame.origin.y
         let newY = (out ? currentY - (cell.frame.height * 1.15) : getInsetSize())
         let newOrigin = CGPointMake(cell.frame.origin.x, newY)
@@ -108,7 +103,7 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
     func represent() {
         self.view.userInteractionEnabled = true
         if let selected = selected {
-            for cell in collectionView.visibleCells() as! [CategoryCell] {
+            for cell in collectionView.visibleCells() as! [UICollectionViewCell] {
                 let index = collectionView.indexPathForCell(cell)!.item
                 let delta = Double(abs(index - selected))
                 animateCell(cell, delay: delta * 0.05, out: false)

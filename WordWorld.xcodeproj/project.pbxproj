@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		2E0547331ABF806800416976 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0547321ABF806800416976 /* AppDelegate.swift */; };
 		2E0547361ABF806800416976 /* WordWorld.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2E0547341ABF806800416976 /* WordWorld.xcdatamodeld */; };
-		2E0547381ABF806800416976 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0547371ABF806800416976 /* ViewController.swift */; };
+		2E0547381ABF806800416976 /* WordModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0547371ABF806800416976 /* WordModeViewController.swift */; };
 		2E05473B1ABF806800416976 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E0547391ABF806800416976 /* Main.storyboard */; };
 		2E05473D1ABF806800416976 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E05473C1ABF806800416976 /* Images.xcassets */; };
 		2E0547401ABF806800416976 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E05473E1ABF806800416976 /* LaunchScreen.xib */; };
@@ -17,6 +17,7 @@
 		2E4D680F1B04242E0040075F /* correct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2E4D680E1B04242E0040075F /* correct.mp3 */; };
 		2EA071971ABF985B00EADCAF /* WordGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA071961ABF985B00EADCAF /* WordGridViewController.swift */; };
 		2EA071D01ABFB1C300EADCAF /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA071CF1ABFB1C300EADCAF /* CategoryViewController.swift */; };
+		2EB2FA401B10F75200AF63AD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2FA3F1B10F75200AF63AD /* MainViewController.swift */; };
 		2ED404311AD1B081002AFFBD /* database.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2ED4FFF71AD1B07C002AFFBD /* database.csv */; };
 		2ED404321AD1B081002AFFBD /* 1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2ED4FFF91AD1B07C002AFFBD /* 1.mp3 */; };
 		2ED404331AD1B081002AFFBD /* 10.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2ED4FFFA1AD1B07C002AFFBD /* 10.mp3 */; };
@@ -1120,7 +1121,7 @@
 		2E0547311ABF806800416976 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E0547321ABF806800416976 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2E0547351ABF806800416976 /* WordWorld.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WordWorld.xcdatamodel; sourceTree = "<group>"; };
-		2E0547371ABF806800416976 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		2E0547371ABF806800416976 /* WordModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordModeViewController.swift; sourceTree = "<group>"; };
 		2E05473A1ABF806800416976 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2E05473C1ABF806800416976 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2E05473F1ABF806800416976 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -1130,6 +1131,7 @@
 		2E4D680E1B04242E0040075F /* correct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = correct.mp3; sourceTree = "<group>"; };
 		2EA071961ABF985B00EADCAF /* WordGridViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordGridViewController.swift; sourceTree = "<group>"; };
 		2EA071CF1ABFB1C300EADCAF /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		2EB2FA3F1B10F75200AF63AD /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		2ED400001AD1B07C002AFFBD /* 17.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 17.mp3; sourceTree = "<group>"; };
 		2ED400011AD1B07C002AFFBD /* 19.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 19.mp3; sourceTree = "<group>"; };
 		2ED400021AD1B07C002AFFBD /* 2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 2.mp3; sourceTree = "<group>"; };
@@ -2259,7 +2261,8 @@
 			children = (
 				2E210CB51AD1B04700FF3750 /* database */,
 				2E0547321ABF806800416976 /* AppDelegate.swift */,
-				2E0547371ABF806800416976 /* ViewController.swift */,
+				2EB2FA3F1B10F75200AF63AD /* MainViewController.swift */,
+				2E0547371ABF806800416976 /* WordModeViewController.swift */,
 				2EA071CF1ABFB1C300EADCAF /* CategoryViewController.swift */,
 				2EA071961ABF985B00EADCAF /* WordGridViewController.swift */,
 				44DB5CC21AFCF23D00E419DF /* QuizViewController.swift */,
@@ -4598,8 +4601,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2ED4086B1AD1B31E002AFFBD /* WordEntry.swift in Sources */,
+				2EB2FA401B10F75200AF63AD /* MainViewController.swift in Sources */,
 				2EA071971ABF985B00EADCAF /* WordGridViewController.swift in Sources */,
-				2E0547381ABF806800416976 /* ViewController.swift in Sources */,
+				2E0547381ABF806800416976 /* WordModeViewController.swift in Sources */,
 				2ED408691AD1B0B3002AFFBD /* WordDatabase.swift in Sources */,
 				2E0547361ABF806800416976 /* WordWorld.xcdatamodeld in Sources */,
 				2EA071D01ABFB1C300EADCAF /* CategoryViewController.swift in Sources */,
