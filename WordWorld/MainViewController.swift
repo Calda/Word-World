@@ -16,11 +16,22 @@ class MainViewController : UIViewController {
     @IBOutlet weak var words: UIButton!
     @IBOutlet weak var bank: UIButton!
     @IBOutlet weak var game: UIButton!
+    @IBOutlet weak var roundedBlurred: UIView!
+    @IBOutlet weak var darkener: UIView!
+    
+    @IBOutlet weak var settingsConstrint: NSLayoutConstraint!
+    var settingsSize: CGFloat = 0.0
     
     override func viewWillAppear(animated: Bool) {
         roundedCorners.clipsToBounds = true
         roundedCorners.layer.cornerRadius = roundedCorners.frame.height / 4
         roundedCorners.layer.masksToBounds = true
+        
+        roundedBlurred.clipsToBounds = true
+        roundedBlurred.layer.cornerRadius = roundedBlurred.frame.height / 4
+        roundedBlurred.layer.masksToBounds = true
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "closeSettings", name: WWCloseSettingsNotification, object: nil)
     }
     
     @IBAction func pressInterfaceButton(sender: UIButton) {
@@ -39,6 +50,21 @@ class MainViewController : UIViewController {
         //animate to cover all buttons
         let fullFrame = CGRectUnion(words.frame, CGRectUnion(bank.frame, game.frame))
         
+        //copy blur button
+        let blurButton = UIButton(frame: sender.frame)
+        blurButton.backgroundColor = sender.backgroundColor
+        blurButton.setTitle(sender.titleLabel!.text, forState: UIControlState.Normal)
+        blurButton.titleLabel!.font = sender.titleLabel!.font
+        blurButton.titleLabel!.text = sender.titleLabel!.text
+        blurButton.titleLabel!.textColor! = UIColor.whiteColor()
+        roundedBlurred.addSubview(blurButton)
+        
+        //animate blur button
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: nil, animations: {
+                blurButton.frame = fullFrame
+        }, completion: nil)
+        
+        //animate real button
         UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: nil, animations: {
                 newButton.frame = fullFrame
             }, completion: { success in
@@ -52,6 +78,7 @@ class MainViewController : UIViewController {
                         //reset self
                         self.view.userInteractionEnabled = true
                         newButton.removeFromSuperview()
+                        blurButton.removeFromSuperview()
                         
                     })
                 }
@@ -60,5 +87,29 @@ class MainViewController : UIViewController {
         
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        println(segue.destinationViewController)
+        if let settings = segue.destinationViewController as? SettingsViewController {
+            settingsSize = settings.getDisplayHeight()
+        }
+        super.prepareForSegue(segue, sender: sender)
+    }
     
+    @IBAction func showSettings(sender: AnyObject) {
+        settingsConstrint.constant = -settingsSize
+        
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: (settingsSize == self.view.frame.height ? 1.0 : 0.7), initialSpringVelocity: 0.0, options: nil, animations: {
+                self.view.layoutIfNeeded()
+                self.darkener.alpha = 0.4
+        }, completion: nil)
+    }
+    
+    func closeSettings() {
+        settingsConstrint.constant = 0.0
+        
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: nil, animations: {
+                self.view.layoutIfNeeded()
+                self.darkener.alpha = 0.0
+        }, completion: nil)
+    }
 }

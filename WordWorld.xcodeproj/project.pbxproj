@@ -14,6 +14,9 @@
 		2E05473D1ABF806800416976 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E05473C1ABF806800416976 /* Images.xcassets */; };
 		2E0547401ABF806800416976 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E05473E1ABF806800416976 /* LaunchScreen.xib */; };
 		2E05474C1ABF806800416976 /* WordWorldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E05474B1ABF806800416976 /* WordWorldTests.swift */; };
+		2E1A3E931B126C33003C1CE4 /* Settings Filled-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E1A3E921B126C33003C1CE4 /* Settings Filled-100.png */; };
+		2E1A3E951B126F40003C1CE4 /* Synchronize-100(1).png in Resources */ = {isa = PBXBuildFile; fileRef = 2E1A3E941B126F40003C1CE4 /* Synchronize-100(1).png */; };
+		2E1A3E971B127025003C1CE4 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1A3E961B127025003C1CE4 /* SettingsViewController.swift */; };
 		2E4D680F1B04242E0040075F /* correct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2E4D680E1B04242E0040075F /* correct.mp3 */; };
 		2EA071971ABF985B00EADCAF /* WordGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA071961ABF985B00EADCAF /* WordGridViewController.swift */; };
 		2EA071D01ABFB1C300EADCAF /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA071CF1ABFB1C300EADCAF /* CategoryViewController.swift */; };
@@ -1128,6 +1131,9 @@
 		2E0547451ABF806800416976 /* WordWorldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordWorldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E05474A1ABF806800416976 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E05474B1ABF806800416976 /* WordWorldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordWorldTests.swift; sourceTree = "<group>"; };
+		2E1A3E921B126C33003C1CE4 /* Settings Filled-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings Filled-100.png"; sourceTree = "<group>"; };
+		2E1A3E941B126F40003C1CE4 /* Synchronize-100(1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Synchronize-100(1).png"; sourceTree = "<group>"; };
+		2E1A3E961B127025003C1CE4 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2E4D680E1B04242E0040075F /* correct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = correct.mp3; sourceTree = "<group>"; };
 		2EA071961ABF985B00EADCAF /* WordGridViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordGridViewController.swift; sourceTree = "<group>"; };
 		2EA071CF1ABFB1C300EADCAF /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
@@ -2262,6 +2268,7 @@
 				2E210CB51AD1B04700FF3750 /* database */,
 				2E0547321ABF806800416976 /* AppDelegate.swift */,
 				2EB2FA3F1B10F75200AF63AD /* MainViewController.swift */,
+				2E1A3E961B127025003C1CE4 /* SettingsViewController.swift */,
 				2E0547371ABF806800416976 /* WordModeViewController.swift */,
 				2EA071CF1ABFB1C300EADCAF /* CategoryViewController.swift */,
 				2EA071961ABF985B00EADCAF /* WordGridViewController.swift */,
@@ -2279,6 +2286,8 @@
 		2E0547301ABF806800416976 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2E1A3E921B126C33003C1CE4 /* Settings Filled-100.png */,
+				2E1A3E941B126F40003C1CE4 /* Synchronize-100(1).png */,
 				44B3FC081B062074000DB84A /* Gold-Coin.png */,
 				44B3FC091B062074000DB84A /* Silver-Coin.png */,
 				2E0547311ABF806800416976 /* Info.plist */,
@@ -4267,6 +4276,7 @@
 				2ED4067B1AD1B081002AFFBD /* Spin.mp3 in Resources */,
 				2ED408621AD1B081002AFFBD /* Wigs-Sketch.png in Resources */,
 				2ED404FD1AD1B081002AFFBD /* Dragon.mp3 in Resources */,
+				2E1A3E931B126C33003C1CE4 /* Settings Filled-100.png in Resources */,
 				2ED4069C1AD1B081002AFFBD /* Sweet.mp3 in Resources */,
 				2ED405DD1AD1B081002AFFBD /* Mother.mp3 in Resources */,
 				2ED404FE1AD1B081002AFFBD /* Draw.mp3 in Resources */,
@@ -4427,6 +4437,7 @@
 				2ED404491AD1B081002AFFBD /* Afraid.mp3 in Resources */,
 				2ED404821AD1B081002AFFBD /* Blanket.mp3 in Resources */,
 				2ED404921AD1B081002AFFBD /* Bowl.mp3 in Resources */,
+				2E1A3E951B126F40003C1CE4 /* Synchronize-100(1).png in Resources */,
 				2ED405A71AD1B081002AFFBD /* Legs.mp3 in Resources */,
 				2ED406DF1AD1B081002AFFBD /* Wheelbarrow.mp3 in Resources */,
 				2ED406571AD1B081002AFFBD /* Sillycat.mp3 in Resources */,
@@ -4611,6 +4622,7 @@
 				2E0547331ABF806800416976 /* AppDelegate.swift in Sources */,
 				44891DCF1B062F210000844B /* BankViewController.swift in Sources */,
 				2ED4086D1AD1B32A002AFFBD /* WordCategory.swift in Sources */,
+				2E1A3E971B127025003C1CE4 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
