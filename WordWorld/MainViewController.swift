@@ -88,7 +88,6 @@ class MainViewController : UIViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        println(segue.destinationViewController)
         if let settings = segue.destinationViewController as? SettingsViewController {
             settingsSize = settings.getDisplayHeight()
         }

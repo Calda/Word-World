@@ -41,6 +41,11 @@ class QuizViewController : UIViewController {
     var quizChoices : [WordEntry] = []
     var quizAnswer : WordEntry?
     
+    @IBOutlet weak var settingsConstraint: NSLayoutConstraint!
+    var settingsHeight: CGFloat = 0.0
+    @IBOutlet weak var darkener: UIView!
+    var settingsOpen: Bool = false
+    
     override func viewWillAppear(animated: Bool) {
         
         func getQuizWordHeight() -> CGFloat {
@@ -51,15 +56,20 @@ class QuizViewController : UIViewController {
                 case(480): return 85.0 //4S
                 case(568): return 60.0 //5
                 case(667): return 100.0 //6
+                case(1024): quizWord.font = quizWord.font.fontWithSize(100); return 150.0 //iPad
                 default: return 150.0 //6+ or larger??
             }
         }
         
+        self.view.layoutIfNeeded()
         quizWordHeight.constant = getQuizWordHeight()
         self.view.layoutIfNeeded()
+        
         if self.categories == nil {
             quizWithDatabase()
         }
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "closeSettings" , name: WWCloseSettingsNotification, object: nil)
     }
     
     func quizWithCategory(category: WordCategory) {
@@ -148,7 +158,9 @@ class QuizViewController : UIViewController {
         if usingAudio {
             self.switchOutImages()
             delay(0.5) {
-                self.quizAnswer!.playAudio()
+                if SoundType.QuizAnswer.allow() {
+                    self.quizAnswer!.playAudio()
+                }
                 self.shakeTitle()
             }
         }
@@ -157,7 +169,9 @@ class QuizViewController : UIViewController {
                 imageViewMap[i].image = imageView2Map[i].image
             }
             delay(0.5) {
-                self.quizAnswer!.playAudio()
+                if SoundType.QuizAnswer.allow() {
+                    self.quizAnswer!.playAudio()
+                }
                 self.shakeTitle()
             }
         }
@@ -179,7 +193,14 @@ class QuizViewController : UIViewController {
         }*/
     }
     
+    var allowTouch = true
     @IBAction func tapRecognized(sender: UITapGestureRecognizer) {
+        if settingsOpen || !allowTouch { return }
+        
+        allowTouch = false
+        delay(0.3) {
+            self.allowTouch = true
+        }
         
         var touch = sender.locationInView(self.view)
         //figure out what got pressed
@@ -206,7 +227,9 @@ class QuizViewController : UIViewController {
     }
     
     func quizWordPressed(sender: UILabel) {
-        quizAnswer?.playAudio()
+        if SoundType.QuizAnswer.allow() {
+            quizAnswer?.playAudio()
+        }
         sender.alpha = 0.5
         UIView.animateWithDuration(0.5, animations: { sender.alpha = 1.0 })
         shakeTitle()
@@ -276,7 +299,9 @@ class QuizViewController : UIViewController {
             incorrect.alpha = 1.0
             correct.hidden = true
             self.view.setNeedsDisplay()
-            word.playAudio()
+            if SoundType.AnswerOption.allow() {
+                word.playAudio()
+            }
             shakeImage(imageViewMap[id - 1])
             
             //animate "incorrect"
@@ -345,18 +370,88 @@ class QuizViewController : UIViewController {
     }
     
     func playCorrect() {
-        let audioSession = AVAudioSession.sharedInstance()
-        audioSession.setActive(true, error: nil)
-        audioSession.setCategory(AVAudioSessionCategoryPlayback, error: nil)
+        if SoundType.Coin.allow() {
+            let audioSession = AVAudioSession.sharedInstance()
+            audioSession.setActive(true, error: nil)
+            audioSession.setCategory(AVAudioSessionCategoryPlayback, error: nil)
+            
+            let path = NSBundle.mainBundle().pathForResource("correct", ofType: "mp3")!
+            let soundData = NSData(contentsOfFile: path)
+            let player = AVAudioPlayer(data: soundData, error: nil)
+            player.play()
+            dispatch_async(audioQueue, {
+                while(player.playing) { }
+                player.stop()
+            })
+        }
+    }
+    
+    
+    // MARK: - Settings pop up
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let settings = segue.destinationViewController as? SettingsViewController {
+            settingsHeight = settings.getDisplayHeight()
+        }
+        super.prepareForSegue(segue, sender: sender)
+    }
+    
+    @IBAction func showSettings(sender: AnyObject) {
+        settingsOpen = true
+        settingsConstraint.constant = -settingsHeight
         
-        let path = NSBundle.mainBundle().pathForResource("correct", ofType: "mp3")!
-        let soundData = NSData(contentsOfFile: path)
-        let player = AVAudioPlayer(data: soundData, error: nil)
-        player.play()
-        dispatch_async(audioQueue, {
-            while(player.playing) { }
-            player.stop()
-        })
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: (settingsHeight == self.view.frame.height ? 1.0 : 0.7), initialSpringVelocity: 0.0, options: nil, animations: {
+            self.view.layoutIfNeeded()
+            self.darkener.alpha = 0.4
+            }, completion: nil)
+    }
+    
+    func closeSettings() {
+        settingsOpen = false
+        settingsConstraint.constant = 0.0
+        
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: nil, animations: {
+            self.view.layoutIfNeeded()
+            self.darkener.alpha = 0.0
+            }, completion: nil)
+    }
+    
+    
+}
+
+enum SoundType {
+    
+    case QuizAnswer //the word being quizzed
+    case AnswerOption //the four options below the title
+    case Coin //the coin sound effect
+    
+    func allow() -> Bool {
+        let config = NSUserDefaults.standardUserDefaults()
+        
+        let disableAll = config.boolForKey(WWSettingDisableAllGameSounds)
+        if disableAll { return false }
+        
+        if self == .QuizAnswer {
+            let readingMode = config.boolForKey(WWSettingReadingMode)
+            if readingMode { return false }
+        }
+        
+        if self == .Coin {
+            let disableCoins = config.boolForKey(WWSettingDisableCoin)
+            if disableCoins { return false }
+        }
+        
+        return true
     }
     
 }
+
+
+
+
+
+
+
+
+
+

@@ -10,7 +10,7 @@ import UIKit
 
 let WWSettingReadingMode = "disableSpeakingWord"
 let WWSettingDisableCoin = "disableCoinSounds"
-let WWDisableAllGameSounds = "disableAllQuizSounds"
+let WWSettingDisableAllGameSounds = "disableAllQuizSounds"
 let WWCloseSettingsNotification = "com.hearatale.wordworld.closesettings"
 
 class SettingsViewController : UIViewController, UITableViewDataSource {
@@ -18,9 +18,9 @@ class SettingsViewController : UIViewController, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     
     let settings: [(title:String, path:String, defaults:Bool)] = [
-        ("Reading Mode (Don't speak work in Game)", WWSettingReadingMode, false),
+        ("Reading Mode (Don't speak word in Game)", WWSettingReadingMode, false),
         ("Disable Coin Sound Effects", WWSettingDisableCoin, false),
-        ("Disable All Quiz Game Sound Effects", WWDisableAllGameSounds, false)
+        ("Disable All Quiz Game Sound Effects", WWSettingDisableAllGameSounds, false)
     ]
     
     func getDisplayHeight() -> CGFloat {
