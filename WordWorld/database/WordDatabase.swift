@@ -15,6 +15,7 @@ class WordDatabase {
     var categories: [String : WordCategory] = [:]
     
     init() {
+        println("Initializing Database")
         let csvPath = NSBundle.mainBundle().pathForResource("database", ofType: "csv")!
         let csvString = String(contentsOfFile: csvPath, encoding: NSUTF8StringEncoding, error: nil)!
         let csv = split(csvString){ $0 == "\n" }
