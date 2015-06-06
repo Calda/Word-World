@@ -18,6 +18,8 @@
 		2E1A3E951B126F40003C1CE4 /* Synchronize-100(1).png in Resources */ = {isa = PBXBuildFile; fileRef = 2E1A3E941B126F40003C1CE4 /* Synchronize-100(1).png */; };
 		2E1A3E971B127025003C1CE4 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1A3E961B127025003C1CE4 /* SettingsViewController.swift */; };
 		2E5AF4A71B1F79AF00E1A658 /* BodyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5AF4A61B1F79AE00E1A658 /* BodyViewController.swift */; };
+		2E5AF4A91B1FA9A600E1A658 /* Dice-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5AF4A81B1FA9A600E1A658 /* Dice-100.png */; };
+		2E5AF4AB1B1FAA9400E1A658 /* body feature database.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2E5AF4AA1B1FAA9400E1A658 /* body feature database.csv */; };
 		2EA071971ABF985B00EADCAF /* WordGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA071961ABF985B00EADCAF /* WordGridViewController.swift */; };
 		2EA071D01ABFB1C300EADCAF /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA071CF1ABFB1C300EADCAF /* CategoryViewController.swift */; };
 		2EB2FA401B10F75200AF63AD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2FA3F1B10F75200AF63AD /* MainViewController.swift */; };
@@ -1346,6 +1348,8 @@
 		2ED408691AD1B0B3002AFFBD /* WordDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED408681AD1B0B3002AFFBD /* WordDatabase.swift */; };
 		2ED4086B1AD1B31E002AFFBD /* WordEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED4086A1AD1B31E002AFFBD /* WordEntry.swift */; };
 		2ED4086D1AD1B32A002AFFBD /* WordCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED4086C1AD1B32A002AFFBD /* WordCategory.swift */; };
+		2ED8D3501B223C6C00193E74 /* back-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 2ED8D34F1B223C6C00193E74 /* back-white.png */; };
+		2ED8D3521B223C7B00193E74 /* back-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 2ED8D3511B223C7B00193E74 /* back-gray.png */; };
 		2EDBB2951B1E9D980004DF50 /* baggy-pants-blue-w-stars-dots.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB14E1B1E9D960004DF50 /* baggy-pants-blue-w-stars-dots.png */; };
 		2EDBB2961B1E9D980004DF50 /* baggy-pants-dark-blue-w-yellow-stars.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB14F1B1E9D960004DF50 /* baggy-pants-dark-blue-w-yellow-stars.png */; };
 		2EDBB2971B1E9D980004DF50 /* baggy-pants-green-with-stars.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB1501B1E9D960004DF50 /* baggy-pants-green-with-stars.png */; };
@@ -1627,13 +1631,13 @@
 		2EDBB3AB1B1E9D980004DF50 /* shorts-cargo-pink.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB2641B1E9D980004DF50 /* shorts-cargo-pink.png */; };
 		2EDBB3AC1B1E9D980004DF50 /* shorts-cargo-purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB2651B1E9D980004DF50 /* shorts-cargo-purple.png */; };
 		2EDBB3AD1B1E9D980004DF50 /* shorts-cargo-yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB2661B1E9D980004DF50 /* shorts-cargo-yellow.png */; };
-		2EDBB3AE1B1E9D980004DF50 /* skin-tones-straight-arm1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB2671B1E9D980004DF50 /* skin-tones-straight-arm1.png */; };
-		2EDBB3AF1B1E9D980004DF50 /* skin-tones-straight-arm2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB2681B1E9D980004DF50 /* skin-tones-straight-arm2.png */; };
-		2EDBB3B01B1E9D980004DF50 /* skin-tones-straight-arm3.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB2691B1E9D980004DF50 /* skin-tones-straight-arm3.png */; };
-		2EDBB3B11B1E9D980004DF50 /* skin-tones-straight-arm4.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB26A1B1E9D980004DF50 /* skin-tones-straight-arm4.png */; };
-		2EDBB3B21B1E9D980004DF50 /* skin-tones-straight-arm5.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB26B1B1E9D980004DF50 /* skin-tones-straight-arm5.png */; };
-		2EDBB3B31B1E9D990004DF50 /* skin-tones-straight-arm6.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB26C1B1E9D980004DF50 /* skin-tones-straight-arm6.png */; };
-		2EDBB3B41B1E9D990004DF50 /* skin-tones-straight-arm7.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB26D1B1E9D980004DF50 /* skin-tones-straight-arm7.png */; };
+		2EDBB3AE1B1E9D980004DF50 /* skin-tones1-straight.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB2671B1E9D980004DF50 /* skin-tones1-straight.png */; };
+		2EDBB3AF1B1E9D980004DF50 /* skin-tones2-straight.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB2681B1E9D980004DF50 /* skin-tones2-straight.png */; };
+		2EDBB3B01B1E9D980004DF50 /* skin-tones3-straight.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB2691B1E9D980004DF50 /* skin-tones3-straight.png */; };
+		2EDBB3B11B1E9D980004DF50 /* skin-tones4-straight.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB26A1B1E9D980004DF50 /* skin-tones4-straight.png */; };
+		2EDBB3B21B1E9D980004DF50 /* skin-tones5-straight.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB26B1B1E9D980004DF50 /* skin-tones5-straight.png */; };
+		2EDBB3B31B1E9D990004DF50 /* skin-tones6-straight.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB26C1B1E9D980004DF50 /* skin-tones6-straight.png */; };
+		2EDBB3B41B1E9D990004DF50 /* skin-tones7-straight.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB26D1B1E9D980004DF50 /* skin-tones7-straight.png */; };
 		2EDBB3B51B1E9D990004DF50 /* skin-tones1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB26E1B1E9D980004DF50 /* skin-tones1.png */; };
 		2EDBB3B61B1E9D990004DF50 /* skin-tones2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB26F1B1E9D980004DF50 /* skin-tones2.png */; };
 		2EDBB3B71B1E9D990004DF50 /* skin-tones3.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBB2701B1E9D980004DF50 /* skin-tones3.png */; };
@@ -1705,6 +1709,8 @@
 		2E1A3E941B126F40003C1CE4 /* Synchronize-100(1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Synchronize-100(1).png"; sourceTree = "<group>"; };
 		2E1A3E961B127025003C1CE4 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2E5AF4A61B1F79AE00E1A658 /* BodyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyViewController.swift; sourceTree = "<group>"; };
+		2E5AF4A81B1FA9A600E1A658 /* Dice-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dice-100.png"; sourceTree = "<group>"; };
+		2E5AF4AA1B1FAA9400E1A658 /* body feature database.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "body feature database.csv"; sourceTree = "<group>"; };
 		2EA071961ABF985B00EADCAF /* WordGridViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordGridViewController.swift; sourceTree = "<group>"; };
 		2EA071CF1ABFB1C300EADCAF /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		2EB2FA3F1B10F75200AF63AD /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -3033,6 +3039,8 @@
 		2ED4086A1AD1B31E002AFFBD /* WordEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordEntry.swift; sourceTree = "<group>"; };
 		2ED4086C1AD1B32A002AFFBD /* WordCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordCategory.swift; sourceTree = "<group>"; };
 		2ED4FFF71AD1B07C002AFFBD /* database.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = database.csv; sourceTree = "<group>"; };
+		2ED8D34F1B223C6C00193E74 /* back-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-white.png"; sourceTree = "<group>"; };
+		2ED8D3511B223C7B00193E74 /* back-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-gray.png"; sourceTree = "<group>"; };
 		2EDBB14E1B1E9D960004DF50 /* baggy-pants-blue-w-stars-dots.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baggy-pants-blue-w-stars-dots.png"; sourceTree = "<group>"; };
 		2EDBB14F1B1E9D960004DF50 /* baggy-pants-dark-blue-w-yellow-stars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baggy-pants-dark-blue-w-yellow-stars.png"; sourceTree = "<group>"; };
 		2EDBB1501B1E9D960004DF50 /* baggy-pants-green-with-stars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baggy-pants-green-with-stars.png"; sourceTree = "<group>"; };
@@ -3314,13 +3322,13 @@
 		2EDBB2641B1E9D980004DF50 /* shorts-cargo-pink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shorts-cargo-pink.png"; sourceTree = "<group>"; };
 		2EDBB2651B1E9D980004DF50 /* shorts-cargo-purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shorts-cargo-purple.png"; sourceTree = "<group>"; };
 		2EDBB2661B1E9D980004DF50 /* shorts-cargo-yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shorts-cargo-yellow.png"; sourceTree = "<group>"; };
-		2EDBB2671B1E9D980004DF50 /* skin-tones-straight-arm1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skin-tones-straight-arm1.png"; sourceTree = "<group>"; };
-		2EDBB2681B1E9D980004DF50 /* skin-tones-straight-arm2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skin-tones-straight-arm2.png"; sourceTree = "<group>"; };
-		2EDBB2691B1E9D980004DF50 /* skin-tones-straight-arm3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skin-tones-straight-arm3.png"; sourceTree = "<group>"; };
-		2EDBB26A1B1E9D980004DF50 /* skin-tones-straight-arm4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skin-tones-straight-arm4.png"; sourceTree = "<group>"; };
-		2EDBB26B1B1E9D980004DF50 /* skin-tones-straight-arm5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skin-tones-straight-arm5.png"; sourceTree = "<group>"; };
-		2EDBB26C1B1E9D980004DF50 /* skin-tones-straight-arm6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skin-tones-straight-arm6.png"; sourceTree = "<group>"; };
-		2EDBB26D1B1E9D980004DF50 /* skin-tones-straight-arm7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skin-tones-straight-arm7.png"; sourceTree = "<group>"; };
+		2EDBB2671B1E9D980004DF50 /* skin-tones1-straight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skin-tones1-straight.png"; sourceTree = "<group>"; };
+		2EDBB2681B1E9D980004DF50 /* skin-tones2-straight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skin-tones2-straight.png"; sourceTree = "<group>"; };
+		2EDBB2691B1E9D980004DF50 /* skin-tones3-straight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skin-tones3-straight.png"; sourceTree = "<group>"; };
+		2EDBB26A1B1E9D980004DF50 /* skin-tones4-straight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skin-tones4-straight.png"; sourceTree = "<group>"; };
+		2EDBB26B1B1E9D980004DF50 /* skin-tones5-straight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skin-tones5-straight.png"; sourceTree = "<group>"; };
+		2EDBB26C1B1E9D980004DF50 /* skin-tones6-straight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skin-tones6-straight.png"; sourceTree = "<group>"; };
+		2EDBB26D1B1E9D980004DF50 /* skin-tones7-straight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skin-tones7-straight.png"; sourceTree = "<group>"; };
 		2EDBB26E1B1E9D980004DF50 /* skin-tones1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skin-tones1.png"; sourceTree = "<group>"; };
 		2EDBB26F1B1E9D980004DF50 /* skin-tones2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skin-tones2.png"; sourceTree = "<group>"; };
 		2EDBB2701B1E9D980004DF50 /* skin-tones3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skin-tones3.png"; sourceTree = "<group>"; };
@@ -3415,12 +3423,12 @@
 				2EA071961ABF985B00EADCAF /* WordGridViewController.swift */,
 				44DB5CC21AFCF23D00E419DF /* QuizViewController.swift */,
 				44891DCE1B062F210000844B /* BankViewController.swift */,
+				2E5AF4A61B1F79AE00E1A658 /* BodyViewController.swift */,
 				2E0547391ABF806800416976 /* Main.storyboard */,
 				2E05473C1ABF806800416976 /* Images.xcassets */,
 				2E05473E1ABF806800416976 /* LaunchScreen.xib */,
 				2E0547341ABF806800416976 /* WordWorld.xcdatamodeld */,
 				2E0547301ABF806800416976 /* Supporting Files */,
-				2E5AF4A61B1F79AE00E1A658 /* BodyViewController.swift */,
 			);
 			path = WordWorld;
 			sourceTree = "<group>";
@@ -3428,10 +3436,13 @@
 		2E0547301ABF806800416976 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2ED8D34F1B223C6C00193E74 /* back-white.png */,
+				2ED8D3511B223C7B00193E74 /* back-gray.png */,
 				2E1A3E921B126C33003C1CE4 /* Settings Filled-100.png */,
 				2E1A3E941B126F40003C1CE4 /* Synchronize-100(1).png */,
 				44B3FC081B062074000DB84A /* Gold-Coin.png */,
 				44B3FC091B062074000DB84A /* Silver-Coin.png */,
+				2E5AF4A81B1FA9A600E1A658 /* Dice-100.png */,
 				2E0547311ABF806800416976 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -4806,6 +4817,7 @@
 		2EDBB14D1B1E9D960004DF50 /* body database */ = {
 			isa = PBXGroup;
 			children = (
+				2E5AF4AA1B1FAA9400E1A658 /* body feature database.csv */,
 				2EDBB14E1B1E9D960004DF50 /* baggy-pants-blue-w-stars-dots.png */,
 				2EDBB14F1B1E9D960004DF50 /* baggy-pants-dark-blue-w-yellow-stars.png */,
 				2EDBB1501B1E9D960004DF50 /* baggy-pants-green-with-stars.png */,
@@ -5087,13 +5099,13 @@
 				2EDBB2641B1E9D980004DF50 /* shorts-cargo-pink.png */,
 				2EDBB2651B1E9D980004DF50 /* shorts-cargo-purple.png */,
 				2EDBB2661B1E9D980004DF50 /* shorts-cargo-yellow.png */,
-				2EDBB2671B1E9D980004DF50 /* skin-tones-straight-arm1.png */,
-				2EDBB2681B1E9D980004DF50 /* skin-tones-straight-arm2.png */,
-				2EDBB2691B1E9D980004DF50 /* skin-tones-straight-arm3.png */,
-				2EDBB26A1B1E9D980004DF50 /* skin-tones-straight-arm4.png */,
-				2EDBB26B1B1E9D980004DF50 /* skin-tones-straight-arm5.png */,
-				2EDBB26C1B1E9D980004DF50 /* skin-tones-straight-arm6.png */,
-				2EDBB26D1B1E9D980004DF50 /* skin-tones-straight-arm7.png */,
+				2EDBB2671B1E9D980004DF50 /* skin-tones1-straight.png */,
+				2EDBB2681B1E9D980004DF50 /* skin-tones2-straight.png */,
+				2EDBB2691B1E9D980004DF50 /* skin-tones3-straight.png */,
+				2EDBB26A1B1E9D980004DF50 /* skin-tones4-straight.png */,
+				2EDBB26B1B1E9D980004DF50 /* skin-tones5-straight.png */,
+				2EDBB26C1B1E9D980004DF50 /* skin-tones6-straight.png */,
+				2EDBB26D1B1E9D980004DF50 /* skin-tones7-straight.png */,
 				2EDBB26E1B1E9D980004DF50 /* skin-tones1.png */,
 				2EDBB26F1B1E9D980004DF50 /* skin-tones2.png */,
 				2EDBB2701B1E9D980004DF50 /* skin-tones3.png */,
@@ -5410,7 +5422,7 @@
 				2EDBB2DE1B1E9D980004DF50 /* clown-hair-purple.png in Resources */,
 				2EB541091B14393400CC93A2 /* Flamingo-Sketch.png in Resources */,
 				2EB542661B14393400CC93A2 /* Umbrella-Sketch.png in Resources */,
-				2EDBB3AF1B1E9D980004DF50 /* skin-tones-straight-arm2.png in Resources */,
+				2EDBB3AF1B1E9D980004DF50 /* skin-tones2-straight.png in Resources */,
 				2EDBB3081B1E9D980004DF50 /* glasses-square-blue.png in Resources */,
 				2EB540D01B14393400CC93A2 /* Cupcakes-Sketch.png in Resources */,
 				2EB53DAC1B14392400CC93A2 /* Tunnel.mp3 in Resources */,
@@ -5462,6 +5474,7 @@
 				2EB53B7B1B14392400CC93A2 /* Brown.mp3 in Resources */,
 				2EB53B801B14392400CC93A2 /* Burnt.mp3 in Resources */,
 				2EB542221B14393400CC93A2 /* Squid-Sketch.png in Resources */,
+				2ED8D3521B223C7B00193E74 /* back-gray.png in Resources */,
 				2EB53C1F1B14392400CC93A2 /* Giggle.mp3 in Resources */,
 				2EB53CD21B14392400CC93A2 /* Old.mp3 in Resources */,
 				2EB53D081B14392400CC93A2 /* Quiet.mp3 in Resources */,
@@ -5583,7 +5596,7 @@
 				2EDBB3A81B1E9D980004DF50 /* shorts-cargo-brown.png in Resources */,
 				2EB541A91B14393400CC93A2 /* Parrot-Sketch.png in Resources */,
 				2EB541F71B14393400CC93A2 /* Shark-Sketch.png in Resources */,
-				2EDBB3B01B1E9D980004DF50 /* skin-tones-straight-arm3.png in Resources */,
+				2EDBB3B01B1E9D980004DF50 /* skin-tones3-straight.png in Resources */,
 				2EB541741B14393400CC93A2 /* Lightbulb-Picture.png in Resources */,
 				2EB53D861B14392400CC93A2 /* Tall.mp3 in Resources */,
 				2EDBB2FC1B1E9D980004DF50 /* glasses-granny-blue.png in Resources */,
@@ -5655,7 +5668,7 @@
 				2EB53C901B14392400CC93A2 /* Lily.mp3 in Resources */,
 				2EB53D271B14392400CC93A2 /* Sang.mp3 in Resources */,
 				2EB5409F1B14393400CC93A2 /* Canoe-Sketch.png in Resources */,
-				2EDBB3B41B1E9D990004DF50 /* skin-tones-straight-arm7.png in Resources */,
+				2EDBB3B41B1E9D990004DF50 /* skin-tones7-straight.png in Resources */,
 				2EDBB29C1B1E9D980004DF50 /* bear-blue.png in Resources */,
 				2EB541371B14393400CC93A2 /* Grizzly-Bear-Sketch.png in Resources */,
 				2EB5418F1B14393400CC93A2 /* Motorcycle-Picture.png in Resources */,
@@ -5741,7 +5754,7 @@
 				2EB53CE11B14392400CC93A2 /* Pease.mp3 in Resources */,
 				2EDBB2A91B1E9D980004DF50 /* belt-orange-with-dots.png in Resources */,
 				2EB540F11B14393400CC93A2 /* Eggs-Sketch.png in Resources */,
-				2EDBB3B11B1E9D980004DF50 /* skin-tones-straight-arm4.png in Resources */,
+				2EDBB3B11B1E9D980004DF50 /* skin-tones4-straight.png in Resources */,
 				2EB53CCB1B14392400CC93A2 /* Nightgown.mp3 in Resources */,
 				2EB53BDA1B14392400CC93A2 /* Dove.mp3 in Resources */,
 				2EB5403C1B14393400CC93A2 /* Alarm-Clock-Sketch.png in Resources */,
@@ -5849,6 +5862,7 @@
 				2EB541BC1B14393400CC93A2 /* Pipe-Sketch.png in Resources */,
 				2EB540BC1B14393400CC93A2 /* Coffee-Maker-Sketch.png in Resources */,
 				2EB53BF61B14392400CC93A2 /* Fairy.mp3 in Resources */,
+				2E5AF4AB1B1FAA9400E1A658 /* body feature database.csv in Resources */,
 				2EDBB37A1B1E9D980004DF50 /* purse-green-with-stars.png in Resources */,
 				2EDBB2B61B1E9D980004DF50 /* blue-shirt.png in Resources */,
 				2EDBB3D31B1E9D990004DF50 /* watch-green.png in Resources */,
@@ -6076,6 +6090,7 @@
 				2EB53D541B14392400CC93A2 /* Spade.mp3 in Resources */,
 				2EB541951B14393400CC93A2 /* Nail-Sketch.png in Resources */,
 				2EB541AC1B14393400CC93A2 /* Peas-Sketch.png in Resources */,
+				2E5AF4A91B1FA9A600E1A658 /* Dice-100.png in Resources */,
 				2EB53C771B14392400CC93A2 /* Kumar.mp3 in Resources */,
 				2EDBB2F01B1E9D980004DF50 /* EYES-cartoon2.png in Resources */,
 				2EB53C7A1B14392400CC93A2 /* Lake.mp3 in Resources */,
@@ -6094,6 +6109,7 @@
 				2EDBB3181B1E9D980004DF50 /* green-shorts.png in Resources */,
 				2EB53D2A1B14392400CC93A2 /* Say.mp3 in Resources */,
 				2EB53D3E1B14392400CC93A2 /* Skates.mp3 in Resources */,
+				2ED8D3501B223C6C00193E74 /* back-white.png in Resources */,
 				2EDBB3771B1E9D980004DF50 /* purse-blue-with-stars.png in Resources */,
 				2E05473D1ABF806800416976 /* Images.xcassets in Resources */,
 				2EB53D961B14392400CC93A2 /* Today.mp3 in Resources */,
@@ -6369,7 +6385,7 @@
 				2EDBB2CA1B1E9D980004DF50 /* bowtie-green-with-dots.png in Resources */,
 				2EB53C6C1B14392400CC93A2 /* Jumped.mp3 in Resources */,
 				2EB541101B14393400CC93A2 /* Flying-Fish-Sketch.png in Resources */,
-				2EDBB3B21B1E9D980004DF50 /* skin-tones-straight-arm5.png in Resources */,
+				2EDBB3B21B1E9D980004DF50 /* skin-tones5-straight.png in Resources */,
 				2EB53B9B1B14392400CC93A2 /* Climb.mp3 in Resources */,
 				2EB53B7D1B14392400CC93A2 /* Bump.mp3 in Resources */,
 				2EB541F11B14393400CC93A2 /* Scratch-Picture.png in Resources */,
@@ -6379,7 +6395,7 @@
 				2EB541531B14393400CC93A2 /* Hog-Sketch.png in Resources */,
 				2EB53C961B14392400CC93A2 /* London.mp3 in Resources */,
 				2EB541241B14393400CC93A2 /* Gingerbread-Man-Sketch.png in Resources */,
-				2EDBB3B31B1E9D990004DF50 /* skin-tones-straight-arm6.png in Resources */,
+				2EDBB3B31B1E9D990004DF50 /* skin-tones6-straight.png in Resources */,
 				2EB5416B1B14393400CC93A2 /* Labrador-Retriever-Sketch.png in Resources */,
 				2EB542671B14393400CC93A2 /* Unicycle-Sketch.png in Resources */,
 				2EB53CBD1B14392400CC93A2 /* Mountain.mp3 in Resources */,
@@ -6686,7 +6702,7 @@
 				2EB5428C1B14393400CC93A2 /* Zipper-Picture.png in Resources */,
 				2EB542061B14393400CC93A2 /* Skipping-Sketch.png in Resources */,
 				2EB541C21B14393400CC93A2 /* Poison-Bottle-Sketch.png in Resources */,
-				2EDBB3AE1B1E9D980004DF50 /* skin-tones-straight-arm1.png in Resources */,
+				2EDBB3AE1B1E9D980004DF50 /* skin-tones1-straight.png in Resources */,
 				2EB53BE81B14392400CC93A2 /* Earmuffs.mp3 in Resources */,
 				2EB53BBB1B14392400CC93A2 /* Customer.mp3 in Resources */,
 				2EB540651B14393400CC93A2 /* Beaver-Sketch.png in Resources */,
