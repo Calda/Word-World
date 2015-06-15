@@ -95,10 +95,6 @@ class BodyViewController : UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "closeClassCollection", name: WWCloseClassCollectionNotification, object: nil)
     }
     
-    override func viewDidAppear(animated: Bool) {
-        categoryDelegate!.fixConstraints(categoryCollection)
-    }
-    
     //pragma MARK: - Managing Body Figure
     
     func setImageInView(className: String, toFeature feature: BodyFeature?) {
@@ -107,7 +103,7 @@ class BodyViewController : UIViewController {
             imageView.image = nil
             
             //set new
-            imageView.image = feature?.getImage()
+            imageView.image = feature?.getImage(cropped: false)
                 
             //ensure correct body stance
             if className == "body" || className == "hold" {
@@ -213,9 +209,9 @@ class BodyFeature {
         self.className = duplicate.className
     }
     
-    func getImage() -> UIImage {
+    func getImage(#cropped: Bool) -> UIImage {
         let bundle = NSBundle.mainBundle()
-        let filePath = bundle.pathForResource(fileName, ofType: "png")
+        let filePath = bundle.pathForResource(fileName + (cropped ? "#cropped" : ""), ofType: "png")
         let data = NSData(contentsOfFile: filePath!)!
         return UIImage(data: data)!
     }
@@ -228,8 +224,6 @@ class CategoryCollectionDelegate : NSObject, UICollectionViewDelegate, UICollect
 
     let classOrder = ["body", "hair", "eyes", "nose", "mouth", "glasses", "shirt", "pants", "socks", "shoes", "bowtie", "belt", "wrist", "hold"]
     let controller: BodyViewController
-    var fixConstraintsOnDisplay: Bool = false
-    var fixedConstraints: [Int] = []
 
     init(controller: BodyViewController) {
         self.controller = controller
@@ -245,15 +239,8 @@ class CategoryCollectionDelegate : NSObject, UICollectionViewDelegate, UICollect
         let all = controller.allFeaturesInClass(className)
         let feature = all[5]
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(feature.type, forIndexPath: indexPath) as! BodyCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("feature", forIndexPath: indexPath) as! BodyCell
         cell.decorate(feature: feature)
-        
-        if fixConstraintsOnDisplay {
-            if !contains(fixedConstraints, index) {
-                cell.fixConstraints()
-                fixedConstraints.append(index)
-            }
-        }
         
         return cell
     }
@@ -271,16 +258,6 @@ class CategoryCollectionDelegate : NSObject, UICollectionViewDelegate, UICollect
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 1.0
-    }
-    
-    func fixConstraints(collectionView: UICollectionView) {
-        fixConstraintsOnDisplay = true
-        let visible = collectionView.visibleCells() as! [BodyCell]
-        for cell in visible {
-            cell.fixConstraints()
-            let index = collectionView.indexPathForCell(cell)!
-            fixedConstraints.append(index.item)
-        }
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -311,15 +288,8 @@ class ClassCollectionDelegate : CategoryCollectionDelegate {
         if let features = features {
             
             let feature = features[indexPath.item]
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(feature.type, forIndexPath: indexPath) as! BodyCell
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("feature", forIndexPath: indexPath) as! BodyCell
             cell.decorate(feature: feature)
-            
-            if fixConstraintsOnDisplay {
-                if !contains(fixedConstraints, indexPath.item) {
-                    cell.fixConstraints()
-                    fixedConstraints.append(indexPath.item)
-                }
-            }
             
             return cell
             
@@ -358,7 +328,7 @@ class BodyCell : UICollectionViewCell {
         
         dispatch_async(WWBodyBackgroundThread, {
         
-            let featureImage = feature.getImage()
+            let featureImage = feature.getImage(cropped: true)
             
             dispatch_async(dispatch_get_main_queue(), {
                 self.image.image = featureImage
@@ -368,21 +338,6 @@ class BodyCell : UICollectionViewCell {
             })
             
         })
-    }
-    
-    func fixConstraints() {
-        let subview = self.subviews[0] as! UIView
-        for any in subview.constraints() {
-            if let constraint = any as? NSLayoutConstraint {
-                
-                let constant100 = constraint.constant
-                let proportion = (self.frame.width - 10.0) / 100
-                let newConstant = constant100 * proportion
-                constraint.constant = newConstant
-                
-            }
-        }
-        self.layoutIfNeeded()
     }
     
     override func preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes! {
