@@ -39,10 +39,10 @@ class WordGridViewController : UIViewController, UICollectionViewDataSource, UIC
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let item = indexPath.item
         if item == 0 { //back button is first
-            return collectionView.dequeueReusableCellWithReuseIdentifier("back", forIndexPath: indexPath) as! UICollectionViewCell
+            return collectionView.dequeueReusableCellWithReuseIdentifier("back", forIndexPath: indexPath) as UICollectionViewCell
         }
         if item == wordImages.count + 1 { // is the last cell -- must be the quiz button
-            return collectionView.dequeueReusableCellWithReuseIdentifier("quiz", forIndexPath: indexPath) as! UICollectionViewCell
+            return collectionView.dequeueReusableCellWithReuseIdentifier("quiz", forIndexPath: indexPath) as UICollectionViewCell
         }
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("word", forIndexPath: indexPath) as! WordCell
         cell.loadImage(item - 1, from: wordImages)

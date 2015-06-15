@@ -30,14 +30,14 @@ class WordModeViewController: UIViewController {
     
     func presentWords() {
         getConstraint().constant = -self.view.frame.height
-        UIView.animateWithDuration(1.0, delay: 0.25, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: nil, animations: {
+        UIView.animateWithDuration(1.0, delay: 0.25, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: [], animations: {
                 self.view.layoutIfNeeded()
             }, completion: nil)
     }
     
     func presentCategories() {
         getConstraint().constant = 0
-        UIView.animateWithDuration(0.75, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: nil, animations: {
+        UIView.animateWithDuration(0.75, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: [], animations: {
                 self.view.layoutIfNeeded()
             }, completion: nil)
     }
@@ -49,7 +49,7 @@ class WordModeViewController: UIViewController {
     func getConstraint() -> NSLayoutConstraint {
         if wordsConstraint != nil { return wordsConstraint }
         
-        for constraint in self.view.constraints() as! [NSLayoutConstraint] {
+        for constraint in self.view.constraints as [NSLayoutConstraint] {
             if constraint.firstAttribute == NSLayoutAttribute.Top {
                 if let first = constraint.firstItem as? UIView {
                     if first == wordsContainer {

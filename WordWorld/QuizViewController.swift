@@ -50,7 +50,6 @@ class QuizViewController : UIViewController {
         
         func getQuizWordHeight() -> CGFloat {
             let screen = Int(self.view.frame.width)
-            var constant : CGFloat
             
             switch(screen) {
                 case(480): return 85.0 //4S
@@ -74,12 +73,12 @@ class QuizViewController : UIViewController {
     
     func quizWithCategory(category: WordCategory) {
         self.categories = [category]
-        setUpQuiz(usingAudio: false)
+        setUpQuiz(false)
     }
     
     func quizWithDatabase() {
         self.categories = DATABASE.categories.values.array
-        setUpQuiz(usingAudio: false)
+        setUpQuiz(false)
     }
     
     func setUpQuiz(usingAudio: Bool = true) {
@@ -106,7 +105,7 @@ class QuizViewController : UIViewController {
             }
         }
         
-        poseQuestion(usingAudio: usingAudio)
+        poseQuestion(usingAudio)
         
     }
     
@@ -118,7 +117,7 @@ class QuizViewController : UIViewController {
         
         if allWords.count == 0 {
             //used all words, restart
-            setUpQuiz(usingAudio: usingAudio)
+            setUpQuiz(usingAudio)
             return
         }
         quizAnswer = randomWord(&allWords)
@@ -250,11 +249,11 @@ class QuizViewController : UIViewController {
             let start = correct.frame.origin
             let temp = CGPointMake(start.x, self.view.frame.height * 1.2)
             correct.frame.origin = temp
-            UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: nil, animations: {
+            UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: [], animations: {
                 self.correct.frame.origin = start
             }, completion: nil)
             
-            delay(0.5, {
+            delay(0.5, closure: {
                 self.poseQuestion()
                 self.view.userInteractionEnabled = true
             })
@@ -283,11 +282,11 @@ class QuizViewController : UIViewController {
                     self.coin.alpha = 1.0
                 })
                 
-                UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 5.0, options: nil, animations: {
+                UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 5.0, options: [], animations: {
                         self.coin.center = animateUpTo
                     }, completion: nil)
                 
-                UIView.animateWithDuration(0.3, delay: 0.3, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: nil, animations: {
+                UIView.animateWithDuration(0.3, delay: 0.3, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
                         self.coin.center = animateDownTo
                         self.coin.alpha = 0.0
                     }, completion: nil)
@@ -308,7 +307,7 @@ class QuizViewController : UIViewController {
             let start = incorrect.frame.origin
             let temp = CGPointMake(start.x, self.view.frame.height * 1.2)
             incorrect.frame.origin = temp
-            UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: nil, animations: {
+            UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: [], animations: {
                 self.incorrect.frame.origin = start
             }, completion: nil)
             
@@ -328,14 +327,13 @@ class QuizViewController : UIViewController {
             //self.imageViewMap[i].image = self.imageView2Map[i].image
             
             let nextQuestionOrigin = imageViewMap[i].frame.origin
-            let previousQuestionOrigin = CGPointMake(-imageViewMap[3 - i].frame.origin.x, 0)
             let temporaryImageOriginalOrigin = imageView2Map[i].frame.origin
             
-            UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: nil, animations: {
+            UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
                 self.imageViewMap[i].alpha = 0.0
             }, completion: nil)
             
-            UIView.animateWithDuration(0.5, delay: 0.1 * Double(i), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: nil, animations: {
+            UIView.animateWithDuration(0.5, delay: 0.1 * Double(i), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
                 //self.imageViewMap[i].frame.origin = previousQuestionOrigin
                 self.imageView2Map[i].frame.origin = nextQuestionOrigin
             }, completion: { success in
@@ -353,7 +351,7 @@ class QuizViewController : UIViewController {
         let animations : [CGFloat] = [20.0, -20.0, 10.0, -10.0, 3.0, -3.0, 0]
         for i in 0 ..< animations.count {
             let frameOrigin = CGPointMake(quizWord.frame.origin.x + animations[i], quizWord.frame.origin.y)
-            UIView.animateWithDuration(0.1, delay: NSTimeInterval(0.1 * Double(i)), options: nil, animations: {
+            UIView.animateWithDuration(0.1, delay: NSTimeInterval(0.1 * Double(i)), options: [], animations: {
                 self.quizWord.frame.origin = frameOrigin
                 }, completion: nil)
         }
@@ -363,7 +361,7 @@ class QuizViewController : UIViewController {
         let animations : [CGFloat] = [10.0, -10.0, 5.0, -5.0, 1.5, -1.5, 0]
         for i in 0 ..< animations.count {
             let frameOrigin = CGPointMake(image.frame.origin.x + animations[i], image.frame.origin.y)
-            UIView.animateWithDuration(0.1, delay: NSTimeInterval(0.1 * Double(i)), options: nil, animations: {
+            UIView.animateWithDuration(0.1, delay: NSTimeInterval(0.1 * Double(i)), options: [], animations: {
                 image.frame.origin = frameOrigin
                 }, completion: nil)
         }
@@ -372,12 +370,13 @@ class QuizViewController : UIViewController {
     func playCorrect() {
         if SoundType.Coin.allow() {
             let audioSession = AVAudioSession.sharedInstance()
-            audioSession.setActive(true, error: nil)
-            audioSession.setCategory(AVAudioSessionCategoryPlayback, error: nil)
+            try! audioSession.setActive(true)
+            try! audioSession.setCategory(AVAudioSessionCategoryPlayback)
+
             
             let path = NSBundle.mainBundle().pathForResource("correct", ofType: "mp3")!
             let soundData = NSData(contentsOfFile: path)
-            let player = AVAudioPlayer(data: soundData, error: nil)
+            let player = try! AVAudioPlayer(data: soundData!)
             player.play()
             dispatch_async(audioQueue, {
                 while(player.playing) { }
@@ -400,7 +399,7 @@ class QuizViewController : UIViewController {
         settingsOpen = true
         settingsConstraint.constant = -settingsHeight
         
-        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: (settingsHeight == self.view.frame.height ? 1.0 : 0.7), initialSpringVelocity: 0.0, options: nil, animations: {
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: (settingsHeight == self.view.frame.height ? 1.0 : 0.7), initialSpringVelocity: 0.0, options: [], animations: {
             self.view.layoutIfNeeded()
             self.darkener.alpha = 0.4
             }, completion: nil)
@@ -410,7 +409,7 @@ class QuizViewController : UIViewController {
         settingsOpen = false
         settingsConstraint.constant = 0.0
         
-        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: nil, animations: {
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
             self.view.layoutIfNeeded()
             self.darkener.alpha = 0.0
             }, completion: nil)

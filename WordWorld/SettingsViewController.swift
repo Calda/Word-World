@@ -39,12 +39,12 @@ class SettingsViewController : UIViewController, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if indexPath.item == settings.count { //last item it reset button
-            return tableView.dequeueReusableCellWithIdentifier("reset") as! UITableViewCell
+            return tableView.dequeueReusableCellWithIdentifier("reset")!
         }
         
         let settingCell = tableView.dequeueReusableCellWithIdentifier("switch") as! SettingsSwitchCell
         
-        let (title, path, defaultSetting) = settings[indexPath.item]
+        let (title, path, _) = settings[indexPath.item]
         settingCell.settingTitle.text = title
         settingCell.settingPath = path
         

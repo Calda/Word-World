@@ -54,7 +54,7 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
         let item = indexPath.item
         
         if item == 0 { //back card
-            return collectionView.dequeueReusableCellWithReuseIdentifier("back", forIndexPath: indexPath) as! UICollectionViewCell
+            return collectionView.dequeueReusableCellWithReuseIdentifier("back", forIndexPath: indexPath) as UICollectionViewCell
         }
         else {
             let card = collectionView.dequeueReusableCellWithReuseIdentifier("categoryCard", forIndexPath: indexPath) as! CategoryCell
@@ -73,7 +73,7 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
         }
         
         else {
-            for cell in collectionView.visibleCells() as! [UICollectionViewCell] {
+            for cell in collectionView.visibleCells() as [UICollectionViewCell] {
                 let index = collectionView.indexPathForCell(cell)!.item
                 let delta = Double(abs(index - selected!))
                 animateCell(cell, delay: delta * 0.05, out: true)
@@ -95,7 +95,7 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
             cell.frame.origin = CGPointMake(cell.frame.origin.x, startY)
         }
         
-        UIView.animateWithDuration(1.0, delay: delay, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: nil, animations: {
+        UIView.animateWithDuration(1.0, delay: delay, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: [], animations: {
                 cell.frame.origin = newOrigin
         }, completion: nil)
     }
@@ -103,7 +103,7 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
     func represent() {
         self.view.userInteractionEnabled = true
         if let selected = selected {
-            for cell in collectionView.visibleCells() as! [UICollectionViewCell] {
+            for cell in collectionView.visibleCells() as [UICollectionViewCell] {
                 let index = collectionView.indexPathForCell(cell)!.item
                 let delta = Double(abs(index - selected))
                 animateCell(cell, delay: delta * 0.05, out: false)

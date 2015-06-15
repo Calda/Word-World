@@ -36,7 +36,7 @@ class BankViewController : UIViewController {
         coinView.layer.masksToBounds = true
         let data = NSUserDefaults.standardUserDefaults()
         let gold = data.integerForKey("gold")
-        println(gold)
+        print(gold)
         let silver = data.integerForKey("silver")
         
         updateReadout()
@@ -81,13 +81,13 @@ class BankViewController : UIViewController {
     }
     
     func updateReadout() {
-        let text = NSMutableAttributedString(attributedString: coinCount.attributedText)
+        let text = NSMutableAttributedString(attributedString: coinCount.attributedText!)
         
-        var current = text.string
-        var splits = split(current){ $0 == " " }
+        let current = text.string
+        var splits = split(current.characters){ $0 == " " }.map { String($0) }
         
-        text.replaceCharactersInRange(NSMakeRange(count(splits[0]) + 3, count(splits[2])), withString: "\(silverUp)")
-        text.replaceCharactersInRange(NSMakeRange(0, count(splits[0])), withString: "\(goldUp)")
+        text.replaceCharactersInRange(NSMakeRange(splits[0].characters.count + 3, splits[2].characters.count), withString: "\(silverUp)")
+        text.replaceCharactersInRange(NSMakeRange(0, splits[0].characters.count), withString: "\(goldUp)")
         coinCount.attributedText = text
     }
     
@@ -117,10 +117,8 @@ class BankViewController : UIViewController {
     }
     
     override func viewDidDisappear(animated: Bool) {
-        for sub in coinView.subviews {
-            if let subview = sub as? UIView {
-                subview.removeFromSuperview()
-            }
+        for subview in coinView.subviews {
+            subview.removeFromSuperview()
         }
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class WordCategory : Printable {
+class WordCategory : CustomStringConvertible {
     
     let name: String
     let database: WordDatabase
@@ -37,7 +37,7 @@ class WordCategory : Printable {
 }
 
 
-class WordSubcategory : Printable {
+class WordSubcategory : CustomStringConvertible {
     
     let name: String
     let category: WordCategory

@@ -65,12 +65,12 @@ class BodyViewController : UIViewController {
         
         //load data from CSV
         let csvPath = NSBundle.mainBundle().pathForResource("body feature database", ofType: "csv")!
-        let csvString = String(contentsOfFile: csvPath, encoding: NSUTF8StringEncoding, error: nil)!
-        let csv = split(csvString){ $0 == "\n" }
+        let csvString = try! String(contentsOfFile: csvPath, encoding: NSUTF8StringEncoding)
+        let csv = split(csvString.characters){ $0 == "\n" }.map { String($0) }
         
         //process csv
         for line in csv {
-            let cells = split(line){ $0 == "," }
+            let cells = split(line.characters){ $0 == "," }.map { String($0) }
             if cells.count != 3 {
                 continue
             }
@@ -143,7 +143,7 @@ class BodyViewController : UIViewController {
             //get new image
             let classFeatures = allFeaturesInClass(className)
             if classFeatures.count == 0 { continue }
-            let randomChoice = Int(arc4random_uniform(UInt32(count(classFeatures) - 1)))
+            let randomChoice = Int(arc4random_uniform(UInt32(classFeatures.count - 1)))
             setImageInView(className, toFeature: classFeatures[randomChoice])
             
         }
@@ -170,7 +170,7 @@ class BodyViewController : UIViewController {
         classConstraint.constant = 0
         classCollection.alpha = 0.0
         
-        UIView.animateWithDuration(0.7, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: nil, animations: {
+        UIView.animateWithDuration(0.7, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
             self.classCollection.alpha = 1.0
             self.view.layoutIfNeeded()
         }, completion: nil)
@@ -179,7 +179,7 @@ class BodyViewController : UIViewController {
     func closeClassCollection() {
         classConstraint.constant = -(classCollection.frame.width + 100)
         
-        UIView.animateWithDuration(0.7, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: nil, animations: {
+        UIView.animateWithDuration(0.7, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
             self.classCollection.alpha = 0.0
             self.view.layoutIfNeeded()
         }, completion: nil)
@@ -197,7 +197,7 @@ class BodyFeature {
     
     init(csvEntry: String) {
         //format: fileName, type, class
-        let cells = split(csvEntry){ $0 == "," }
+        let cells = split(csvEntry.characters){ $0 == "," }.map { String($0) }
         fileName = cells[0]
         type = cells[1]
         className = cells[2]
@@ -209,7 +209,7 @@ class BodyFeature {
         self.className = duplicate.className
     }
     
-    func getImage(#cropped: Bool) -> UIImage {
+    func getImage(cropped cropped: Bool) -> UIImage {
         let bundle = NSBundle.mainBundle()
         let filePath = bundle.pathForResource(fileName + (cropped ? "#cropped" : ""), ofType: "png")
         let data = NSData(contentsOfFile: filePath!)!
@@ -294,7 +294,7 @@ class ClassCollectionDelegate : CategoryCollectionDelegate {
             return cell
             
         }
-        return collectionView.dequeueReusableCellWithReuseIdentifier("skin", forIndexPath: indexPath) as! UICollectionViewCell
+        return collectionView.dequeueReusableCellWithReuseIdentifier("skin", forIndexPath: indexPath) as UICollectionViewCell
     }
 
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
@@ -319,7 +319,7 @@ class BodyCell : UICollectionViewCell {
     @IBOutlet weak var image: UIImageView!
     var featureName: String = ""
     
-    func decorate(#feature: BodyFeature) {
+    func decorate(feature feature: BodyFeature) {
         image.image = nil //deinit previous
         
         featureName = feature.fileName
@@ -339,10 +339,7 @@ class BodyCell : UICollectionViewCell {
             
         })
     }
-    
-    override func preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes! {
-        return layoutAttributes
-    }
+
 }
 
 class TitleCell : UICollectionReusableView {

@@ -15,14 +15,14 @@ class WordDatabase {
     var categories: [String : WordCategory] = [:]
     
     init() {
-        println("Initializing Database")
+        print("Initializing Database")
         let csvPath = NSBundle.mainBundle().pathForResource("database", ofType: "csv")!
-        let csvString = String(contentsOfFile: csvPath, encoding: NSUTF8StringEncoding, error: nil)!
-        let csv = split(csvString){ $0 == "\n" }
+        let csvString = try! String(contentsOfFile: csvPath, encoding: NSUTF8StringEncoding)
+        let csv = split(csvString.characters){ $0 == "\n" }.map { String($0) }
         
         //process csv
         for line in csv {
-            let cells = split(line){ $0 == "," }
+            let cells = split(line.characters){ $0 == "," }.map { String($0) }
             if cells.count != 5 {
                 continue
             }

@@ -60,19 +60,19 @@ class MainViewController : UIViewController {
         roundedBlurred.addSubview(blurButton)
         
         //animate blur button
-        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: nil, animations: {
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: [], animations: {
                 blurButton.frame = fullFrame
         }, completion: nil)
         
         //animate real button
-        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: nil, animations: {
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: [], animations: {
                 newButton.frame = fullFrame
             }, completion: { success in
                 
                 delay(0.25) {
                     //present selection
                     let view = sender.restorationIdentifier!
-                    let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(view) as! UIViewController
+                    let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(view) as UIViewController
                     self.presentViewController(controller, animated: true, completion: {
                         
                         //reset self
@@ -97,7 +97,7 @@ class MainViewController : UIViewController {
     @IBAction func showSettings(sender: AnyObject) {
         settingsConstrint.constant = -settingsSize
         
-        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: (settingsSize == self.view.frame.height ? 1.0 : 0.7), initialSpringVelocity: 0.0, options: nil, animations: {
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: (settingsSize == self.view.frame.height ? 1.0 : 0.7), initialSpringVelocity: 0.0, options: [], animations: {
                 self.view.layoutIfNeeded()
                 self.darkener.alpha = 0.4
         }, completion: nil)
@@ -106,7 +106,7 @@ class MainViewController : UIViewController {
     func closeSettings() {
         settingsConstrint.constant = 0.0
         
-        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: nil, animations: {
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
                 self.view.layoutIfNeeded()
                 self.darkener.alpha = 0.0
         }, completion: nil)
