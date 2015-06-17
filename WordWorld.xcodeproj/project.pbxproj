@@ -337,6 +337,8 @@
 		2E1A3E931B126C33003C1CE4 /* Settings Filled-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E1A3E921B126C33003C1CE4 /* Settings Filled-100.png */; };
 		2E1A3E951B126F40003C1CE4 /* Synchronize-100(1).png in Resources */ = {isa = PBXBuildFile; fileRef = 2E1A3E941B126F40003C1CE4 /* Synchronize-100(1).png */; };
 		2E1A3E971B127025003C1CE4 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1A3E961B127025003C1CE4 /* SettingsViewController.swift */; };
+		2E5829B41B3121C600BC10E0 /* Cancel 2 Filled-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5829B31B3121C600BC10E0 /* Cancel 2 Filled-100.png */; };
+		2E5829B61B3129A200BC10E0 /* Download-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5829B51B3129A200BC10E0 /* Download-100.png */; };
 		2E5AF4A71B1F79AF00E1A658 /* BodyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5AF4A61B1F79AE00E1A658 /* BodyViewController.swift */; };
 		2E5AF4A91B1FA9A600E1A658 /* Dice-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5AF4A81B1FA9A600E1A658 /* Dice-100.png */; };
 		2E5AF4AB1B1FAA9400E1A658 /* body feature database.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2E5AF4AA1B1FAA9400E1A658 /* body feature database.csv */; };
@@ -2348,6 +2350,8 @@
 		2E1A3E921B126C33003C1CE4 /* Settings Filled-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings Filled-100.png"; sourceTree = "<group>"; };
 		2E1A3E941B126F40003C1CE4 /* Synchronize-100(1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Synchronize-100(1).png"; sourceTree = "<group>"; };
 		2E1A3E961B127025003C1CE4 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		2E5829B31B3121C600BC10E0 /* Cancel 2 Filled-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cancel 2 Filled-100.png"; sourceTree = "<group>"; };
+		2E5829B51B3129A200BC10E0 /* Download-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Download-100.png"; sourceTree = "<group>"; };
 		2E5AF4A61B1F79AE00E1A658 /* BodyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyViewController.swift; sourceTree = "<group>"; };
 		2E5AF4A81B1FA9A600E1A658 /* Dice-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dice-100.png"; sourceTree = "<group>"; };
 		2E5AF4AA1B1FAA9400E1A658 /* body feature database.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "body feature database.csv"; sourceTree = "<group>"; };
@@ -4083,6 +4087,8 @@
 				44B3FC081B062074000DB84A /* Gold-Coin.png */,
 				44B3FC091B062074000DB84A /* Silver-Coin.png */,
 				2E5AF4A81B1FA9A600E1A658 /* Dice-100.png */,
+				2E5829B31B3121C600BC10E0 /* Cancel 2 Filled-100.png */,
+				2E5829B51B3129A200BC10E0 /* Download-100.png */,
 				2E0547311ABF806800416976 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -7595,6 +7601,7 @@
 				2EB540911B14393400CC93A2 /* Burn-Picture.png in Resources */,
 				2EB540931B14393400CC93A2 /* Bushes-Sketch.png in Resources */,
 				2EB53D8F1B14392400CC93A2 /* Thumb.mp3 in Resources */,
+				2E5829B61B3129A200BC10E0 /* Download-100.png in Resources */,
 				2EB542851B14393400CC93A2 /* Wire-Cutters-Sketch.png in Resources */,
 				2EB53D1D1B14392400CC93A2 /* Run.mp3 in Resources */,
 				2E15084E1B2EAA0A0086E2D1 /* mouth-yawning#cropped.png in Resources */,
@@ -7630,6 +7637,7 @@
 				2EDBB3911B1E9D980004DF50 /* shirt-blue-and-orange-stripe.png in Resources */,
 				2EB5420D1B14393400CC93A2 /* Slide-Sketch.png in Resources */,
 				2E1507A21B2EAA0A0086E2D1 /* bear-brown#cropped.png in Resources */,
+				2E5829B41B3121C600BC10E0 /* Cancel 2 Filled-100.png in Resources */,
 				2EDBB34B1B1E9D980004DF50 /* MOUTH-frowning.png in Resources */,
 				2EDBB3A21B1E9D980004DF50 /* shirt-yellow.png in Resources */,
 				2EB53B4B1B14392400CC93A2 /* Barn.mp3 in Resources */,

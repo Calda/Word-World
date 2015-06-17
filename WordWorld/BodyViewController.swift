@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Photos
 
 let WWCloseClassCollectionNotification = "com.hearatale.wordworld.closeclass"
 let WWBodyBackgroundThread = dispatch_queue_create("WWBodyBackground", nil)
@@ -30,8 +31,9 @@ class BodyViewController : UIViewController {
     @IBOutlet weak var wrist: UIImageView!
     @IBOutlet weak var hold: UIImageView!
     
-    var imageMap: [String : UIImageView]?
+    var imageMap: [String : UIImageView]!
     var features: [BodyFeature] = []
+    let classOrder = ["bodyShape", "body", "hair", "eyes", "nose", "mouth", "glasses", "shirt", "pants", "socks", "shoes", "bowtie", "belt", "wrist", "hold"]
     
     var currentSkinToneFeature: BodyFeature?
     let outlineHolding = "Body-Feature-body2"
@@ -43,6 +45,7 @@ class BodyViewController : UIViewController {
     @IBOutlet weak var classCollection: UICollectionView!
     @IBOutlet weak var classConstraint: NSLayoutConstraint!
     var classDelegate: ClassCollectionDelegate?
+    @IBOutlet weak var classTitle: UILabel!
     
     override func viewWillAppear(animated: Bool) {
         imageMap = [
@@ -90,7 +93,7 @@ class BodyViewController : UIViewController {
         classDelegate = ClassCollectionDelegate(controller: self)
         classCollection.delegate = classDelegate
         classCollection.dataSource = classDelegate
-        classConstraint.constant = -(classCollection.frame.width + 100)
+        classConstraint.constant = (classCollection.frame.width + 100)
         self.view.layoutIfNeeded()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "closeClassCollection", name: WWCloseClassCollectionNotification, object: nil)
     }
@@ -162,28 +165,144 @@ class BodyViewController : UIViewController {
     }
     
     
+    func createImageOfBody() -> UIImage {
+        let fullRect = CGRect(origin: CGPointZero, size: CGSizeMake(1152, 1728))
+        UIGraphicsBeginImageContext(fullRect.size)
+        
+        for className in classOrder {
+            guard let image = imageMap[className]?.image else { continue }
+            image.drawInRect(fullRect)
+        }
+        
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+    
+    //pragma MARK: - Managing Image Permissions and such
+    
+    var auth: PHAuthorizationStatus!
+    
+    @IBAction func saveBodyImage() {
+        
+        if auth == nil {
+            auth = PHPhotoLibrary.authorizationStatus()
+        }
+        
+        //request access
+        if auth == PHAuthorizationStatus.NotDetermined {
+            PHPhotoLibrary.requestAuthorization({ newStatus in
+                self.auth = newStatus
+                delay(1.0) {
+                   self.saveBodyImage()
+                }
+            })
+        }
+        
+        //no access granted
+        if auth == PHAuthorizationStatus.Denied {
+            //create an alert to send the user to settings
+            let alert = UIAlertController(title: "Error", message: "You denied access to the camera roll.", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            let okAction = UIAlertAction(title: "Nevermind", style: UIAlertActionStyle.Destructive, handler: nil)
+            let fixAction = UIAlertAction(title: "Fix it!", style: .Default, handler: { action in
+
+                UIApplication.sharedApplication().openURL(NSURL(string:UIApplicationOpenSettingsURLString)!)
+                //hopefully they granted permission. otherwise we're gonna have problems.
+                self.auth = PHAuthorizationStatus.Authorized
+                
+            })
+            
+            alert.addAction(okAction)
+            alert.addAction(fixAction)
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+        
+        if auth == PHAuthorizationStatus.Authorized {
+            let image = createImageOfBody()
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+
+            let alert = UIAlertController(title: "Saved to Camera Roll", message: nil, preferredStyle: .Alert)
+            
+            //create the accessory image view
+            let imageView = UIImageView(frame: CGRectMake(0, 0, 300, 100))
+            imageView.image = image
+            imageView.contentMode = .ScaleAspectFit
+            imageView.alpha = 0.0
+            
+            let content = UIViewController()
+            content.view.addSubview(imageView)
+            alert.setValue(content, forKey: "contentViewController")
+            
+            //add "ok"
+            let okAction = UIAlertAction(title: "ok", style: .Default, handler: nil)
+            alert.addAction(okAction)
+
+            self.presentViewController(alert, animated: true, completion: { success in
+                let accessoryFrame = content.view.frame
+                imageView.frame = CGRectMake(-1.0, -5.0, accessoryFrame.width, accessoryFrame.height * 2.0)
+                UIView.animateWithDuration(0.3, animations: {
+                    imageView.alpha = 1.0
+                })
+            })
+
+        }
+        
+    }
+    
+    
+    
     //pragma MARK: - Switching Between Collection Views
     
     func showClassCollection(className: String) {
+        
+        let classTitleMap = [
+            "bodyShape" : "Body Shape",
+            "body" : "Skin Tone",
+            "socks" : "Socks",
+            "shoes" : "Shoes",
+            "pants" : "Pants",
+            "belt" : "Belts",
+            "shirt" : "Shirts",
+            "bowtie" : "Bowties",
+            "mouth" : "Mouths",
+            "nose" : "Noses",
+            "eyes" : "Eyes",
+            "hair" : "Hair Styles",
+            "glasses" : "Glasses",
+            "wrist" : "Small Accessories",
+            "hold" : "Big Accessories"
+        ]
+        
         classDelegate!.setClass(className)
         classCollection.reloadData()
         classConstraint.constant = 0
-        classCollection.alpha = 0.0
+        classTitle.text = classTitleMap[className]
+        classCollection.setContentOffset(CGPointZero, animated: false)
         
-        UIView.animateWithDuration(0.7, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
-            self.classCollection.alpha = 1.0
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+            self.categoryCollection.transform = CGAffineTransformMakeScale(0.75, 0.75)
+            self.categoryCollection.alpha = 0.0
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
     
-    func closeClassCollection() {
-        classConstraint.constant = -(classCollection.frame.width + 100)
+    @IBAction func closeClassCollection() {
+        classConstraint.constant = (classCollection.frame.width + 100)
         
-        UIView.animateWithDuration(0.7, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
-            self.classCollection.alpha = 0.0
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
             self.view.layoutIfNeeded()
+            self.categoryCollection.transform = CGAffineTransformMakeScale(1.0, 1.0)
+            self.categoryCollection.alpha = 1.0
         }, completion: nil)
     }
+    
+    @IBAction func panOutClassCollection(sender: UIPanGestureRecognizer) {
+        let velocity = sender.velocityInView(self.view)
+        if velocity.x > 1000 {
+            closeClassCollection()
+        }
+    }
+    
     
 }
 
@@ -279,7 +398,7 @@ class ClassCollectionDelegate : CategoryCollectionDelegate {
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let features = features {
-            return features.count
+            return features.count + 1
         }
         return 0
     }
@@ -287,7 +406,12 @@ class ClassCollectionDelegate : CategoryCollectionDelegate {
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         if let features = features {
             
-            let feature = features[indexPath.item]
+            //clear button must come first
+            if indexPath.item == 0 {
+                return collectionView.dequeueReusableCellWithReuseIdentifier("clear", forIndexPath: indexPath)
+            }
+            
+            let feature = features[indexPath.item - 1]
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("feature", forIndexPath: indexPath) as! BodyCell
             cell.decorate(feature: feature)
             
@@ -296,17 +420,15 @@ class ClassCollectionDelegate : CategoryCollectionDelegate {
         }
         return collectionView.dequeueReusableCellWithReuseIdentifier("skin", forIndexPath: indexPath) as UICollectionViewCell
     }
-
-    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "title", forIndexPath: indexPath) as! TitleCell
-        if let className = className {
-            cell.title.text = cell.classTitleMap[className]
-        }
-        return cell
-    }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let feature = features![indexPath.item]
+        
+        if indexPath.item == 0 {
+            controller.setImageInView(className!, toFeature: nil)
+            return
+        }
+        
+        let feature = features![indexPath.item - 1]
         controller.setImageInView(className!, toFeature: feature)
     }
     
@@ -340,32 +462,4 @@ class BodyCell : UICollectionViewCell {
         })
     }
 
-}
-
-class TitleCell : UICollectionReusableView {
-    
-    @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var backButton: UIButton!
-    
-    let classTitleMap = [
-        "bodyShape" : "Body Shape",
-        "body" : "Skin Tone",
-        "socks" : "Socks",
-        "shoes" : "Shoes",
-        "pants" : "Pants",
-        "belt" : "Belts",
-        "shirt" : "Shirts",
-        "bowtie" : "Bowties",
-        "mouth" : "Mouths",
-        "nose" : "Noses",
-        "eyes" : "Eyes",
-        "hair" : "Hair Styles",
-        "glasses" : "Glasses",
-        "wrist" : "Small Accessories",
-        "hold" : "Big Accessories"
-    ]
-    
-    @IBAction func backPressed(sender: AnyObject) {
-        NSNotificationCenter.defaultCenter().postNotificationName(WWCloseClassCollectionNotification, object: nil)
-    }
 }
