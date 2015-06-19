@@ -32,7 +32,8 @@ class BodyViewController : UIViewController {
     @IBOutlet weak var hold: UIImageView!
     
     var imageMap: [String : UIImageView]!
-    var features: [BodyFeature] = []
+    var outfitMap: [NSString : NSString] = ["bodyShape" : "Body-Feature-body.png"]
+    var allFeatures: [BodyFeature] = []
     let classOrder = ["bodyShape", "body", "hair", "eyes", "nose", "mouth", "glasses", "shirt", "pants", "socks", "shoes", "bowtie", "belt", "wrist", "hold"]
     
     var currentSkinToneFeature: BodyFeature?
@@ -46,6 +47,28 @@ class BodyViewController : UIViewController {
     @IBOutlet weak var classConstraint: NSLayoutConstraint!
     var classDelegate: ClassCollectionDelegate?
     @IBOutlet weak var classTitle: UILabel!
+    
+    //pragma MARK: - Set Up for customizing user choice of friend
+    
+    @IBOutlet weak var classHeaderBackground: UIView!
+    @IBOutlet weak var colorBack: UIButton!
+    @IBOutlet weak var colorDice: UIButton!
+    @IBOutlet weak var colorDownload: UIButton!
+    @IBOutlet weak var colorReset: UIImageView!
+    
+    var themedColor: UIColor!
+    var currentFriend: String!
+    
+    func prepareEditor(color color: UIColor, friend: String) {
+        self.themedColor = color
+        self.currentFriend = friend
+        
+        //load existing outfit
+        let userData = NSUserDefaults.standardUserDefaults()
+        if let savedOutfit = userData.valueForKey(currentFriend) as? [NSString : NSString] {
+            outfitMap = savedOutfit
+        }
+    }
     
     override func viewWillAppear(animated: Bool) {
         imageMap = [
@@ -79,7 +102,7 @@ class BodyViewController : UIViewController {
             }
             
             let feature = BodyFeature(csvEntry: line)
-            features.append(feature)
+            allFeatures.append(feature)
         }
         
         //set up collection views
@@ -96,7 +119,93 @@ class BodyViewController : UIViewController {
         classConstraint.constant = (classCollection.frame.width + 100)
         self.view.layoutIfNeeded()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "closeClassCollection", name: WWCloseClassCollectionNotification, object: nil)
+        
+        //tint with theme color
+        classHeaderBackground.backgroundColor = themedColor
+        
+        //tint buttons
+        let buttonsToTint = [colorBack, colorDice, colorDownload]
+        for button in buttonsToTint {
+            let tintable = button.imageView!.image!.imageWithRenderingMode(.AlwaysTemplate)
+            button.setImage(tintable, forState: UIControlState.Normal)
+            button.imageView!.tintColor = themedColor.darken()
+        }
+        
+        //tint images
+        let imagesToTint = [colorReset]
+        for imageView in imagesToTint {
+            let tintable = imageView.image?.imageWithRenderingMode(.AlwaysTemplate)
+            imageView.image = tintable
+            imageView.tintColor = themedColor.darken().darken()
+        }
+        
+        
+        //update outfit to saved outfit
+        for (className, imageName) in outfitMap {
+            imageMap[className as String]?.image = UIImage(named: imageName as String)
+        }
+        
     }
+    
+    @IBAction func close(sender: AnyObject) {
+        
+        func dismissThis() {
+            self.dismissViewControllerAnimated(true, completion: {
+                
+                //set all imageViews to nil
+                for (_, imageView) in self.imageMap {
+                    imageView.image = nil
+                }
+                
+            })
+        }
+        
+        
+        let userData = NSUserDefaults.standardUserDefaults()
+        
+        //check if any changes have been made
+        let previousOutfit = userData.valueForKey(currentFriend)
+        var mustSaveChanges = true
+        if let previousOutfit = previousOutfit as? [NSString : NSString] {
+            mustSaveChanges = previousOutfit != outfitMap
+        }
+        
+        //save outfit data if necessary
+        if mustSaveChanges {
+            //present saving alert
+            let saveAlert = UIAlertController(title: "Saving your Friend", message: "This will only take a second...", preferredStyle: UIAlertControllerStyle.Alert)
+            self.presentViewController(saveAlert, animated: true, completion: {
+                
+                //finish saving
+                userData.setValue(self.outfitMap, forKey: self.currentFriend)
+                
+                let bodyImage = self.createImageOfBody(resize: true)
+                let imageData = UIImagePNGRepresentation(bodyImage)
+                
+                //write to documents folder
+                let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+                let documentsPath = paths[0]
+                let savePath = documentsPath.stringByAppendingPathComponent("\(self.currentFriend).png")
+                imageData?.writeToFile(savePath, atomically: true)
+                
+                //send notification to Friends view
+                NSNotificationCenter.defaultCenter().postNotificationName(WWUpdateFriendsNotification, object: nil, userInfo: nil)
+                
+                self.dismissViewControllerAnimated(true, completion: {
+                    dismissThis()
+                })
+                
+            })
+        }
+        
+        else {
+            dismissThis()
+        }
+        
+        
+        
+    }
+    
     
     //pragma MARK: - Managing Body Figure
     
@@ -107,14 +216,25 @@ class BodyViewController : UIViewController {
             
             //set new
             imageView.image = feature?.getImage(cropped: false)
-                
+            
+            //save to outfit map
+            if let feature = feature {
+                outfitMap.updateValue(feature.fileName, forKey: className)
+            } else {
+                outfitMap.removeValueForKey(className)
+            }
+            
             //ensure correct body stance
             if className == "body" || className == "hold" {
                 if className == "body" { currentSkinToneFeature = feature }
                 
                 let isHolding = hold.image != nil
                 if isHolding {
+                    //outline
                     body.image = UIImage(named: outlineHolding)
+                    outfitMap.updateValue(outlineHolding, forKey: "bodyShape")
+                    
+                    //skin tone
                     if let skinName = currentSkinToneFeature?.fileName as NSString? {
                         if skinName.containsString("-straight") {
                             let newSkinName = skinName.stringByReplacingOccurrencesOfString("-straight", withString: "")
@@ -124,7 +244,11 @@ class BodyViewController : UIViewController {
                     }
                 }
                 else if !isHolding {
+                    //outline
                     body.image = UIImage(named: outlineStraight)
+                    outfitMap.updateValue(outlineStraight, forKey: "bodyShape")
+                    
+                    //skin tone
                     if let skinName = currentSkinToneFeature?.fileName as NSString? {
                         if !skinName.containsString("-straight") {
                             let newSkinName = "\(skinName)-straight"
@@ -152,10 +276,29 @@ class BodyViewController : UIViewController {
         }
     }
     
+    @IBAction func reset(sender: AnyObject) {
+        //show warning alert
+        let warning = UIAlertController(title: "Reset Friend", message: "This cannot be undone.", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "Nevermind", style: .Default, handler: nil)
+        let resetAction = UIAlertAction(title: "Reset", style: UIAlertActionStyle.Destructive, handler: { alert in
+            
+            //perform reset
+            for (className, _) in self.imageMap {
+                self.setImageInView(className, toFeature: nil)
+            }
+            
+        })
+        
+        warning.addAction(cancelAction)
+        warning.addAction(resetAction)
+        self.presentViewController(warning, animated: true, completion: nil)
+        
+    }
+    
     func allFeaturesInClass(className: String) -> [BodyFeature] {
         var classFeatures: [BodyFeature] = []
         
-        for feature in features {
+        for feature in allFeatures {
             if feature.className == className {
                 classFeatures.append(feature)
             }
@@ -165,9 +308,19 @@ class BodyViewController : UIViewController {
     }
     
     
-    func createImageOfBody() -> UIImage {
-        let fullRect = CGRect(origin: CGPointZero, size: CGSizeMake(1152, 1728))
+    func createImageOfBody(resize resize: Bool) -> UIImage {
+        
+        var fullRect = CGRect(origin: CGPointZero, size: CGSizeMake(1152, 1728))
+        if resize { fullRect = CGRect(origin: CGPointZero, size: WWFriendsSize) }
+        
         UIGraphicsBeginImageContext(fullRect.size)
+        
+        if resize {
+            //set up antialiasing
+            let context = UIGraphicsGetCurrentContext()
+            CGContextSetInterpolationQuality(context, kCGInterpolationMedium)
+            CGContextSetShouldAntialias(context, true)
+        }
         
         for className in classOrder {
             guard let image = imageMap[className]?.image else { continue }
@@ -218,7 +371,7 @@ class BodyViewController : UIViewController {
         }
         
         if auth == PHAuthorizationStatus.Authorized {
-            let image = createImageOfBody()
+            let image = createImageOfBody(resize: false)
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
 
             let alert = UIAlertController(title: "Saved to Camera Roll", message: nil, preferredStyle: .Alert)
@@ -273,10 +426,12 @@ class BodyViewController : UIViewController {
             "hold" : "Big Accessories"
         ]
         
+        classTitle.text = classTitleMap[className]
         classDelegate!.setClass(className)
         classCollection.reloadData()
+        self.view.layoutIfNeeded()
+    
         classConstraint.constant = 0
-        classTitle.text = classTitleMap[className]
         classCollection.setContentOffset(CGPointZero, animated: false)
         
         UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {

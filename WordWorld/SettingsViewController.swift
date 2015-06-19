@@ -95,6 +95,11 @@ class ResetCell : UITableViewCell {
         let data = NSUserDefaults.standardUserDefaults()
         data.setInteger(0, forKey: "gold")
         data.setInteger(0, forKey: "silver")
+        
+        for friendSettingsPath in WWFriendsSettingsPaths {
+            data.setValue(nil, forKey: friendSettingsPath)
+        }
+        
         title.text = "All data has been reset."
     }
 }

@@ -342,8 +342,11 @@
 		2E5AF4A71B1F79AF00E1A658 /* BodyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5AF4A61B1F79AE00E1A658 /* BodyViewController.swift */; };
 		2E5AF4A91B1FA9A600E1A658 /* Dice-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5AF4A81B1FA9A600E1A658 /* Dice-100.png */; };
 		2E5AF4AB1B1FAA9400E1A658 /* body feature database.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2E5AF4AA1B1FAA9400E1A658 /* body feature database.csv */; };
+		2E6122D51B33CDA5006F9286 /* Delete Sign Filled-100(gray).png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6122D41B33CDA5006F9286 /* Delete Sign Filled-100(gray).png */; };
+		2E6122D71B33D15D006F9286 /* Synchronize Filled-100 (gray).png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6122D61B33D15D006F9286 /* Synchronize Filled-100 (gray).png */; };
 		2EA071971ABF985B00EADCAF /* WordGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA071961ABF985B00EADCAF /* WordGridViewController.swift */; };
 		2EA071D01ABFB1C300EADCAF /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA071CF1ABFB1C300EADCAF /* CategoryViewController.swift */; };
+		2EACDD5F1B33A4BF006F3510 /* Brush-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EACDD5E1B33A4BF006F3510 /* Brush-100.png */; };
 		2EB2FA401B10F75200AF63AD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2FA3F1B10F75200AF63AD /* MainViewController.swift */; };
 		2EB53B111B14392400CC93A2 /* 1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2EB5383A1B14391F00CC93A2 /* 1.mp3 */; };
 		2EB53B121B14392400CC93A2 /* 10.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2EB5383B1B14391F00CC93A2 /* 10.mp3 */; };
@@ -1666,6 +1669,8 @@
 		2EB5428A1B14393400CC93A2 /* Yoyo-Sketch.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB540381B14393400CC93A2 /* Yoyo-Sketch.png */; };
 		2EB5428B1B14393400CC93A2 /* Zebra-Sketch.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB540391B14393400CC93A2 /* Zebra-Sketch.png */; };
 		2EB5428C1B14393400CC93A2 /* Zipper-Picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB5403A1B14393400CC93A2 /* Zipper-Picture.png */; };
+		2EB82DBE1B33B74F002AD638 /* Delete Sign Filled-100(1).png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB82DBD1B33B74F002AD638 /* Delete Sign Filled-100(1).png */; };
+		2EC145651B339A69001421D8 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC145641B339A69001421D8 /* FriendsViewController.swift */; };
 		2ED404311AD1B081002AFFBD /* database.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2ED4FFF71AD1B07C002AFFBD /* database.csv */; };
 		2ED408691AD1B0B3002AFFBD /* WordDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED408681AD1B0B3002AFFBD /* WordDatabase.swift */; };
 		2ED4086B1AD1B31E002AFFBD /* WordEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED4086A1AD1B31E002AFFBD /* WordEntry.swift */; };
@@ -2355,8 +2360,12 @@
 		2E5AF4A61B1F79AE00E1A658 /* BodyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyViewController.swift; sourceTree = "<group>"; };
 		2E5AF4A81B1FA9A600E1A658 /* Dice-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dice-100.png"; sourceTree = "<group>"; };
 		2E5AF4AA1B1FAA9400E1A658 /* body feature database.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "body feature database.csv"; sourceTree = "<group>"; };
+		2E6122D11B33C739006F9286 /* WordWorld.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = WordWorld.entitlements; sourceTree = "<group>"; };
+		2E6122D41B33CDA5006F9286 /* Delete Sign Filled-100(gray).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Delete Sign Filled-100(gray).png"; sourceTree = "<group>"; };
+		2E6122D61B33D15D006F9286 /* Synchronize Filled-100 (gray).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Synchronize Filled-100 (gray).png"; sourceTree = "<group>"; };
 		2EA071961ABF985B00EADCAF /* WordGridViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordGridViewController.swift; sourceTree = "<group>"; };
 		2EA071CF1ABFB1C300EADCAF /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		2EACDD5E1B33A4BF006F3510 /* Brush-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Brush-100.png"; sourceTree = "<group>"; };
 		2EB2FA3F1B10F75200AF63AD /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		2EB5383A1B14391F00CC93A2 /* 1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1.mp3; sourceTree = "<group>"; };
 		2EB5383B1B14391F00CC93A2 /* 10.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 10.mp3; sourceTree = "<group>"; };
@@ -3679,6 +3688,8 @@
 		2EB540381B14393400CC93A2 /* Yoyo-Sketch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Yoyo-Sketch.png"; sourceTree = "<group>"; };
 		2EB540391B14393400CC93A2 /* Zebra-Sketch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Zebra-Sketch.png"; sourceTree = "<group>"; };
 		2EB5403A1B14393400CC93A2 /* Zipper-Picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Zipper-Picture.png"; sourceTree = "<group>"; };
+		2EB82DBD1B33B74F002AD638 /* Delete Sign Filled-100(1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Delete Sign Filled-100(1).png"; sourceTree = "<group>"; };
+		2EC145641B339A69001421D8 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		2ED408681AD1B0B3002AFFBD /* WordDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordDatabase.swift; sourceTree = "<group>"; };
 		2ED4086A1AD1B31E002AFFBD /* WordEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordEntry.swift; sourceTree = "<group>"; };
 		2ED4086C1AD1B32A002AFFBD /* WordCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordCategory.swift; sourceTree = "<group>"; };
@@ -4057,6 +4068,7 @@
 		2E05472F1ABF806800416976 /* WordWorld */ = {
 			isa = PBXGroup;
 			children = (
+				2E6122D11B33C739006F9286 /* WordWorld.entitlements */,
 				2E210CB51AD1B04700FF3750 /* word database */,
 				2EDBB14D1B1E9D960004DF50 /* body database */,
 				2E0547321ABF806800416976 /* AppDelegate.swift */,
@@ -4067,6 +4079,7 @@
 				2EA071961ABF985B00EADCAF /* WordGridViewController.swift */,
 				44DB5CC21AFCF23D00E419DF /* QuizViewController.swift */,
 				44891DCE1B062F210000844B /* BankViewController.swift */,
+				2EC145641B339A69001421D8 /* FriendsViewController.swift */,
 				2E5AF4A61B1F79AE00E1A658 /* BodyViewController.swift */,
 				2E0547391ABF806800416976 /* Main.storyboard */,
 				2E05473C1ABF806800416976 /* Images.xcassets */,
@@ -4080,15 +4093,19 @@
 		2E0547301ABF806800416976 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2EACDD5E1B33A4BF006F3510 /* Brush-100.png */,
 				2ED8D34F1B223C6C00193E74 /* back-white.png */,
 				2ED8D3511B223C7B00193E74 /* back-gray.png */,
 				2E1A3E921B126C33003C1CE4 /* Settings Filled-100.png */,
 				2E1A3E941B126F40003C1CE4 /* Synchronize-100(1).png */,
+				2E6122D61B33D15D006F9286 /* Synchronize Filled-100 (gray).png */,
 				44B3FC081B062074000DB84A /* Gold-Coin.png */,
 				44B3FC091B062074000DB84A /* Silver-Coin.png */,
 				2E5AF4A81B1FA9A600E1A658 /* Dice-100.png */,
 				2E5829B31B3121C600BC10E0 /* Cancel 2 Filled-100.png */,
 				2E5829B51B3129A200BC10E0 /* Download-100.png */,
+				2EB82DBD1B33B74F002AD638 /* Delete Sign Filled-100(1).png */,
+				2E6122D41B33CDA5006F9286 /* Delete Sign Filled-100(gray).png */,
 				2E0547311ABF806800416976 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -6175,6 +6192,14 @@
 					2E05472C1ABF806800416976 = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = FZ89A5SZ7C;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					2E0547441ABF806800416976 = {
 						CreatedOnToolsVersion = 6.2;
@@ -7124,6 +7149,7 @@
 				2EDBB3D61B1E9D990004DF50 /* watch-pink.png in Resources */,
 				2EDBB2AD1B1E9D980004DF50 /* belt-red-with-black-dots.png in Resources */,
 				2EB541281B14393400CC93A2 /* Goat-Sketch.png in Resources */,
+				2E6122D51B33CDA5006F9286 /* Delete Sign Filled-100(gray).png in Resources */,
 				2EB5421C1B14393400CC93A2 /* Spider-Sketch.png in Resources */,
 				2E1508901B2EAA0A0086E2D1 /* shirt-blue-striped#cropped.png in Resources */,
 				2EB541961B14393400CC93A2 /* Narwhale-Sketch.png in Resources */,
@@ -7298,6 +7324,7 @@
 				2EB53C5B1B14392400CC93A2 /* Icy.mp3 in Resources */,
 				2EDBB38A1B1E9D980004DF50 /* red-shirt.png in Resources */,
 				2EB53D231B14392400CC93A2 /* Sandal.mp3 in Resources */,
+				2EB82DBE1B33B74F002AD638 /* Delete Sign Filled-100(1).png in Resources */,
 				2EB53D211B14392400CC93A2 /* Sailing.mp3 in Resources */,
 				2EB5423B1B14393400CC93A2 /* Swan-Sketch.png in Resources */,
 				2EDBB32A1B1E9D980004DF50 /* hair-mohawk-black.png in Resources */,
@@ -7944,6 +7971,7 @@
 				2EB5415B1B14393400CC93A2 /* Hunter-Sketch.png in Resources */,
 				2EB53B1A1B14392400CC93A2 /* 2.mp3 in Resources */,
 				2EB53D461B14392400CC93A2 /* Slept.mp3 in Resources */,
+				2EACDD5F1B33A4BF006F3510 /* Brush-100.png in Resources */,
 				2EB542261B14393400CC93A2 /* Statue-Sketch.png in Resources */,
 				2EB542471B14393400CC93A2 /* Tent-Sketch.png in Resources */,
 				2EB53CCC1B14392400CC93A2 /* Noise.mp3 in Resources */,
@@ -8077,6 +8105,7 @@
 				2EB53DCC1B14392400CC93A2 /* Windows.mp3 in Resources */,
 				2E1507A91B2EAA0A0086E2D1 /* belt-blue-w-yellow-stars#cropped.png in Resources */,
 				2EB53B5B1B14392400CC93A2 /* Birthday.mp3 in Resources */,
+				2E6122D71B33D15D006F9286 /* Synchronize Filled-100 (gray).png in Resources */,
 				2EB53D771B14392400CC93A2 /* Sunny.mp3 in Resources */,
 				2E15082F1B2EAA0A0086E2D1 /* hair-princess-orange#cropped.png in Resources */,
 				2EDBB3251B1E9D980004DF50 /* hair-messy-brown.png in Resources */,
@@ -8209,6 +8238,7 @@
 				2E5AF4A71B1F79AF00E1A658 /* BodyViewController.swift in Sources */,
 				2EB2FA401B10F75200AF63AD /* MainViewController.swift in Sources */,
 				2EA071971ABF985B00EADCAF /* WordGridViewController.swift in Sources */,
+				2EC145651B339A69001421D8 /* FriendsViewController.swift in Sources */,
 				2E0547381ABF806800416976 /* WordModeViewController.swift in Sources */,
 				2ED408691AD1B0B3002AFFBD /* WordDatabase.swift in Sources */,
 				2E0547361ABF806800416976 /* WordWorld.xcdatamodeld in Sources */,
@@ -8343,12 +8373,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = WordWorld/WordWorld.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = WordWorld/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hearatale.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -8356,12 +8389,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = WordWorld/WordWorld.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = WordWorld/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hearatale.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
