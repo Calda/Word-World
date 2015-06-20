@@ -16,6 +16,7 @@ class MainViewController : UIViewController {
     @IBOutlet weak var words: UIButton!
     @IBOutlet weak var bank: UIButton!
     @IBOutlet weak var game: UIButton!
+    @IBOutlet weak var friends: UIButton!
     @IBOutlet weak var roundedBlurred: UIView!
     @IBOutlet weak var darkener: UIView!
     
@@ -34,6 +35,15 @@ class MainViewController : UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "closeSettings", name: WWCloseSettingsNotification, object: nil)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        //copy subviews to blur background area
+        for colorView in roundedCorners.subviews {
+            let copy = UIView(frame: colorView.frame)
+            copy.backgroundColor = colorView.backgroundColor
+            roundedBlurred.addSubview(copy)
+        }
+    }
+    
     @IBAction func pressInterfaceButton(sender: UIButton) {
         
         self.view.userInteractionEnabled = false
@@ -48,7 +58,7 @@ class MainViewController : UIViewController {
         roundedCorners.addSubview(newButton)
         
         //animate to cover all buttons
-        let fullFrame = CGRectUnion(words.frame, CGRectUnion(bank.frame, game.frame))
+        let fullFrame = CGRectUnion(friends.frame, CGRectUnion(words.frame, CGRectUnion(bank.frame, game.frame))) 
         
         //copy blur button
         let blurButton = UIButton(frame: sender.frame)
