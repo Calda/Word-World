@@ -55,6 +55,9 @@ class FriendsViewController : UIViewController, UICollectionViewDataSource, UICo
         collectionView.reloadData()
     }
     
+    @IBAction func dismiss(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 }
 
 class FriendCell : UICollectionViewCell {
@@ -87,6 +90,11 @@ class FriendCell : UICollectionViewCell {
                 self.image.image = image
             }
             
+        }
+        
+        else {
+            print("\(index.item) to blank")
+            self.image.image = UIImage(named: "Body-Feature-body.png")
         }
         
     }

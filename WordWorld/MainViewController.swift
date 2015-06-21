@@ -42,6 +42,17 @@ class MainViewController : UIViewController {
             copy.backgroundColor = colorView.backgroundColor
             roundedBlurred.addSubview(copy)
         }
+        
+        //fix text size on 4S
+        if self.view.frame.width < 500 {
+            for subview in roundedCorners.subviews {
+                if let button = subview as? UIButton {
+                    let currentFont = button.titleLabel!.font
+                    let newFont = UIFont(name: currentFont.fontName, size: 29)
+                    button.titleLabel!.font = newFont
+                }
+            }
+        }
     }
     
     @IBAction func pressInterfaceButton(sender: UIButton) {
@@ -58,7 +69,15 @@ class MainViewController : UIViewController {
         roundedCorners.addSubview(newButton)
         
         //animate to cover all buttons
-        let fullFrame = CGRectUnion(friends.frame, CGRectUnion(words.frame, CGRectUnion(bank.frame, game.frame))) 
+        var fullFrame: CGRect!
+        for subview in self.roundedCorners.subviews {
+            if fullFrame == nil {
+                fullFrame = subview.frame
+            }
+            else {
+                fullFrame = CGRectUnion(subview.frame, fullFrame)
+            }
+        }
         
         //copy blur button
         let blurButton = UIButton(frame: sender.frame)

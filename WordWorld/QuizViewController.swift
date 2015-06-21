@@ -374,7 +374,7 @@ class QuizViewController : UIViewController {
             try! audioSession.setCategory(AVAudioSessionCategoryPlayback)
 
             
-            let path = NSBundle.mainBundle().pathForResource("correct", ofType: "mp3")!
+            let path = NSBundle.mainBundle().pathForResource("correct", ofType: "m4a")!
             let soundData = NSData(contentsOfFile: path)
             let player = try! AVAudioPlayer(data: soundData!)
             player.play()

@@ -276,7 +276,7 @@ class BodyViewController : UIViewController {
         }
     }
     
-    @IBAction func reset(sender: AnyObject) {
+    @IBAction func reset(sender: UIButton) {
         //show warning alert
         let warning = UIAlertController(title: "Reset Friend", message: "This cannot be undone.", preferredStyle: .Alert)
         let cancelAction = UIAlertAction(title: "Nevermind", style: .Default, handler: nil)
@@ -285,6 +285,10 @@ class BodyViewController : UIViewController {
             //perform reset
             for (className, _) in self.imageMap {
                 self.setImageInView(className, toFeature: nil)
+                
+                UIView.animateWithDuration(1.0, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.0, options: UIViewAnimationOptions.AllowUserInteraction, animations: {
+                        sender.transform = CGAffineTransformRotate(sender.transform, CGFloat(M_PI))
+                    }, completion: nil)
             }
             
         })

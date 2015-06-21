@@ -84,6 +84,7 @@ class SettingsSwitchCell : UITableViewCell {
 class ResetCell : UITableViewCell {
     
     @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var button: UIButton!
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -101,5 +102,11 @@ class ResetCell : UITableViewCell {
         }
         
         title.text = "All data has been reset."
+        
+        UIView.animateWithDuration(1.0, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.0, options: UIViewAnimationOptions.AllowUserInteraction, animations: {
+                self.button.transform = CGAffineTransformRotate(self.button.transform, CGFloat(M_PI))
+            }, completion: { success in
+                self.title.text = "Reset All Data"
+        })
     }
 }

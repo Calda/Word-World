@@ -25,7 +25,6 @@
             <string>HelveticaNeue-Thin</string>
             <string>HelveticaNeue-Thin</string>
             <string>HelveticaNeue-Thin</string>
-            <string>HelveticaNeue-Thin</string>
             <string>HelveticaNeue-Light</string>
             <string>HelveticaNeue-Thin</string>
         </mutableArray>
@@ -69,21 +68,26 @@
                                         <color key="textColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back-white.png" translatesAutoresizingMaskIntoConstraints="NO" id="Shc-xi-4fg">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uBG-i4-OcX" userLabel="back">
                                         <rect key="frame" x="10" y="10" width="30" height="30"/>
                                         <animations/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="Shc-xi-4fg" secondAttribute="height" multiplier="1:1" id="Nqm-yf-Uje"/>
+                                            <constraint firstAttribute="height" constant="30" id="4dR-Jf-jRt"/>
+                                            <constraint firstAttribute="width" constant="30" id="Ne9-dI-jJf"/>
                                         </constraints>
-                                    </imageView>
+                                        <state key="normal" image="back-white.png"/>
+                                        <state key="highlighted" image="back-gray.png"/>
+                                        <connections>
+                                            <action selector="dismiss:" destination="aTc-f7-4rB" eventType="touchUpInside" id="B2f-T5-tOH"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" red="0.4008920789" green="0.67728495600000005" blue="0.8356466293" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Shc-xi-4fg" secondAttribute="bottom" constant="10" id="0V6-m9-f3z"/>
-                                    <constraint firstItem="Shc-xi-4fg" firstAttribute="leading" secondItem="BhU-1D-GOr" secondAttribute="leading" constant="10" id="TXg-Uh-dvT"/>
-                                    <constraint firstItem="Shc-xi-4fg" firstAttribute="top" secondItem="BhU-1D-GOr" secondAttribute="top" constant="10" id="UD2-qr-qKO"/>
+                                    <constraint firstItem="uBG-i4-OcX" firstAttribute="top" secondItem="BhU-1D-GOr" secondAttribute="top" constant="10" id="4n7-s2-oTs"/>
                                     <constraint firstItem="ZpO-ds-cg4" firstAttribute="centerX" secondItem="BhU-1D-GOr" secondAttribute="centerX" id="Uvl-OQ-7RP"/>
+                                    <constraint firstItem="uBG-i4-OcX" firstAttribute="leading" secondItem="BhU-1D-GOr" secondAttribute="leading" constant="10" id="cfq-9X-8Bd"/>
                                     <constraint firstItem="ZpO-ds-cg4" firstAttribute="centerY" secondItem="BhU-1D-GOr" secondAttribute="centerY" id="hcE-dY-B0F"/>
                                     <constraint firstAttribute="height" constant="50" id="lWr-Wq-Zeq"/>
                                 </constraints>
@@ -1396,16 +1400,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zs9-ys-WKF">
-                                <rect key="frame" x="19" y="15" width="61" height="23"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zs9-ys-WKF">
+                                <rect key="frame" x="10" y="10" width="30" height="30"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="61" id="Qd3-7q-aR1"/>
+                                    <constraint firstAttribute="width" constant="30" id="Qd3-7q-aR1"/>
                                     <constraint firstAttribute="height" constant="64" id="ZnZ-FU-XKH"/>
-                                    <constraint firstAttribute="height" constant="23" id="tkH-yP-HrB"/>
+                                    <constraint firstAttribute="height" constant="30" id="tkH-yP-HrB"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="28"/>
-                                <state key="normal" title="back">
+                                <state key="normal" image="back-gray.png">
                                     <color key="titleColor" red="0.20784313730000001" green="0.56078431370000004" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1767,7 +1770,7 @@
                             <constraint firstItem="ufz-R5-Psz" firstAttribute="width" secondItem="XK7-AY-mHr" secondAttribute="width" id="3qZ-QE-4aE"/>
                             <constraint firstAttribute="centerX" secondItem="Nne-xF-JmP" secondAttribute="centerX" id="7WC-i0-VTO"/>
                             <constraint firstItem="vTm-9O-797" firstAttribute="top" secondItem="e70-Z0-s9Q" secondAttribute="bottom" id="7u2-dn-iLL"/>
-                            <constraint firstItem="zs9-ys-WKF" firstAttribute="leading" secondItem="XK7-AY-mHr" secondAttribute="leadingMargin" constant="-1" id="B1R-af-SN8"/>
+                            <constraint firstItem="zs9-ys-WKF" firstAttribute="leading" secondItem="XK7-AY-mHr" secondAttribute="leadingMargin" constant="-10" id="B1R-af-SN8"/>
                             <constraint firstAttribute="centerX" secondItem="vTm-9O-797" secondAttribute="centerX" id="Ohz-Ft-D9s"/>
                             <constraint firstItem="RPX-HJ-hWS" firstAttribute="top" secondItem="vOs-iF-FLh" secondAttribute="bottom" constant="10" id="Plo-Kq-aRU"/>
                             <constraint firstAttribute="centerY" secondItem="ufz-R5-Psz" secondAttribute="centerY" id="Q2Y-pO-fJU"/>
@@ -1788,7 +1791,7 @@
                             <constraint firstItem="h5a-Ez-grI" firstAttribute="top" secondItem="vOs-iF-FLh" secondAttribute="bottom" constant="10" id="ka9-Jg-Rgx"/>
                             <constraint firstItem="vOs-iF-FLh" firstAttribute="top" secondItem="zs9-ys-WKF" secondAttribute="bottom" constant="58" id="km9-SB-opC"/>
                             <constraint firstAttribute="width" secondItem="vTm-9O-797" secondAttribute="width" id="wRc-21-89u"/>
-                            <constraint firstItem="zs9-ys-WKF" firstAttribute="top" secondItem="XK7-AY-mHr" secondAttribute="topMargin" constant="15" id="xTw-uA-jO3"/>
+                            <constraint firstItem="zs9-ys-WKF" firstAttribute="top" secondItem="XK7-AY-mHr" secondAttribute="topMargin" constant="10" id="xTw-uA-jO3"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -1939,19 +1942,33 @@
                                                                     <action selector="reset:" destination="B9M-QA-mBZ" eventType="touchUpInside" id="W2l-Wi-odm"/>
                                                                 </connections>
                                                             </button>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="World World deveveloped by Cal Stephens" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RX6-AZ-6WD">
+                                                                <rect key="frame" x="407" y="7" width="153" height="28"/>
+                                                                <animations/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="153" id="MBs-Fr-utX"/>
+                                                                    <constraint firstAttribute="height" constant="28" id="ZiD-RD-bct"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                                <color key="textColor" red="0.67708075046539307" green="0.67706048488616943" blue="0.67707198858261108" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
                                                         </subviews>
                                                         <animations/>
                                                         <constraints>
                                                             <constraint firstItem="ioG-Ze-HNz" firstAttribute="top" secondItem="G3v-Qv-PuF" secondAttribute="top" id="DAE-Ae-1vH"/>
                                                             <constraint firstAttribute="centerY" secondItem="6cR-f8-px6" secondAttribute="centerY" id="GVb-QA-fvj"/>
                                                             <constraint firstItem="6cR-f8-px6" firstAttribute="leading" secondItem="ioG-Ze-HNz" secondAttribute="trailing" constant="16" id="Ql3-kR-AR4"/>
+                                                            <constraint firstItem="RX6-AZ-6WD" firstAttribute="trailing" secondItem="G3v-Qv-PuF" secondAttribute="trailingMargin" id="S39-c7-0xy"/>
                                                             <constraint firstAttribute="bottom" secondItem="ioG-Ze-HNz" secondAttribute="bottom" id="kUt-Us-zrP"/>
+                                                            <constraint firstItem="RX6-AZ-6WD" firstAttribute="bottom" secondItem="G3v-Qv-PuF" secondAttribute="bottomMargin" id="old-0H-cWn"/>
                                                             <constraint firstItem="ioG-Ze-HNz" firstAttribute="leading" secondItem="G3v-Qv-PuF" secondAttribute="leadingMargin" constant="11" id="rpB-OF-e9C"/>
                                                             <constraint firstItem="6cR-f8-px6" firstAttribute="leading" secondItem="ioG-Ze-HNz" secondAttribute="trailing" constant="16" id="z3A-90-4SW"/>
                                                         </constraints>
                                                     </tableViewCellContentView>
                                                     <animations/>
                                                     <connections>
+                                                        <outlet property="button" destination="ioG-Ze-HNz" id="ngQ-G0-UNR"/>
                                                         <outlet property="title" destination="6cR-f8-px6" id="VuG-Zj-c5D"/>
                                                     </connections>
                                                 </tableViewCell>
