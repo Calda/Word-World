@@ -16,9 +16,9 @@ class WordCategory : CustomStringConvertible {
     var description: String {
         get {
             var desc = "\(name)["
-            let subs = subcategories.values
+            let subs = Array(subcategories.values)
             for i in 0..<subcategories.count {
-                desc += (subs.array[i] as WordSubcategory).name
+                desc += (subs[i] as WordSubcategory).name
                 if i != (subcategories.count - 1) {
                     desc += ","
                 }
@@ -45,9 +45,9 @@ class WordSubcategory : CustomStringConvertible {
     var description: String {
         get {
             var desc = "\(name)["
-            let allWords = words.values
+            let allWords = Array(words.values)
             for i in 0..<words.count {
-                desc += (allWords.array[i] as WordEntry).name
+                desc += (allWords[i] as WordEntry).name
                 if i != (words.count - 1) {
                     desc += ","
                 }

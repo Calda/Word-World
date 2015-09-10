@@ -67,7 +67,7 @@ class SettingsSwitchCell : UITableViewCell {
     var settingPath: String?
 
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         //make background transparent
         self.backgroundColor = UIColor(white: 1.0, alpha: 0.0)
     }
@@ -87,7 +87,7 @@ class ResetCell : UITableViewCell {
     @IBOutlet weak var button: UIButton!
     
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         //make background transparent
         self.backgroundColor = UIColor(white: 1.0, alpha: 0.0)
     }

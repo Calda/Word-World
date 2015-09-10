@@ -97,8 +97,8 @@ class WordGridViewController : UIViewController, UICollectionViewDataSource, UIC
         categoryName = notification.object! as! String
         let category = DATABASE[categoryName]
         var words : [WordEntry] = []
-        for subcategory in category!.subcategories.values.array {
-            for word in subcategory.words.values.array {
+        for (_ , subcategory) in category!.subcategories {
+            for (_, word) in subcategory.words {
                 words.append(word)
             }
         }
@@ -118,10 +118,6 @@ class WordCell : UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
     var word : WordEntry? = nil
-    
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
     
     func loadImage(index: Int, from wordImages: [(UIImage, WordEntry)]) {
         imageView.image = wordImages[index].0

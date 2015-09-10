@@ -92,11 +92,11 @@ class BodyViewController : UIViewController {
         //load data from CSV
         let csvPath = NSBundle.mainBundle().pathForResource("body feature database", ofType: "csv")!
         let csvString = try! String(contentsOfFile: csvPath, encoding: NSUTF8StringEncoding)
-        let csv = split(csvString.characters){ $0 == "\n" }.map { String($0) }
+        let csv = csvString.componentsSeparatedByString("\n")
         
         //process csv
         for line in csv {
-            let cells = split(line.characters){ $0 == "," }.map { String($0) }
+            let cells = line.componentsSeparatedByString(",")
             if cells.count != 3 {
                 continue
             }
@@ -185,7 +185,7 @@ class BodyViewController : UIViewController {
                 //write to documents folder
                 let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
                 let documentsPath = paths[0]
-                let savePath = documentsPath.stringByAppendingPathComponent("\(self.currentFriend).png")
+                let savePath = (documentsPath as NSString).stringByAppendingPathComponent("\(self.currentFriend).png")
                 imageData?.writeToFile(savePath, atomically: true)
                 
                 //send notification to Friends view
@@ -322,7 +322,7 @@ class BodyViewController : UIViewController {
         if resize {
             //set up antialiasing
             let context = UIGraphicsGetCurrentContext()
-            CGContextSetInterpolationQuality(context, kCGInterpolationMedium)
+            CGContextSetInterpolationQuality(context, CGInterpolationQuality.Medium)
             CGContextSetShouldAntialias(context, true)
         }
         
@@ -475,7 +475,7 @@ class BodyFeature {
     
     init(csvEntry: String) {
         //format: fileName, type, class
-        let cells = split(csvEntry.characters){ $0 == "," }.map { String($0) }
+        let cells = csvEntry.componentsSeparatedByString(",")
         fileName = cells[0]
         type = cells[1]
         className = cells[2]

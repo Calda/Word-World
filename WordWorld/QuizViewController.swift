@@ -77,7 +77,7 @@ class QuizViewController : UIViewController {
     }
     
     func quizWithDatabase() {
-        self.categories = DATABASE.categories.values.array
+        self.categories = Array(DATABASE.categories.values)
         setUpQuiz(false)
     }
     

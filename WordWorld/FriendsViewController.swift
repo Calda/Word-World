@@ -82,7 +82,7 @@ class FriendCell : UICollectionViewCell {
             
             let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
             let documentsPath = paths[0]
-            let savePath = documentsPath.stringByAppendingPathComponent("\(WWFriendsSettingsPaths[index.item]).png")
+            let savePath = (documentsPath as NSString).stringByAppendingPathComponent("\(WWFriendsSettingsPaths[index.item]).png")
             
             let data = NSData(contentsOfFile: savePath)
             if let data = data {

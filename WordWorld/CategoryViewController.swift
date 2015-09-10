@@ -21,7 +21,7 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
         collectionView.reloadData()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "represent", name: WWDisplayCategoriesNotification, object: nil)
         
-        categories = DATABASE.categories.keys.array
+        categories = Array(DATABASE.categories.keys)
     }
     
     
@@ -119,7 +119,7 @@ class CategoryCell : UICollectionViewCell {
     @IBOutlet weak var categoryName: UILabel!
     
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
         let color = UIColor(hue: CGFloat(arc4random_uniform(255)) / 255.0, saturation: 0.6, brightness: 0.8, alpha: 1.0)
         self.backgroundColor = color
         self.layer.cornerRadius = 20.0

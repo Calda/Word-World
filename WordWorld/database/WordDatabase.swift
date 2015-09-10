@@ -18,11 +18,11 @@ class WordDatabase {
         print("Initializing Database")
         let csvPath = NSBundle.mainBundle().pathForResource("database", ofType: "csv")!
         let csvString = try! String(contentsOfFile: csvPath, encoding: NSUTF8StringEncoding)
-        let csv = split(csvString.characters){ $0 == "\n" }.map { String($0) }
+        let csv = csvString.componentsSeparatedByString("\n")
         
         //process csv
         for line in csv {
-            let cells = split(line.characters){ $0 == "," }.map { String($0) }
+            let cells = line.componentsSeparatedByString(",")
             if cells.count != 5 {
                 continue
             }
@@ -42,7 +42,7 @@ class WordDatabase {
                     subcategory = WordSubcategory(name: subName, category: category!)
                 }
                 
-                WordEntry(name: wordName, picture: picture, audio: audio, subcategory: subcategory!)
+                let _ = WordEntry(name: wordName, picture: picture, audio: audio, subcategory: subcategory!)
             }
         }
     }

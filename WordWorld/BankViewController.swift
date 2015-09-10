@@ -84,7 +84,7 @@ class BankViewController : UIViewController {
         let text = NSMutableAttributedString(attributedString: coinCount.attributedText!)
         
         let current = text.string
-        var splits = split(current.characters){ $0 == " " }.map { String($0) }
+        var splits = current.componentsSeparatedByString(" ")
         
         text.replaceCharactersInRange(NSMakeRange(splits[0].characters.count + 3, splits[2].characters.count), withString: "\(silverUp)")
         text.replaceCharactersInRange(NSMakeRange(0, splits[0].characters.count), withString: "\(goldUp)")
