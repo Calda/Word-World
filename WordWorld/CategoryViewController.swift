@@ -15,32 +15,32 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
     var selected : Int?
     var categories: [String] = []
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.reloadData()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "represent", name: WWDisplayCategoriesNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CategoryViewController.represent), name: NSNotification.Name(rawValue: WWDisplayCategoriesNotification), object: nil)
         
         categories = Array(DATABASE.categories.keys)
     }
     
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return categories.count + 1
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height = (collectionView.frame.height) * 0.95
         
         if indexPath.item == 0 { //back card is half width
-            return CGSizeMake((9/32) * height, height)
+            return CGSize(width: (9/32) * height, height: height)
         }
         else {
-            return CGSizeMake((9/16) * height, height)
+            return CGSize(width: (9/16) * height, height: height)
         }
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let inset = getInsetSize()
         return UIEdgeInsetsMake(inset, inset, inset, inset)
     }
@@ -50,61 +50,61 @@ class CategoryViewController : UIViewController, UICollectionViewDataSource, UIC
         return notHeight / 2
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let item = indexPath.item
         
         if item == 0 { //back card
-            return collectionView.dequeueReusableCellWithReuseIdentifier("back", forIndexPath: indexPath) as UICollectionViewCell
+            return collectionView.dequeueReusableCell(withReuseIdentifier: "back", for: indexPath) as UICollectionViewCell
         }
         else {
-            let card = collectionView.dequeueReusableCellWithReuseIdentifier("categoryCard", forIndexPath: indexPath) as! CategoryCell
+            let card = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryCard", for: indexPath) as! CategoryCell
             card.categoryName.text = categories[item - 1]
             return card
         }
         
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selected = indexPath.item
         
         if selected == 0 {
             //back button
-            NSNotificationCenter.defaultCenter().postNotificationName(WWDismissWordModeNotification, object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: WWDismissWordModeNotification), object: nil)
         }
         
         else {
-            for cell in collectionView.visibleCells() as [UICollectionViewCell] {
-                let index = collectionView.indexPathForCell(cell)!.item
+            for cell in collectionView.visibleCells as [UICollectionViewCell] {
+                let index = collectionView.indexPath(for: cell)!.item
                 let delta = Double(abs(index - selected!))
                 animateCell(cell, delay: delta * 0.05, out: true)
             }
-            let selectedCell = collectionView.cellForItemAtIndexPath(indexPath) as! CategoryCell
-            self.view.userInteractionEnabled = false
-            NSNotificationCenter.defaultCenter().postNotificationName(WWDisplayWordsNotification, object: selectedCell.categoryName.text!)
+            let selectedCell = collectionView.cellForItem(at: indexPath) as! CategoryCell
+            self.view.isUserInteractionEnabled = false
+            NotificationCenter.default.post(name: Notification.Name(rawValue: WWDisplayWordsNotification), object: selectedCell.categoryName.text!)
         }
     
     }
     
-    func animateCell(cell: UICollectionViewCell, delay: NSTimeInterval, out: Bool) {
+    func animateCell(_ cell: UICollectionViewCell, delay: TimeInterval, out: Bool) {
         let currentY = cell.frame.origin.y
         let newY = (out ? currentY - (cell.frame.height * 1.15) : getInsetSize())
-        let newOrigin = CGPointMake(cell.frame.origin.x, newY)
+        let newOrigin = CGPoint(x: cell.frame.origin.x, y: newY)
         
         if newY == cell.frame.origin.y { //not in the right place
             let startY = currentY - (cell.frame.height * 1.15)
-            cell.frame.origin = CGPointMake(cell.frame.origin.x, startY)
+            cell.frame.origin = CGPoint(x: cell.frame.origin.x, y: startY)
         }
         
-        UIView.animateWithDuration(1.0, delay: delay, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: [], animations: {
+        UIView.animate(withDuration: 1.0, delay: delay, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: [], animations: {
                 cell.frame.origin = newOrigin
         }, completion: nil)
     }
     
     func represent() {
-        self.view.userInteractionEnabled = true
+        self.view.isUserInteractionEnabled = true
         if let selected = selected {
-            for cell in collectionView.visibleCells() as [UICollectionViewCell] {
-                let index = collectionView.indexPathForCell(cell)!.item
+            for cell in collectionView.visibleCells as [UICollectionViewCell] {
+                let index = collectionView.indexPath(for: cell)!.item
                 let delta = Double(abs(index - selected))
                 animateCell(cell, delay: delta * 0.05, out: false)
             }

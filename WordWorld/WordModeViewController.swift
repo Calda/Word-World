@@ -19,9 +19,9 @@ class WordModeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentWords", name: WWDisplayWordsNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentCategories", name: WWDisplayCategoriesNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "dismiss", name: WWDismissWordModeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(WordModeViewController.presentWords), name: NSNotification.Name(rawValue: WWDisplayWordsNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(WordModeViewController.presentCategories), name: NSNotification.Name(rawValue: WWDisplayCategoriesNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(WordModeViewController.dismiss as (WordModeViewController) -> () -> ()), name: NSNotification.Name(rawValue: WWDismissWordModeNotification), object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,27 +30,27 @@ class WordModeViewController: UIViewController {
     
     func presentWords() {
         getConstraint().constant = -self.view.frame.height
-        UIView.animateWithDuration(1.0, delay: 0.25, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: [], animations: {
+        UIView.animate(withDuration: 1.0, delay: 0.25, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: [], animations: {
                 self.view.layoutIfNeeded()
             }, completion: nil)
     }
     
     func presentCategories() {
         getConstraint().constant = 0
-        UIView.animateWithDuration(0.75, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: [], animations: {
+        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: [], animations: {
                 self.view.layoutIfNeeded()
             }, completion: nil)
     }
     
     func dismiss() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 
     func getConstraint() -> NSLayoutConstraint {
         if wordsConstraint != nil { return wordsConstraint }
         
         for constraint in self.view.constraints as [NSLayoutConstraint] {
-            if constraint.firstAttribute == NSLayoutAttribute.Top {
+            if constraint.firstAttribute == NSLayoutAttribute.top {
                 if let first = constraint.firstItem as? UIView {
                     if first == wordsContainer {
                         return constraint

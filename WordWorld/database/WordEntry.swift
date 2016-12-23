@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 import AVKit
 
-let audioQueue = dispatch_queue_create("com.hearatale.audio", DISPATCH_QUEUE_SERIAL)
+let audioQueue = DispatchQueue(label: "com.hearatale.audio", attributes: [])
 
 class WordEntry : CustomStringConvertible {
     
@@ -28,13 +28,13 @@ class WordEntry : CustomStringConvertible {
     init(name: String, picture: String, audio: String, subcategory: WordSubcategory) {
         self.name = name
         
-        let pictureName = ((picture as NSString).substringToIndex(picture.characters.count - 4) as String)
-        let pictureExt = ((picture as NSString).substringFromIndex(picture.characters.count - 3) as String)
-        picturePath = NSBundle.mainBundle().pathForResource(pictureName, ofType: pictureExt)!
+        let pictureName = ((picture as NSString).substring(to: picture.characters.count - 4) as String)
+        let pictureExt = ((picture as NSString).substring(from: picture.characters.count - 3) as String)
+        picturePath = Bundle.main.path(forResource: pictureName, ofType: pictureExt)!
         
-        let audioName = ((audio as NSString).substringToIndex(audio.characters.count - 4) as String)
-        let audioExt = ((audio as NSString).substringFromIndex(audio.characters.count - 3) as String)
-        audioPath = NSBundle.mainBundle().pathForResource(audioName, ofType: audioExt)!
+        let audioName = ((audio as NSString).substring(to: audio.characters.count - 4) as String)
+        let audioExt = ((audio as NSString).substring(from: audio.characters.count - 3) as String)
+        audioPath = Bundle.main.path(forResource: audioName, ofType: audioExt)!
         
         self.subcategory = subcategory
         subcategory.words.updateValue(self, forKey: name)
@@ -45,11 +45,11 @@ class WordEntry : CustomStringConvertible {
         try! audioSession.setActive(true)
         try! audioSession.setCategory(AVAudioSessionCategoryPlayback)
         
-        let soundData = NSData(contentsOfFile: self.audioPath)
+        let soundData = try? Data(contentsOf: URL(fileURLWithPath: self.audioPath))
         let player = try! AVAudioPlayer(data: soundData!)
         player.play()
-        dispatch_async(audioQueue, {
-            while(player.playing) { }
+        audioQueue.async(execute: {
+            while(player.isPlaying) { }
             player.stop()
         })
         

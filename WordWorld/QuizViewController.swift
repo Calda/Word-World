@@ -46,7 +46,7 @@ class QuizViewController : UIViewController {
     @IBOutlet weak var darkener: UIView!
     var settingsOpen: Bool = false
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         func getQuizWordHeight() -> CGFloat {
             let screen = Int(self.view.frame.width)
@@ -55,7 +55,7 @@ class QuizViewController : UIViewController {
                 case(480): return 85.0 //4S
                 case(568): return 60.0 //5
                 case(667): return 100.0 //6
-                case(1024): quizWord.font = quizWord.font.fontWithSize(100); return 150.0 //iPad
+                case(1024): quizWord.font = quizWord.font.withSize(100); return 150.0 //iPad
                 default: return 150.0 //6+ or larger??
             }
         }
@@ -68,10 +68,10 @@ class QuizViewController : UIViewController {
             quizWithDatabase()
         }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "closeSettings" , name: WWCloseSettingsNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(QuizViewController.closeSettings) , name: NSNotification.Name(rawValue: WWCloseSettingsNotification), object: nil)
     }
     
-    func quizWithCategory(category: WordCategory) {
+    func quizWithCategory(_ category: WordCategory) {
         self.categories = [category]
         setUpQuiz(false)
     }
@@ -81,7 +81,7 @@ class QuizViewController : UIViewController {
         setUpQuiz(false)
     }
     
-    func setUpQuiz(usingAudio: Bool = true) {
+    func setUpQuiz(_ usingAudio: Bool = true) {
         goldCoin = UIImage(named: "Gold-Coin")
         silverCoin = UIImage(named: "Silver-Coin")
         
@@ -110,10 +110,10 @@ class QuizViewController : UIViewController {
     }
     
     
-    func poseQuestion(usingAudio: Bool = true) {
+    func poseQuestion(_ usingAudio: Bool = true) {
         answerAttempts = 0
-        correct.hidden = true
-        incorrect.hidden = true
+        correct.isHidden = true
+        incorrect.isHidden = true
         
         if allWords.count == 0 {
             //used all words, restart
@@ -121,7 +121,7 @@ class QuizViewController : UIViewController {
             return
         }
         quizAnswer = randomWord(&allWords)
-        quizWord.text = quizAnswer!.name.lowercaseString
+        quizWord.text = quizAnswer!.name.lowercased()
         
         let questionCategory = quizAnswer!.subcategory.category
         
@@ -149,7 +149,7 @@ class QuizViewController : UIViewController {
                 }
                 quizChoices[index] = word
                 let path = word.picturePath
-                let image = UIImage(data: NSData(contentsOfFile: path)!)
+                let image = UIImage(data: try! Data(contentsOf: URL(fileURLWithPath: path)))
                 imageView2Map[index].image = image
             }
         }
@@ -157,7 +157,7 @@ class QuizViewController : UIViewController {
         if usingAudio {
             self.switchOutImages()
             delay(0.5) {
-                if SoundType.QuizAnswer.allow() {
+                if SoundType.quizAnswer.allow() {
                     self.quizAnswer!.playAudio()
                 }
                 self.shakeTitle()
@@ -168,7 +168,7 @@ class QuizViewController : UIViewController {
                 imageViewMap[i].image = imageView2Map[i].image
             }
             delay(0.5) {
-                if SoundType.QuizAnswer.allow() {
+                if SoundType.quizAnswer.allow() {
                     self.quizAnswer!.playAudio()
                 }
                 self.shakeTitle()
@@ -177,23 +177,23 @@ class QuizViewController : UIViewController {
     }
     
     
-    func randomWord(inout array: [WordEntry]) -> WordEntry {
+    func randomWord(_ array: inout [WordEntry]) -> WordEntry {
         let random = Int(arc4random_uniform(UInt32(array.count)))
         let word = array[random]
-        array.removeAtIndex(random)
+        array.remove(at: random)
         return word
     }
     
     
-    @IBAction func backPressed(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func backPressed(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
         /*if categories!.count > 1 { //not launched from single category view
             NSNotificationCenter.defaultCenter().postNotificationName(WWDisplayCategoriesNotification, object: nil)
         }*/
     }
     
     var allowTouch = true
-    @IBAction func tapRecognized(sender: UITapGestureRecognizer) {
+    @IBAction func tapRecognized(_ sender: UITapGestureRecognizer) {
         if settingsOpen || !allowTouch { return }
         
         allowTouch = false
@@ -201,122 +201,122 @@ class QuizViewController : UIViewController {
             self.allowTouch = true
         }
         
-        var touch = sender.locationInView(self.view)
+        var touch = sender.location(in: self.view)
         //figure out what got pressed
         
-        if CGRectContainsPoint(quizWord.frame, touch) {
+        if quizWord.frame.contains(touch) {
             quizWordPressed(quizWord)
         }
         
-        touch = sender.locationInView(imagesContainer)
+        touch = sender.location(in: imagesContainer)
         
-        if CGRectContainsPoint(option1.frame, touch) {
+        if option1.frame.contains(touch) {
             imageOptionPressed(1)
         }
-        else if CGRectContainsPoint(option2.frame, touch) {
+        else if option2.frame.contains(touch) {
             imageOptionPressed(2)
         }
-        else if CGRectContainsPoint(option3.frame, touch) {
+        else if option3.frame.contains(touch) {
             imageOptionPressed(3)
         }
-        else if CGRectContainsPoint(option4.frame, touch) {
+        else if option4.frame.contains(touch) {
             imageOptionPressed(4)
         }
         
     }
     
-    func quizWordPressed(sender: UILabel) {
-        if SoundType.QuizAnswer.allow() {
+    func quizWordPressed(_ sender: UILabel) {
+        if SoundType.quizAnswer.allow() {
             quizAnswer?.playAudio()
         }
         sender.alpha = 0.5
-        UIView.animateWithDuration(0.5, animations: { sender.alpha = 1.0 })
+        UIView.animate(withDuration: 0.5, animations: { sender.alpha = 1.0 })
         shakeTitle()
     }
     
-    func imageOptionPressed(id: Int) {
-        answerAttempts++
+    func imageOptionPressed(_ id: Int) {
+        answerAttempts += 1
         let word = quizChoices[id - 1]
         
         if word.name == quizAnswer!.name {
-            correct.hidden = false
-            incorrect.hidden = true
+            correct.isHidden = false
+            incorrect.isHidden = true
             self.view.setNeedsDisplay()
             self.playCorrect()
-            self.view.userInteractionEnabled = false
+            self.view.isUserInteractionEnabled = false
             
             //animate "correct"
             let start = correct.frame.origin
-            let temp = CGPointMake(start.x, self.view.frame.height * 1.2)
+            let temp = CGPoint(x: start.x, y: self.view.frame.height * 1.2)
             correct.frame.origin = temp
-            UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: [], animations: {
+            UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: [], animations: {
                 self.correct.frame.origin = start
             }, completion: nil)
             
             delay(0.5, closure: {
                 self.poseQuestion()
-                self.view.userInteractionEnabled = true
+                self.view.isUserInteractionEnabled = true
             })
             
             //animate coin
-            let data = NSUserDefaults.standardUserDefaults()
+            let data = UserDefaults.standard
             
             if answerAttempts == 1 {
-                let gold = data.integerForKey("gold")
-                data.setInteger(gold + 1, forKey: "gold")
+                let gold = data.integer(forKey: "gold")
+                data.set(gold + 1, forKey: "gold")
                 
                 coin.image = goldCoin
             }
             if answerAttempts == 2 {
-                let silver = data.integerForKey("silver")
-                data.setInteger(silver + 1, forKey: "silver")
+                let silver = data.integer(forKey: "silver")
+                data.set(silver + 1, forKey: "silver")
                 
                 coin.image = silverCoin
             }
             if answerAttempts == 1 || answerAttempts == 2 {
                 coin.center = imageViewMap[id - 1].center
-                let animateUpTo = CGPointMake(coin.center.x, coin.center.y - imageViewMap[id - 1].frame.height * 1.0)
+                let animateUpTo = CGPoint(x: coin.center.x, y: coin.center.y - imageViewMap[id - 1].frame.height * 1.0)
                 let animateDownTo = coin.center
                 
-                UIView.animateWithDuration(0.3, animations: {
+                UIView.animate(withDuration: 0.3, animations: {
                     self.coin.alpha = 1.0
                 })
                 
-                UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 5.0, options: [], animations: {
+                UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 5.0, options: [], animations: {
                         self.coin.center = animateUpTo
                     }, completion: nil)
                 
-                UIView.animateWithDuration(0.3, delay: 0.3, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+                UIView.animate(withDuration: 0.3, delay: 0.3, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
                         self.coin.center = animateDownTo
                         self.coin.alpha = 0.0
                     }, completion: nil)
             }
         }
         else {
-            incorrect.hidden = false
+            incorrect.isHidden = false
             incorrect.layer.removeAllAnimations()
             incorrect.alpha = 1.0
-            correct.hidden = true
+            correct.isHidden = true
             self.view.setNeedsDisplay()
-            if SoundType.AnswerOption.allow() {
+            if SoundType.answerOption.allow() {
                 word.playAudio()
             }
             shakeImage(imageViewMap[id - 1])
             
             //animate "incorrect"
             let start = incorrect.frame.origin
-            let temp = CGPointMake(start.x, self.view.frame.height * 1.2)
+            let temp = CGPoint(x: start.x, y: self.view.frame.height * 1.2)
             incorrect.frame.origin = temp
-            UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: [], animations: {
+            UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: [], animations: {
                 self.incorrect.frame.origin = start
             }, completion: nil)
             
-            UIView.animateWithDuration(1.5, animations: { self.incorrect.alpha = 0.0 })
+            UIView.animate(withDuration: 1.5, animations: { self.incorrect.alpha = 0.0 })
         }
         
         let image = imageViewMap[id - 1]
         image.alpha = 0.5
-        UIView.animateWithDuration(0.5, animations: { image.alpha = 1.0 })
+        UIView.animate(withDuration: 0.5, animations: { image.alpha = 1.0 })
     }
     
     // MARK: - animations
@@ -329,11 +329,11 @@ class QuizViewController : UIViewController {
             let nextQuestionOrigin = imageViewMap[i].frame.origin
             let temporaryImageOriginalOrigin = imageView2Map[i].frame.origin
             
-            UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+            UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
                 self.imageViewMap[i].alpha = 0.0
             }, completion: nil)
             
-            UIView.animateWithDuration(0.5, delay: 0.1 * Double(i), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+            UIView.animate(withDuration: 0.5, delay: 0.1 * Double(i), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
                 //self.imageViewMap[i].frame.origin = previousQuestionOrigin
                 self.imageView2Map[i].frame.origin = nextQuestionOrigin
             }, completion: { success in
@@ -350,36 +350,36 @@ class QuizViewController : UIViewController {
     func shakeTitle() {
         let animations : [CGFloat] = [20.0, -20.0, 10.0, -10.0, 3.0, -3.0, 0]
         for i in 0 ..< animations.count {
-            let frameOrigin = CGPointMake(quizWord.frame.origin.x + animations[i], quizWord.frame.origin.y)
-            UIView.animateWithDuration(0.1, delay: NSTimeInterval(0.1 * Double(i)), options: [], animations: {
+            let frameOrigin = CGPoint(x: quizWord.frame.origin.x + animations[i], y: quizWord.frame.origin.y)
+            UIView.animate(withDuration: 0.1, delay: TimeInterval(0.1 * Double(i)), options: [], animations: {
                 self.quizWord.frame.origin = frameOrigin
                 }, completion: nil)
         }
     }
     
-    func shakeImage(image: UIImageView) {
+    func shakeImage(_ image: UIImageView) {
         let animations : [CGFloat] = [10.0, -10.0, 5.0, -5.0, 1.5, -1.5, 0]
         for i in 0 ..< animations.count {
-            let frameOrigin = CGPointMake(image.frame.origin.x + animations[i], image.frame.origin.y)
-            UIView.animateWithDuration(0.1, delay: NSTimeInterval(0.1 * Double(i)), options: [], animations: {
+            let frameOrigin = CGPoint(x: image.frame.origin.x + animations[i], y: image.frame.origin.y)
+            UIView.animate(withDuration: 0.1, delay: TimeInterval(0.1 * Double(i)), options: [], animations: {
                 image.frame.origin = frameOrigin
                 }, completion: nil)
         }
     }
     
     func playCorrect() {
-        if SoundType.Coin.allow() {
+        if SoundType.coin.allow() {
             let audioSession = AVAudioSession.sharedInstance()
             try! audioSession.setActive(true)
             try! audioSession.setCategory(AVAudioSessionCategoryPlayback)
 
             
-            let path = NSBundle.mainBundle().pathForResource("correct", ofType: "m4a")!
-            let soundData = NSData(contentsOfFile: path)
+            let path = Bundle.main.path(forResource: "correct", ofType: "m4a")!
+            let soundData = try? Data(contentsOf: URL(fileURLWithPath: path))
             let player = try! AVAudioPlayer(data: soundData!)
             player.play()
-            dispatch_async(audioQueue, {
-                while(player.playing) { }
+            audioQueue.async(execute: {
+                while(player.isPlaying) { }
                 player.stop()
             })
         }
@@ -388,18 +388,18 @@ class QuizViewController : UIViewController {
     
     // MARK: - Settings pop up
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let settings = segue.destinationViewController as? SettingsViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let settings = segue.destination as? SettingsViewController {
             settingsHeight = settings.getDisplayHeight()
         }
-        super.prepareForSegue(segue, sender: sender)
+        super.prepare(for: segue, sender: sender)
     }
     
-    @IBAction func showSettings(sender: AnyObject) {
+    @IBAction func showSettings(_ sender: AnyObject) {
         settingsOpen = true
         settingsConstraint.constant = -settingsHeight
         
-        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: (settingsHeight == self.view.frame.height ? 1.0 : 0.7), initialSpringVelocity: 0.0, options: [], animations: {
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: (settingsHeight == self.view.frame.height ? 1.0 : 0.7), initialSpringVelocity: 0.0, options: [], animations: {
             self.view.layoutIfNeeded()
             self.darkener.alpha = 0.4
             }, completion: nil)
@@ -409,7 +409,7 @@ class QuizViewController : UIViewController {
         settingsOpen = false
         settingsConstraint.constant = 0.0
         
-        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
             self.view.layoutIfNeeded()
             self.darkener.alpha = 0.0
             }, completion: nil)
@@ -420,23 +420,23 @@ class QuizViewController : UIViewController {
 
 enum SoundType {
     
-    case QuizAnswer //the word being quizzed
-    case AnswerOption //the four options below the title
-    case Coin //the coin sound effect
+    case quizAnswer //the word being quizzed
+    case answerOption //the four options below the title
+    case coin //the coin sound effect
     
     func allow() -> Bool {
-        let config = NSUserDefaults.standardUserDefaults()
+        let config = UserDefaults.standard
         
-        let disableAll = config.boolForKey(WWSettingDisableAllGameSounds)
+        let disableAll = config.bool(forKey: WWSettingDisableAllGameSounds)
         if disableAll { return false }
         
-        if self == .QuizAnswer {
-            let readingMode = config.boolForKey(WWSettingReadingMode)
+        if self == .quizAnswer {
+            let readingMode = config.bool(forKey: WWSettingReadingMode)
             if readingMode { return false }
         }
         
-        if self == .Coin {
-            let disableCoins = config.boolForKey(WWSettingDisableCoin)
+        if self == .coin {
+            let disableCoins = config.bool(forKey: WWSettingDisableCoin)
             if disableCoins { return false }
         }
         

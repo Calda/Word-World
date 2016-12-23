@@ -4167,6 +4167,7 @@
 					2E05472C1ABF806800416976 = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = CT648UDKHF;
+						LastSwiftMigration = 0820;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -5679,6 +5680,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hearatale.word-world";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -5695,6 +5697,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hearatale.word-world";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

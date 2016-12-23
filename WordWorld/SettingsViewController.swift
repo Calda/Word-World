@@ -27,36 +27,36 @@ class SettingsViewController : UIViewController, UITableViewDataSource {
         let cells = settings.count + 1
         let height = CGFloat(70 + (cells * 43))
         if height < self.view.frame.height {
-            tableView.scrollEnabled = false
+            tableView.isScrollEnabled = false
         }
         return min(height, self.view.frame.height)
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return settings.count + 1
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.item == settings.count { //last item it reset button
-            return tableView.dequeueReusableCellWithIdentifier("reset")!
+            return tableView.dequeueReusableCell(withIdentifier: "reset")!
         }
         
-        let settingCell = tableView.dequeueReusableCellWithIdentifier("switch") as! SettingsSwitchCell
+        let settingCell = tableView.dequeueReusableCell(withIdentifier: "switch") as! SettingsSwitchCell
         
         let (title, path, _) = settings[indexPath.item]
         settingCell.settingTitle.text = title
         settingCell.settingPath = path
         
-        let data = NSUserDefaults.standardUserDefaults()
-        let current = data.boolForKey(path)
-        settingCell.settingSwitch.on = current
+        let data = UserDefaults.standard
+        let current = data.bool(forKey: path)
+        settingCell.settingSwitch.isOn = current
         
         return settingCell
     }
     
-    @IBAction func close(sender: AnyObject) {
-        NSNotificationCenter.defaultCenter().postNotificationName(WWCloseSettingsNotification, object: nil)
+    @IBAction func close(_ sender: AnyObject) {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: WWCloseSettingsNotification), object: nil)
     }
 }
 
@@ -72,11 +72,11 @@ class SettingsSwitchCell : UITableViewCell {
         self.backgroundColor = UIColor(white: 1.0, alpha: 0.0)
     }
     
-    @IBAction func switched(sender: UISwitch) {
+    @IBAction func switched(_ sender: UISwitch) {
         if let path = settingPath {
-            let data = NSUserDefaults.standardUserDefaults()
-            let previous = data.boolForKey(path)
-            data.setBool(!previous, forKey: path)
+            let data = UserDefaults.standard
+            let previous = data.bool(forKey: path)
+            data.set(!previous, forKey: path)
         }
     }
 }
@@ -92,19 +92,15 @@ class ResetCell : UITableViewCell {
         self.backgroundColor = UIColor(white: 1.0, alpha: 0.0)
     }
     
-    @IBAction func reset(sender: AnyObject) {
-        let data = NSUserDefaults.standardUserDefaults()
-        data.setInteger(0, forKey: "gold")
-        data.setInteger(0, forKey: "silver")
-        
-        for friendSettingsPath in WWFriendsSettingsPaths {
-            data.setValue(nil, forKey: friendSettingsPath)
-        }
+    @IBAction func reset(_ sender: AnyObject) {
+        let data = UserDefaults.standard
+        data.set(0, forKey: "gold")
+        data.set(0, forKey: "silver")
         
         title.text = "All data has been reset."
         
-        UIView.animateWithDuration(1.0, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.0, options: UIViewAnimationOptions.AllowUserInteraction, animations: {
-                self.button.transform = CGAffineTransformRotate(self.button.transform, CGFloat(M_PI))
+        UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.0, options: UIViewAnimationOptions.allowUserInteraction, animations: {
+                self.button.transform = self.button.transform.rotated(by: CGFloat(M_PI))
             }, completion: { success in
                 self.title.text = "Reset All Data"
         })

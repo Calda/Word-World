@@ -16,63 +16,63 @@ class WordGridViewController : UIViewController, UICollectionViewDataSource, UIC
     var wordImages : [(UIImage, WordEntry)] = []
     var categoryName : String = ""
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         collectionView.dataSource = self
         collectionView.delegate = self
 
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "represent:", name: WWDisplayWordsNotification, object: nil)
+        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.addObserver(self, selector: #selector(WordGridViewController.represent(_:)), name: NSNotification.Name(rawValue: WWDisplayWordsNotification), object: nil)
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return wordImages.count + 2
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(150, 150)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 150, height: 150)
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsetsMake(5, 5, 5, 5)
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let item = indexPath.item
         if item == 0 { //back button is first
-            return collectionView.dequeueReusableCellWithReuseIdentifier("back", forIndexPath: indexPath) as UICollectionViewCell
+            return collectionView.dequeueReusableCell(withReuseIdentifier: "back", for: indexPath) as UICollectionViewCell
         }
         if item == wordImages.count + 1 { // is the last cell -- must be the quiz button
-            return collectionView.dequeueReusableCellWithReuseIdentifier("quiz", forIndexPath: indexPath) as UICollectionViewCell
+            return collectionView.dequeueReusableCell(withReuseIdentifier: "quiz", for: indexPath) as UICollectionViewCell
         }
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("word", forIndexPath: indexPath) as! WordCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "word", for: indexPath) as! WordCell
         cell.loadImage(item - 1, from: wordImages)
         return cell
     }
     
-    @IBAction func panned(sender: AnyObject) {
+    @IBAction func panned(_ sender: AnyObject) {
         let offset = collectionView.contentOffset
-        if offset.y < -50 && self.view.userInteractionEnabled {
+        if offset.y < -50 && self.view.isUserInteractionEnabled {
             unpresent()
         }
     }
     
-    @IBAction func pinched(sender: UIPinchGestureRecognizer) {
+    @IBAction func pinched(_ sender: UIPinchGestureRecognizer) {
         if sender.scale < 0.7 && sender.velocity < -1.5
-            && self.view.userInteractionEnabled {
+            && self.view.isUserInteractionEnabled {
             unpresent()
         }
     }
     
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? WordCell {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? WordCell {
             let word = cell.word!
             word.playAudio()
             cell.imageView.alpha = 0.5
-            UIView.animateWithDuration(0.5, animations: { cell.imageView.alpha = 1.0 })
+            UIView.animate(withDuration: 0.5, animations: { cell.imageView.alpha = 1.0 })
         }
         
         else {
@@ -81,19 +81,19 @@ class WordGridViewController : UIViewController, UICollectionViewDataSource, UIC
             }
             
             else { //is quiz button
-                let quiz = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("quiz") as! QuizViewController
-                self.presentViewController(quiz, animated: true, completion: nil)
+                let quiz = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "quiz") as! QuizViewController
+                self.present(quiz, animated: true, completion: nil)
                 quiz.quizWithCategory(DATABASE[categoryName]!)
             }
         }
     }
     
     func unpresent() {
-        self.view.userInteractionEnabled = false
-        NSNotificationCenter.defaultCenter().postNotificationName(WWDisplayCategoriesNotification, object: nil)
+        self.view.isUserInteractionEnabled = false
+        NotificationCenter.default.post(name: Notification.Name(rawValue: WWDisplayCategoriesNotification), object: nil)
     }
     
-    func represent(notification: NSNotification) {
+    func represent(_ notification: Notification) {
         categoryName = notification.object! as! String
         let category = DATABASE[categoryName]
         var words : [WordEntry] = []
@@ -109,7 +109,7 @@ class WordGridViewController : UIViewController, UICollectionViewDataSource, UIC
             wordImages.append(image, word)
         }
         
-        self.view.userInteractionEnabled = true
+        self.view.isUserInteractionEnabled = true
         collectionView.reloadData()
     }
 }
@@ -119,7 +119,7 @@ class WordCell : UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     var word : WordEntry? = nil
     
-    func loadImage(index: Int, from wordImages: [(UIImage, WordEntry)]) {
+    func loadImage(_ index: Int, from wordImages: [(UIImage, WordEntry)]) {
         imageView.image = wordImages[index].0
         self.layer.cornerRadius = 10.0
         word = wordImages[index].1

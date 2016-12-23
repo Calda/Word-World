@@ -16,13 +16,13 @@ class WordDatabase {
     
     init() {
         print("Initializing Database")
-        let csvPath = NSBundle.mainBundle().pathForResource("database", ofType: "csv")!
-        let csvString = try! String(contentsOfFile: csvPath, encoding: NSUTF8StringEncoding)
-        let csv = csvString.componentsSeparatedByString("\n")
+        let csvPath = Bundle.main.path(forResource: "database", ofType: "csv")!
+        let csvString = try! String(contentsOfFile: csvPath, encoding: String.Encoding.utf8)
+        let csv = csvString.components(separatedBy: "\n")
         
         //process csv
         for line in csv {
-            let cells = line.componentsSeparatedByString(",")
+            let cells = line.components(separatedBy: ",")
             if cells.count != 5 {
                 continue
             }
